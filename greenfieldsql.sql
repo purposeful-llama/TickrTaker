@@ -2,6 +2,8 @@
 
 -- CREATE DATABASE tickr;
 
+CREATE USER admin WITH PASSWORD 'password';
+
 DROP TABLE bids;
 DROP TABLE items;
 DROP TABLE users;
