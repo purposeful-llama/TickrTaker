@@ -17,28 +17,31 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+  TickrTaker
 
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  Competing auction marketplace for perishable and shortlived assets.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  Traditional auction marketplaces offer limited performance for selling short lifespan assets such as tickets, expiring rewards points, 'must sell items', ect. Our reverse acution style marketplace helps improve the probability that an item gets purchased/offloaded from the seller. Buyers are also able to prioritize for price versus need within the sellers specified auction parameters. This balance of seller and buyer needs will help drive up the percentage of auction item follow through and reduce waste.
 
+  TLDR
+  Get perishable assets you dont want into the hands of the people that do and make a buch or two.
+  
 ## Problem ##
-  > Describe the problem your product solves.
+  A seller needs to get rid of a item by a certain date. This item may be thought of as perishable at that date.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  Improve a sellers ability to offload perishable assets before a deadline by allowing the sale value of the item to decrease over time to improve the chances that the seller will get some value back.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  "This will revolutionize online auctioning!" -Lex
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  "Its the Craiglist & EBay killer for sure! I love it!" -Someperson, 22, CA
 
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
