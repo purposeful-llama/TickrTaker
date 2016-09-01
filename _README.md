@@ -1,4 +1,4 @@
-# Project Name
+# TickrTaker
 
 > Pithy project description
 
