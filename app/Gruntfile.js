@@ -7,14 +7,11 @@ module.exports = function(grunt) {
       options: {
         stderr: false
       },
-      target: {
+      compile: {
         command: 'webpack'
       },
-    },
-
-    nodemon: {
-      dev: {
-        script: 'start.js'
+      startDevServer: {
+        command: 'node start.js'
       }
     },
 
@@ -23,12 +20,13 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-nodemon');
 
   grunt.registerTask('build', [
     'clean',     
   ]);
 
-  grunt.registerTask('webpack', ['shell:target']);
+  grunt.registerTask('webpack', ['shell:compile']);
+
+  grunt.registerTask('start', [])
 
 };
