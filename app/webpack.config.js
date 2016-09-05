@@ -51,7 +51,6 @@ module.exports = {
         // filename passes. In this case, when any filename contains either `.js` or `.jsx`
         // as its terminating characters, this loader will be applied.
         
-
         // look for js files as well to transpile
         test: /\.jsx$|\.js/,
 
