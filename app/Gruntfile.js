@@ -2,7 +2,18 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-
+    processhtml: {
+      options: {
+        data: {
+          message: 'Hello world!'
+        }
+      },
+      dist: {
+        files: {
+          'compiled/index.html': ['index.html']
+        }
+      }
+    },
     shell: {
       options: {
         stderr: false
@@ -26,7 +37,6 @@ module.exports = function(grunt) {
   ]);
 
   grunt.registerTask('webpack', ['shell:compile']);
-
-  grunt.registerTask('start', [])
-
+  grunt.loadNpmTasks('grunt-processhtml');
+  grunt.registerTask('start', ['shell:startDevServer']);
 };
