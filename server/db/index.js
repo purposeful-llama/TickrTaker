@@ -59,8 +59,7 @@ db.sync({force: true}).then(function() {
     console.log('made one item *********');
     console.log(user.dataValues.username);
     
-    Item.create(
-      {
+    Item.create({
       title: 'a thing',
       description: 'i dont know what to write', 
       picture: 'www.imgr.com/2308afe.gif',  
@@ -79,7 +78,7 @@ db.sync({force: true}).then(function() {
     .then(function(item) {
       user.addItem(item);
       console.log('CREATED ITEM');
-      Item.findAll({raw:true}).then(function(items) {
+      Item.findAll({raw: true}).then(function(items) {
         console.log();
       });
     });
@@ -125,4 +124,4 @@ module.exports = {
   User: User,
   Item: Item,
   Bid: Bid
-}
+};
