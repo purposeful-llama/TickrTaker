@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+//config
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     processhtml: {
@@ -29,14 +30,17 @@ module.exports = function(grunt) {
     clean: ['compiled/*']
   });
 
+//dependencies
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-clean');
-
-  grunt.registerTask('build', [
-    'clean',     
-  ]);
-
-  grunt.registerTask('webpack', ['shell:compile']);
   grunt.loadNpmTasks('grunt-processhtml');
+
+//tasks
+  grunt.registerTask('build', [
+    'clean',
+    'shell:compile',
+    'processhtml'     
+  ]);
+  
   grunt.registerTask('start', ['shell:startDevServer']);
 };
