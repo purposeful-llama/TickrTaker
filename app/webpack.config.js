@@ -11,6 +11,9 @@ module.exports = {
   // `require` some other files, etc. Webpack pulls these all into a modularized
   // bundle.
   entry: './app.jsx',
+  
+  //set webpack to watch for changes
+  watch: true,
 
   // `output` is an object with options for the bundle that Webpack creates
   // out of your source files.
@@ -47,7 +50,9 @@ module.exports = {
         // `test` is a test condition that causes the loader to be applied when a
         // filename passes. In this case, when any filename contains either `.js` or `.jsx`
         // as its terminating characters, this loader will be applied.
-        test: /\.jsx?$/,
+        
+        // look for js files as well to transpile
+        test: /\.jsx$|\.js/,
 
         // `exclude` lets you specify tests that, when passed by a filename, cause those
         // files to *not* be transformed by the loader. There's also an `include` option
