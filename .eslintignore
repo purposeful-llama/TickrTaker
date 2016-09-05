@@ -4,4 +4,6 @@
 **/lib
 **/vendor
 **/*.min.js
-**/*.jsx
+**/*.dev.js
+**/*.prod.js
+**/*.config.js
