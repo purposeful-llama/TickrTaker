@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node start.js"
+    "start": "node start.js",
+    "compile": "webpack"
   },
   "author": "Fluorescent_Linguine",
   "license": "ISC",
@@ -14,6 +15,10 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-nodemon": "^0.4.2",
+    "grunt-shell": "^1.3.1",
     "opn": "^4.0.2",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
