@@ -39,14 +39,14 @@ var Bid = db.define('bid', {
 });
 
 User.hasMany(Item, {as: 'items'});
-Item.belongsTo(User);
+Item.belongsTo(User, {as: 'seller'});
 
 
-Item.hasMany(Bid);
+Item.hasMany(Bid, {as: 'bids'});
 Bid.belongsTo(Item);
 
-User.hasMany(Bid);
-Bid.belongsTo(User);
+User.hasMany(Bid, {as: 'bids'});
+Bid.belongsTo(User, {as: 'bidder'});
 
 db.sync({force: true}).then(function() {
   User.create({
@@ -77,6 +77,7 @@ db.sync({force: true}).then(function() {
     // })
     .then(function(item) {
       user.addItem(item);
+
       console.log('CREATED ITEM');
       Item.findAll({raw: true}).then(function(items) {
         console.log();
