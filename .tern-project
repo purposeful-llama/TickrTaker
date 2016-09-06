@@ -2,16 +2,15 @@
   "libs": ["browser", "jquery", "ecmascript"],
   "loadEagerly": [],
   "plugins": {
-    "node": {},
-    "node_resolve": {},
-    "doc_comment": {
-      "fullDocs": true,
-      "strong": true
-    },
-    "modules": {},
     "commonjs": {},
+    "complete_strings": {},
+    "doc_comment": {},
     "es_modules": {},
+    "modules": {},
+    "node_resolve": {},
+    "node": {},
     "requirejs": {},
     "webpack": {},
+    "jsx": {}
   }
 }
