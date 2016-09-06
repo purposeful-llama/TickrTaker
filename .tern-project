@@ -1,0 +1,16 @@
+{
+  "libs": ["browser", "jquery", "ecmascript"],
+  "loadEagerly": [],
+  "plugins": {
+    "commonjs": {},
+    "complete_strings": {},
+    "doc_comment": {},
+    "es_modules": {},
+    "modules": {},
+    "node_resolve": {},
+    "node": {},
+    "requirejs": {},
+    "webpack": {},
+    "jsx": {}
+  }
+}

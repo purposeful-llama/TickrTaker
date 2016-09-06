@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Router, Route, Link, hashHistory} from 'react-router';
-import App from './components/app.jsx';
-import Login from './components/login.jsx';
-import Signup from './components/signup.jsx';
+import App from './components/app.js';
+import Login from './components/login.js';
+import Signup from './components/signup.js';
 
 ReactDOM.render((
   <Router history={hashHistory}>

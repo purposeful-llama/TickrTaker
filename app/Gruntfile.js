@@ -4,11 +4,6 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     processhtml: {
-      options: {
-        data: {
-          message: 'Hello world!'
-        }
-      },
       dist: {
         files: {
           'compiled/index.html': ['index.html']
