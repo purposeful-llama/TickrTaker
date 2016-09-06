@@ -13,7 +13,6 @@ module.exports = {
   entry: './index.jsx',
   
   //set webpack to watch for changes
-  watch: true,
 
   // `output` is an object with options for the bundle that Webpack creates
   // out of your source files.
