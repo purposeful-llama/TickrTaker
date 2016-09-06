@@ -10,7 +10,7 @@ module.exports = (db, Sequelize, User) => {
     endPrice: {type: Sequelize.INTEGER, allowNull: false}
   });
 
-  var checkUser = function(req, res, rawBool, callback) {
+  var checkUser = (req, res, rawBool, callback) => {
     var username = req.get('username');
     var password = req.get('password');
     User.find({ where: { username: username, password: password }, raw: rawBool })
@@ -22,20 +22,26 @@ module.exports = (db, Sequelize, User) => {
       }
     });
   };
+  var getAllItems = (req, res, next) => {
+    Item.find({raw: true})
+    .then(function(items) {
+      res.send(items);
+    });
+  };
 
-  var getItemsForSale = function(req, res, next) {
+  var getItemsForSale = (req, res, next) => {
 
     checkUser(req, res, false, function(req, res, user) {
       console.log(user);
       user.getItems({raw: true})
       .then(function(items) {
         console.log(items);
-        res.send(items);
+        res.send();
       });  
     });
   };
 
-  var putItemForSale = function(req, res, next) {
+  var putItemForSale = (req, res, next) => {
 
     checkUser(req, res, false, function(req, res, user) {
       Item.create(req.body)
@@ -47,13 +53,12 @@ module.exports = (db, Sequelize, User) => {
     });
   };
 
-  var removeItemFromSale = function(req, res, next) {
+  var removeItemFromSale = (req, res, next) => {
     console.log('removing item');
     checkUser(req, res, true, function(req, res, user) {
       Item.destroy({where: req.body})
         .then(function(item) {
           console.log(item);
-
           res.send('removed the item');
         });
     });
@@ -62,6 +67,7 @@ module.exports = (db, Sequelize, User) => {
   return {
     Item: Item,
     getItemsForSale: getItemsForSale,
+    getAllItems: getAllItems,
     putItemForSale: putItemForSale,
     removeItemFromSale: removeItemFromSale
   };

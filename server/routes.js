@@ -2,7 +2,7 @@ var db = require('./db/index.js');
 
 module.exports = (app) => {
 
-  var authenticate = function(req, res, next) {
+  var authenticate = (req, res, next) => {
     if (!req.get('username') || !req.get('password')) {
       console.log('username or password missing in headers');
       res.redirect('signin');
@@ -13,7 +13,7 @@ module.exports = (app) => {
         username: username,
         password: password
       }, raw: true})
-      .then(function(user) {
+      .then((user) => {
         if (!user) {
           console.log('couldnt find the user with that information');
           res.redirect('signin');
@@ -22,60 +22,57 @@ module.exports = (app) => {
         }
       });
     }
-
   };
   //USERS ENDPOINT
 
-  app.post('/signup', function(req, res) {
-
-    console.log('signing up');
-    if (req.body.username) {
-      UserController.addUser(req, res, req.body);
-    } else {
-      res.redirect('/signin');
-    }
+  app.post('/signup', (req, res) => {
+    db.UserController.addUser(req, res, req.body);
   });
 
-  app.post('/signin', function(req, res) {
+  app.post('/signin', (req, res) => {
     db.UserController.logIn(req, res, req.body);
   });
 
-  app.put('/users', authenticate, function(req, res) {
+  app.put('/users', authenticate, (req, res) => {
     db.UserController.updateUser(req, res, req.body);
   });
 
   //ITEMS ENDPOINT
-  app.get('/api/items/bids/:itemId', function(req, res, next) {
+  app.get('/api/items/bids/:itemId', (req, res, next) => {
     db.BidController.getBidsForItem(req, res, next, req.params.itemId);
   });
 
-  app.post('/api/items/bids/:itemId', authenticate, function(req, res, next) {
+  app.post('/api/items/bids/:itemId', authenticate, (req, res, next) => {
     db.BidController.putBidOnItem(req, res, next, req.params.itemId);
     // res.send('POST /api/bids');
   });
 
-  app.delete('/api/items/bids/:itemId', authenticate, function(req, res, next) {
+  app.delete('/api/items/bids/:itemId', authenticate, (req, res, next) => {
     db.BidController.removeBidFromItem(req, res, next, req.params.itemId);  
     // res.send('DELETE /api/bids');
   });
 
-  app.get('/api/items', authenticate, function(req, res, next) {
+  app.get('/api/allitems', (req, res, next) => {
+    db.ItemController.getAllItems(req, res, next);
+  });
+
+  app.get('/api/items', authenticate, (req, res, next) => {
     db.ItemController.getItemsForSale(req, res, next);
     // res.send('GET /api/items');
   });
 
-  app.post('/api/items', authenticate, function(req, res) {
-    ItemController.putItemForSale(req, res);
+  app.post('/api/items', authenticate, (req, res) => {
+    db.ItemController.putItemForSale(req, res);
     // res.send('POST /api/items');
   });
 
-  app.delete('/api/items', authenticate, function(req, res, next) {
+  app.delete('/api/items', authenticate, (req, res, next) => {
     db.ItemController.removeItemFromSale(req, res, next);
   });
 
   //BIDS ENDPOINT
 
-  app.get('/api/bids', authenticate, function(req, res, next) {
+  app.get('/api/bids', authenticate, (req, res, next) => {
     db.BidController.getBidsForSeller(req, res, next);
   });
 

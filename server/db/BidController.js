@@ -3,20 +3,20 @@ module.exports = (db, Sequelize, User, Item) => {
     price: {type: Sequelize.INTEGER, allowNull: false}
   });
 
-  var checkUser = function(req, res, rawBool, callback) {
+  var checkUser = (req, res, rawBool, callback) => {
     var username = req.get('username');
     var password = req.get('password');
     User.find({ where: { username: username, password: password }, raw: rawBool })
     .then(function(user) {
       if (!user) {
-        res.redirect('/signin');
+        res.redirect('signin');
       } else {
         callback(req, res, user);
       }
     });
   };
 
-  var getBidsForSeller = function(req, res, next) {
+  var getBidsForSeller = (req, res, next) => {
     checkUser(req, res, false, function(req, res, user) {
       db.Bid.Create(req.body)
       .then(function(bid) {
@@ -26,7 +26,7 @@ module.exports = (db, Sequelize, User, Item) => {
     });
   };
 
-  var getBidsForItem = function(req, res, next, itemId) {
+  var getBidsForItem = (req, res, next, itemId) => {
     Item.find({id: itemId})
     .then(function(item) {
       item.getBids({raw: true}).then(function(bids) {
@@ -36,7 +36,7 @@ module.exports = (db, Sequelize, User, Item) => {
     });
   };
 
-  var putBidOnItem = function(req, res, next, itemId) {
+  var putBidOnItem = (req, res, next, itemId) => {
     checkUser(req, res, false, function(req, res, bidder) {
       db.Item.findOne({id: itemId})
       .then(function(item) {
@@ -51,7 +51,7 @@ module.exports = (db, Sequelize, User, Item) => {
     });
   };
 
-  var removeBidFromItem = function(req, res, next, itemId) {
+  var removeBidFromItem = (req, res, next, itemId) => {
     checkUser(req, res, false, function(req, res, user) {
       Item.findOne({where: {id: itemId}, raw: true})
       .then(function(item) {

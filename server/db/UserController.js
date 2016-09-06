@@ -9,7 +9,7 @@ module.exports = (db, Sequelize) => {
     email: Sequelize.STRING
   });
 
-  var addUser = function(req, res, userObject) {
+  var addUser = (req, res, userObject) => {
     if (req.body.username && req.body.password) {
       User.find(userObject)
       .then(function(user) {
@@ -30,7 +30,7 @@ module.exports = (db, Sequelize) => {
     }
   };
 
-  var signInUser = function(req, res, userObject) {
+  var signInUser = (req, res, userObject) => {
 
     if (!req.body.password || !req.body.username) {
       console.log('needs password and username');
@@ -49,19 +49,21 @@ module.exports = (db, Sequelize) => {
     }
   };
 
-  var updateUser = function(req, res, userObject) {
+  var updateUser = (req, res, userObject) => {
+    var username = req.get('username');
+    var password = req.get('password');
     console.log('updating user', userObject);
     console.log(req.body);
-    User.find({ where: {username: userObject.username}})
+    User.find({ where: {username: username}})
     .then(function(user) {
       if (!user) {
         console.log('cannot edit nonexistent user');
         res.redirect('/signin');
       } else {
         console.log('Updating User');
-        user.update(userObject)
+        user.update({where: userObject, raw: true})
         .then(function(newUserInfo) {
-          res.send('updated user' + newUserInfo);
+          res.send(JSON.stringify(newUserInfo.dataValues));
         });
       }
     });
