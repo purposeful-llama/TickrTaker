@@ -10,7 +10,7 @@ module.exports = {
   // the top-level file that then `requires` some other files, which then
   // `require` some other files, etc. Webpack pulls these all into a modularized
   // bundle.
-  entry: './app.jsx',
+  entry: './index.jsx',
   
   //set webpack to watch for changes
   watch: true,
