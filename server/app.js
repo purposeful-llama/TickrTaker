@@ -3,28 +3,61 @@ var apiKeys = require('./api_keys.js');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var bodyParser = require('body-parser');
-
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var UserController = require('./db/UserController');
 var app = express();
+
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({ 
+  secret: 'keyboard cat', 
+  resave: true, 
+  saveUninitialized: true 
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+  // app.use(app.router);
 
 passport.use(new FacebookStrategy({
   clientID: apiKeys.Facebook_App_ID,
   clientSecret: apiKeys.Facebook_App_Secret,
-  callbackURL: 'http://localhost:3000/auth/facebook/callback'
+  callbackURL: 'http://localhost:3000/auth/facebook/callback',
+  profileFields: ['email', 'displayName', 'gender']
 },
   function(accessToken, refreshToken, profile, done) {
+    // UserController.User.findOrCreate({})
+    console.log('accessToken', accessToken);
+    console.log('refreshToken', refreshToken);
+    console.log('profile', profile);
     // User.findOrCreate(function(err, user) {
     //   if (err) { return done(err); }
     //   done(null, user);
     // });
     done(null, {
-      accessToken, refreshToken, profile //TODO: will it es6?
+      id: 123412341234,
+      accessToken, refreshToken, profile //TODO: will it es6? yes.
     });
   }
 ));
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  // User.findById(id, function(err, user) {
+  //   done(err, user);
+  // });
+  done(null, id);
+});
+
+
 require('./routes')(app);
 
-app.get('/auth/facebook', passport.authenticate('facebook'));
+app.get('/auth/facebook', passport.authenticate('facebook', {
+  scope: ['public_profile', 'email', 'user_about_me', 'user_friends']
+}));
 
 // Facebook will redirect the user to this URL after approval.  Finish the
 // authentication process by attempting to obtain an access token.  If
@@ -32,10 +65,14 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 // authentication has failed.
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
-    successRedirect: '/', 
+    successRedirect: '/#/', 
     failureRedirect: '/#/login'
   })
 );
+
+app.use('/test', function(req, res) {
+  console.log(req.user);
+});
 
 app.use('/production', express.static('../app/compiled'));
 app.use('/*', express.static('../app'));
