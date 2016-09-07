@@ -18,17 +18,21 @@ BidController.Bid.belongsTo(UserController.User, {as: 'bidder'});
 db.sync({force: true})
 .then(function() {
   UserController.User.create({
-    username: 'Kunal',
-    password: 'password',
-    address: '6106 Countess Dr.',
-    phone_number: 4083916950,
+    name: 'Kunal',
+    facebookId: 1337,
+    // username: 'Kunal',
+    // password: 'password',
+    // address: '6106 Countess Dr.',
+    // phone_number: 4083916950,
     email: 'kunalrathi1994@gmail.com',
   });
   UserController.User.create({
-    username: 'Lex',
-    password: 'passwordtoo',
-    address: '944 Market St.',
-    phone_number: 6508689933,
+    name: 'Lex',
+    facebookId: '1024',
+    // username: 'Lex',
+    // password: 'passwordtoo',
+    // address: '944 Market St.',
+    // phone_number: 6508689933,
     email: 'lex@gmail.com',
   })
   .then(function(seller) {

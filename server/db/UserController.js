@@ -2,10 +2,12 @@ module.exports = (db, Sequelize) => {
 
   var User = db.define('user', {
     // userId: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    username: {type: Sequelize.STRING(20), allowNull: false, unique: true },
-    password: {type: Sequelize.STRING(20), allowNull: false},
-    address: Sequelize.STRING,
-    phone_number: Sequelize.BIGINT,
+    // username: {type: Sequelize.STRING(20), allowNull: false, unique: true },
+    // password: {type: Sequelize.STRING(20), allowNull: false},
+    facebookId: {type: Sequelize.BIGINT, allowNull: false, unique: true},
+    name: Sequelize.STRING,
+    // address: Sequelize.STRING,
+    // phone_number: Sequelize.BIGINT,
     email: Sequelize.STRING
   });
 
