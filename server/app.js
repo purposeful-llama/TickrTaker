@@ -6,8 +6,9 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr');
+var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr', {sync: {force: true}});
 var UserController = require('./db/UserController')(db, Sequelize);
+require('./db/index.js');
 var app = express();
 
 app.use(bodyParser.json());
@@ -30,16 +31,21 @@ passport.use(new FacebookStrategy({
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
     console.log('profile', profile);
+    console.log(profile._json.email, profile._json.name);
     UserController.User.findOrCreate({
       where: {
-        facebookId: profile.id
+        facebookId: profile.id,
+        email: profile._json.email,
+        name: profile._json.name
       }
-    }).catch(function(err) {
-      done(err);
-    }).then(function(user) {
+    })
+    .then(function(user) {
       console.log('user created:', user);
       done(null, user);
       // accessToken, refreshToken, profile //TODO: will it es6? yes.
+    })
+    .catch(function(err) {
+      done(err);
     });
   }
 ));
