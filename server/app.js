@@ -30,13 +30,15 @@ passport.use(new FacebookStrategy({
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
     console.log('profile', profile);
-    // User.findOrCreate(function(err, user) {
-    //   if (err) { return done(err); }
-    //   done(null, user);
-    // });
-    done(null, {
-      id: 123412341234,
-      accessToken, refreshToken, profile //TODO: will it es6? yes.
+    UserController.User.findOrCreate({
+      where: {
+        facebookId: profile.id
+      }
+    }).catch(function(err) {
+      done(err);
+    }).then(function(user) {
+      done(null, user);
+      // accessToken, refreshToken, profile //TODO: will it es6? yes.
     });
   }
 ));
