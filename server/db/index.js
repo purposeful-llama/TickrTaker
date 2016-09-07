@@ -19,7 +19,7 @@ db.sync({force: true})
 .then(function() {
   UserController.User.create({
     name: 'Kunal',
-    facebookId: 1337,
+    facebookId: '1337',
     // username: 'Kunal',
     // password: 'password',
     // address: '6106 Countess Dr.',
@@ -50,7 +50,7 @@ db.sync({force: true})
     .then(function(item) {
       seller.addItem(item);
       console.log('CREATED ITEM');
-      UserController.User.find({where: {username: 'Kunal'}})
+      UserController.User.find({where: {name: 'Kunal'}})
       .then(function(bidder) {
         BidController.Bid.create({
           price: 500

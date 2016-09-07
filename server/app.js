@@ -30,30 +30,35 @@ passport.use(new FacebookStrategy({
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
     console.log('profile', profile);
-    // User.findOrCreate(function(err, user) {
-    //   if (err) { return done(err); }
-    //   done(null, user);
-    // });
-    done(null, {
-      id: 123412341234,
-      accessToken, refreshToken, profile //TODO: will it es6? yes.
+    UserController.User.findOrCreate({
+      where: {
+        facebookId: profile.id
+      }
+    }).catch(function(err) {
+      done(err);
+    }).then(function(user) {
+      console.log('user created:', user);
+      done(null, user);
+      // accessToken, refreshToken, profile //TODO: will it es6? yes.
     });
   }
 ));
 
 passport.serializeUser(function(user, done) {
-  done(null, user.id);
+  console.log('serializeUser:', user);
+  done(null, user[0].dataValues.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  // User.findById(id, function(err, user) {
-  //   done(err, user);
-  // });
-  done(null, id);
+  UserController.User.findById(id).then(function(user) {
+    done(null, user);
+  }).catch(function(err) {
+    done(err);
+  });
 });
 
 
-require('./routes')(app, db);
+require('./routes')(app, db); //model routes
 
 app.get('/auth/facebook', passport.authenticate('facebook', {
   scope: ['public_profile', 'email', 'user_about_me', 'user_friends']
@@ -70,8 +75,20 @@ app.get('/auth/facebook/callback',
   })
 );
 
-app.use('/production', express.static('../app/compiled'));
-app.use('/*', express.static('../app'));
+app.get('/checkLogin', function(req, res) {
+  if (req.user) {
+    res.send('authenticated');
+  } else {
+    res.send('unauthenticated');
+  }
+});
+
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+app.get('/production', express.static('../app/compiled'));
+app.get('/*', express.static('../app'));
 app.listen(3000, function() {
   console.log('listening on port 3000');
 });
