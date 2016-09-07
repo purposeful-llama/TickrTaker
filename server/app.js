@@ -6,6 +6,7 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var UserController = require('./db/UserController');
+var db = require('./db/index.js');
 var app = express();
 
 app.use(bodyParser.json());
@@ -17,7 +18,6 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-  // app.use(app.router);
 
 passport.use(new FacebookStrategy({
   clientID: apiKeys.Facebook_App_ID,
@@ -26,7 +26,7 @@ passport.use(new FacebookStrategy({
   profileFields: ['email', 'displayName', 'gender']
 },
   function(accessToken, refreshToken, profile, done) {
-    // UserController.User.findOrCreate({})
+    UserController.User.findOrCreate({});
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
     console.log('profile', profile);
@@ -53,7 +53,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-require('./routes')(app);
+require('./routes')(app, db);
 
 app.get('/auth/facebook', passport.authenticate('facebook', {
   scope: ['public_profile', 'email', 'user_about_me', 'user_friends']
@@ -69,10 +69,6 @@ app.get('/auth/facebook/callback',
     failureRedirect: '/#/login'
   })
 );
-
-app.use('/test', function(req, res) {
-  console.log(req.user);
-});
 
 app.use('/production', express.static('../app/compiled'));
 app.use('/*', express.static('../app'));

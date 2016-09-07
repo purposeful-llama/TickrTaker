@@ -1,6 +1,6 @@
-var db = require('./db/index.js');
+// var db = require('./db/index.js');
 
-module.exports = (app) => {
+module.exports = (app, db) => {
 
   var authenticate = (req, res, next) => {
     if (!req.get('username') || !req.get('password')) {
