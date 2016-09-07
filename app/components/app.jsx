@@ -12,6 +12,7 @@ export default class App extends Component {
   }
 
   isLoggedIn () {
+    console.log('isloggedin called');
     this.setState({
       isAuth: true
     });

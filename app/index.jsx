@@ -22,7 +22,7 @@ import Dashboard from './components/dashboard.jsx';
 ReactDOM.render((
   <Router history={hashHistory}>
     <Route path='/' component={App}>
-      <IndexRoute path='/main' component={Main} />
+      <Route path='/main' component={Main} />
       <Route path='/auctions' component={Auctions} />
       <Route path='/dashboard' component= {Dashboard} />
       <Route path='*' component={NotFound} />
