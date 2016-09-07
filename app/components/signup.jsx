@@ -1,6 +1,30 @@
 import React, {Component} from 'react';
 
 export default class Signup extends Component {
+  constructor() {
+    super();
+    this.submitForm = this.submitForm.bind(this);
+  }
+
+  submitForm () {
+    console.log('sent!');
+    if ($('.user-pw').val() === $('.user-pw-val').val()) {
+      $.ajax({method: 'POST', url: '/signup', headers: {'Content-Type': 'application/json'}, data: JSON.stringify({
+        username: $('#user-name').val(),
+        password: $('#user-pw').val(),
+        address: $('#address-line1').val() + ', ' + $('#address-line2').val() 
+        + ', ' + $('#city').val() + ', ' + $('#region').val() + ', ' + $('#postal-code').val(),
+        phone_number: $('#phone-number').val(),
+        email: $('#email').val()
+      }), success: function(res) {
+        console.log(res);
+      }});
+
+    } else {
+      
+    }
+  }
+
   render() {
     return (
       <div className="container">
@@ -87,7 +111,7 @@ export default class Signup extends Component {
                           </div>
                       </div>
                   </fieldset>
-                  <button type='submit' className="btn btn-primary">Sign Up</button>  <button type='button' className="btn btn-primary" >Cancel</button>
+                  <button type='button' className="btn btn-primary" onClick={this.submitForm}>Sign Up</button> <button type='button' className="btn btn-primary" >Cancel</button>
               </form>
         </div>
       </div>

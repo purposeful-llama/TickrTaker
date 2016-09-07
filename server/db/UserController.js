@@ -11,11 +11,13 @@ module.exports = (db, Sequelize) => {
 
   var addUser = (req, res, userObject) => {
     if (req.body.username && req.body.password) {
-      User.find(userObject)
+      console.log('adding user');
+      User.find({where: userObject})
       .then(function(user) {
+        console.log('what is the user here', user);
         if (!user) {
           console.log('making a new user');
-          User.Create()
+          User.create(req.body)
           .then(function(user) {
             console.log('made user', user);
             res.send(JSON.stringify(user));
