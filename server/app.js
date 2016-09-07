@@ -5,8 +5,9 @@ var FacebookStrategy = require('passport-facebook').Strategy;
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var UserController = require('./db/UserController');
-var db = require('./db/index.js');
+var Sequelize = require('sequelize');
+var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr');
+var UserController = require('./db/UserController')(db, Sequelize);
 var app = express();
 
 app.use(bodyParser.json());
@@ -26,7 +27,6 @@ passport.use(new FacebookStrategy({
   profileFields: ['email', 'displayName', 'gender']
 },
   function(accessToken, refreshToken, profile, done) {
-    UserController.User.findOrCreate({});
     console.log('accessToken', accessToken);
     console.log('refreshToken', refreshToken);
     console.log('profile', profile);
