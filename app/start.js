@@ -25,5 +25,5 @@ var server = new WebpackDevServer(compiler, {
 });
 
 server.listen(8080, 'localhost', function() {
-  opn('./index.html');
+  opn('http://localhost:3000');
 });
