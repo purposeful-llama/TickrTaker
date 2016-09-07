@@ -56,12 +56,14 @@ module.exports = (app, db) => {
     db.ItemController.getAllItems(req, res, next);
   });
 
-  app.get('/api/items', authenticate, (req, res, next) => {
+  app.post('/api/selleritems', (req, res, next) => {
+    // console.log('request body******', req.body);
     db.ItemController.getItemsForSale(req, res, next);
     // res.send('GET /api/items');
   });
 
-  app.post('/api/items', authenticate, (req, res) => {
+  app.post('/api/items', (req, res) => {
+    console.log('*******************received request');
     db.ItemController.putItemForSale(req, res);
     // res.send('POST /api/items');
   });
@@ -76,5 +78,15 @@ module.exports = (app, db) => {
     db.BidController.getBidsForSeller(req, res, next);
   });
 
+  app.get('/api/user_data', function(req, res) {
+    if (req.user === undefined) {
+      // The user is not logged in
+      res.json({});
+    } else {
+      res.json({
+        user: req.user
+      });
+    }
+  });
 
 };

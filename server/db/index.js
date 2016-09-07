@@ -19,7 +19,7 @@ db.sync({force: true})
 .then(function() {
   UserController.User.create({
     name: 'Kunal',
-    facebookId: '1337',
+    id: '1337',
     // username: 'Kunal',
     // password: 'password',
     // address: '6106 Countess Dr.',
@@ -28,7 +28,7 @@ db.sync({force: true})
   });
   UserController.User.create({
     name: 'Lex',
-    facebookId: '1024',
+    id: '1024',
     // username: 'Lex',
     // password: 'passwordtoo',
     // address: '944 Market St.',

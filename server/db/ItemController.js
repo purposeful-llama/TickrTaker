@@ -6,8 +6,8 @@ module.exports = (db, Sequelize, User) => {
     picture: Sequelize.TEXT,
     startDate: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
     endDate: {type: Sequelize.DATE, allowNull: false, defaultValue: Sequelize.NOW},
-    startPrice: {type: Sequelize.INTEGER, allowNull: false},
-    endPrice: {type: Sequelize.INTEGER, allowNull: false}
+    startPrice: {type: Sequelize.FLOAT, allowNull: false},
+    endPrice: {type: Sequelize.FLOAT, allowNull: false}
   });
 
   var checkUser = (req, res, rawBool, callback) => {
@@ -30,21 +30,22 @@ module.exports = (db, Sequelize, User) => {
   };
 
   var getItemsForSale = (req, res, next) => {
-
-    checkUser(req, res, false, function(req, res, user) {
-      console.log(user);
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
       user.getItems({raw: true})
       .then(function(items) {
         console.log(items);
-        res.send();
+        res.send(items);
       });  
     });
   };
 
   var putItemForSale = (req, res, next) => {
-
-    checkUser(req, res, false, function(req, res, user) {
-      Item.create(req.body)
+    console.log(req.body);
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
+      console.log(user);
+      Item.create(req.body.item)
         .then(function(item) {
           user.addItem(item);
           console.log(user);

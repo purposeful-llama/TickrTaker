@@ -8,7 +8,7 @@ var session = require('express-session');
 var Sequelize = require('sequelize');
 var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr', {sync: {force: true}});
 var UserController = require('./db/UserController')(db, Sequelize);
-require('./db/index.js');
+var controllers = require('./db/index.js');
 var app = express();
 
 app.use(bodyParser.json());
@@ -34,7 +34,7 @@ passport.use(new FacebookStrategy({
     console.log(profile._json.email, profile._json.name);
     UserController.User.findOrCreate({
       where: {
-        facebookId: profile.id,
+        id: profile.id,
         email: profile._json.email,
         name: profile._json.name
       }
@@ -64,7 +64,7 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-require('./routes')(app, db); //model routes
+require('./routes')(app, controllers); //model routes
 
 app.get('/auth/facebook', passport.authenticate('facebook', {
   scope: ['public_profile', 'email', 'user_about_me', 'user_friends']

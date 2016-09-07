@@ -9,9 +9,12 @@ export default class Navbar1 extends Component {
   render() {
     return (
       <nav className="navbar navbar-light bg-faded">
-        <ul className="nav navbar-nav">
+        <ul style = {{display: 'flex', justifyContent: 'space-around'}} className="nav navbar-nav">
           <li className="nav-item ">
             <Link className="nav-link" to="/auctions">Auctions </Link>
+          </li>
+          <li className = "nav-link">
+            Tickr
           </li>
           {
           // <li className="nav-item">
