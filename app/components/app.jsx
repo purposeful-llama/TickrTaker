@@ -8,25 +8,28 @@ export default class App extends Component {
     this.state = {
       isAuth: false
     };
-    this.isLoggedIn = this.isLoggedIn.bind(this);
   }
 
-  isLoggedIn () {
-    console.log('isloggedin called');
-    this.setState({
-      isAuth: true
+  componentWillMount() {
+    var context = this;
+    $.get('/checkLogin').then(function(data) {
+      context.setState({
+        isAuth: data === 'authenticated'
+      });
+    }).catch(function(err) {
+      context.setState({
+        isAuth: false
+      });
     });
-    
   }
 
   render() {
-    var navbar = this.state.isAuth ? <Navbar2 /> : <Navbar1 fb={this.isLoggedIn}/>;
+    var navbar = this.state.isAuth ? <Navbar2 /> : <Navbar1 />;
     return (
       <div>
         {navbar}
         {this.props.children}
       </div>
-
     );
   }
 }

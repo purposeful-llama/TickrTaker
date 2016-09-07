@@ -25,7 +25,7 @@ export default class Navbar1 extends Component {
           // </li>
           }
           <li className="nav-item">
-            <a className="nav-link" href="/auth/facebook" onClick={this.props.fb}>Facebook</a>
+            <a className="nav-link" href="/auth/facebook">Facebook</a>
           </li>
         </ul>
       </nav>
