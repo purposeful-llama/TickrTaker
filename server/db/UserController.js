@@ -2,13 +2,13 @@ module.exports = (db, Sequelize) => {
 
   var User = db.define('user', {
     // userId: {type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true},
-    username: {type: Sequelize.STRING(20), unique: true },
+    // username: {type: Sequelize.STRING(20), unique: true },
     // password: {type: Sequelize.STRING(20), allowNull: false},
-    facebookId: {type: Sequelize.STRING, allowNull: false, unique: true},
+    id: {type: Sequelize.STRING, primaryKey: true},
     name: Sequelize.STRING,
     // address: Sequelize.STRING,
     // phone_number: Sequelize.BIGINT,
-    email: Sequelize.STRING
+    email: {type: Sequelize.STRING, unique: true}
   });
 
   var addUser = (req, res, userObject) => {
