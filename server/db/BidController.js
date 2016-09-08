@@ -1,4 +1,4 @@
-var async = require('async');
+// var async = require('async');
 module.exports = (db, Sequelize, User, Item) => {
   var Bid = db.define('bid', {
     price: {type: Sequelize.INTEGER, allowNull: false}

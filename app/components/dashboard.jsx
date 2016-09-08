@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 
-import {WinningBid} from './';
+import {WinningBid} from './WinningBid.jsx';
+import {LosingBid} from './LosingBid.jsx';
+
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -11,7 +13,7 @@ export default class Dashboard extends Component {
       itemsLosingBidOn: []
     };
   }
-  componentWillMount() {
+  componentDidMount() {
     var context = this;
     $.ajax({
       method: 'GET',
@@ -68,14 +70,14 @@ export default class Dashboard extends Component {
         <div>
           {this.state.itemsWinningBidOn.map((item) => {
             console.log(item);
-            return(<WinningBid/>);
+            return (<WinningBid/>);
           })}
         </div>
         <div>
           {
             this.state.itemsLosingBidOn.map((item) => {
               console.log(item);
-              return(<LosingBid/>);
+              return (<LosingBid/>);
             })
   }
         </div>
