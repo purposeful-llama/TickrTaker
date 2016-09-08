@@ -5,13 +5,13 @@ var UserController = require('./UserController')(db, Sequelize);
 var ItemController = require('./ItemController')(db, Sequelize, UserController.User);
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
 
-UserController.User.hasMany(ItemController.Item, {as: 'items', onDelete: 'cascade'});
+UserController.User.hasMany(ItemController.Item, {as: 'Items', onDelete: 'cascade'});
 ItemController.Item.belongsTo(UserController.User, {as: 'seller'});
 
-ItemController.Item.hasMany(BidController.Bid, {as: 'bids', onDelete: 'cascade'});
+ItemController.Item.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(ItemController.Item, {as: 'item'});
 
-UserController.User.hasMany(BidController.Bid, {as: 'bids', onDelete: 'cascade'});
+UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'bidder'});
 
 db.sync({force: true})
