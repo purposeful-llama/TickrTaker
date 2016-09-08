@@ -76,6 +76,7 @@ export default class WinningBid extends Component {
     var id = '/item/' + this.props.item.item.id;
     return (
       <div style={{margin: '20px', width: '400px', textAlign: 'center'}} className='auction-entry-container col-md'>
+
         <h3>{this.props.item.item.title || 'Sample Title'}</h3>
         <div>
           <img src={this.props.item.item.picture}></img>
