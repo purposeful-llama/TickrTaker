@@ -12,7 +12,7 @@ export default class Navbar2 extends Component {
           <li className="nav-item">
             <Link className="nav-link " to="/dashboard">Dashboard <span className="sr-only">(current)</span></Link>
           </li>
-          <li className = "nav-link">
+          <li className = "nav-link active">
             Tickr
           </li>
           <li className="nav-item">

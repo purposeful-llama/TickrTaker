@@ -8,6 +8,7 @@ var session = require('express-session');
 var Sequelize = require('sequelize');
 var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr', {sync: {force: true}});
 var UserController = require('./db/UserController')(db, Sequelize);
+var path = require('path');
 
 var controllers = require('./db/index.js');
 
@@ -100,6 +101,10 @@ app.get('/logout', function(req, res) {
 
 app.get('/production', express.static('../app/compiled'));
 app.get('/*', express.static('../app'));
+app.get('*', function (request, response) {
+  response.sendFile(path.resolve(__dirname, '../app', 'index.html'));
+});
+
 app.listen(3000, function() {
   console.log('listening on port 3000');
 });

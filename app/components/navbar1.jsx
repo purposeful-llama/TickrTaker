@@ -13,7 +13,7 @@ export default class Navbar1 extends Component {
           <li className="nav-item ">
             <Link className="nav-link" to="/auctions">Auctions </Link>
           </li>
-          <li className = "nav-link">
+          <li className = "nav-link active">
             Tickr
           </li>
           {
