@@ -5,9 +5,8 @@ var UserController = require('./UserController')(db, Sequelize);
 var ItemController = require('./ItemController')(db, Sequelize, UserController.User);
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
 
-UserController.User.hasMany(ItemController.Item, {as: 'items'});
+UserController.User.hasMany(ItemController.Item, {as: 'items', onDelete: 'cascade'});
 ItemController.Item.belongsTo(UserController.User, {as: 'seller'});
-
 
 ItemController.Item.hasMany(BidController.Bid, {as: 'bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(ItemController.Item, {as: 'item'});
@@ -18,15 +17,6 @@ BidController.Bid.belongsTo(UserController.User, {as: 'bidder'});
 db.sync({force: true})
 .then(function() {
   UserController.User.create({
-    name: 'Kunal',
-    id: '1337',
-    // username: 'Kunal',
-    // password: 'password',
-    // address: '6106 Countess Dr.',
-    // phone_number: 4083916950,
-    email: 'kunalrathi1994@gmail.com',
-  });
-  UserController.User.create({
     name: 'Lex',
     id: '1024',
     // username: 'Lex',
@@ -34,6 +24,15 @@ db.sync({force: true})
     // address: '944 Market St.',
     // phone_number: 6508689933,
     email: 'lex@gmail.com',
+  });
+  UserController.User.create({
+    name: 'Kunal Rathi',
+    id: '10206128224638462',
+    // username: 'Kunal',
+    // password: 'password',
+    // address: '6106 Countess Dr.',
+    // phone_number: 4083916950,
+    email: 'volcanic.phoenix@gmail.com',
   })
   .then(function(seller) {
   
@@ -50,7 +49,7 @@ db.sync({force: true})
     .then(function(item) {
       seller.addItem(item);
       console.log('CREATED ITEM');
-      UserController.User.find({where: {name: 'Kunal'}})
+      UserController.User.find({where: {name: 'Kunal Rathi'}})
       .then(function(bidder) {
         BidController.Bid.create({
           price: 500
