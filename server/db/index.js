@@ -5,14 +5,14 @@ var UserController = require('./UserController')(db, Sequelize);
 var ItemController = require('./ItemController')(db, Sequelize, UserController.User);
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
 
-UserController.User.hasMany(ItemController.Item, {as: 'items', onDelete: 'cascade'});
-ItemController.Item.belongsTo(UserController.User, {as: 'seller'});
+UserController.User.hasMany(ItemController.Item, {as: 'Items', onDelete: 'cascade'});
+ItemController.Item.belongsTo(UserController.User, {as: 'Seller'});
 
-ItemController.Item.hasMany(BidController.Bid, {as: 'bids', onDelete: 'cascade'});
-BidController.Bid.belongsTo(ItemController.Item, {as: 'item'});
+ItemController.Item.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
+BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 
-UserController.User.hasMany(BidController.Bid, {as: 'bids', onDelete: 'cascade'});
-BidController.Bid.belongsTo(UserController.User, {as: 'bidder'});
+UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
+BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
 
 db.sync({force: true})
 .then(function() {
@@ -68,7 +68,11 @@ db.sync({force: true})
             price: 495.95
           })
           .then(function(bid) {
-            item.addBid(bid);
+            item.addBid(bid).then(function(item) {
+              item.getBids({raw: true}).then(function(bids) {
+                console.log(bids);
+              });
+            });
             bidder.addBid(bid);
           });
         });

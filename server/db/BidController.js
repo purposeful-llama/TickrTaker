@@ -51,8 +51,10 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var getBidsForItem = (req, res, next, itemId) => {
-    Item.find({id: itemId})
+    console.log('ITEM ID', itemId);
+    Item.find({where: {id: itemId}})
     .then(function(item) {
+      console.log(item.dataValues, '<<<<<<<<<<<<<<<<<<<<<<<<<');
       item.getBids({raw: true})
       .then(function(bids) {
         console.log(bids);
