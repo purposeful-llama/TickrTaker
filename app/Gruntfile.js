@@ -19,6 +19,9 @@ module.exports = function(grunt) {
       },
       startDevServer: {
         command: 'node start.js'
+      },
+      eslint: {
+        command: 'eslint "**/*.js" "**/*.jsx"'
       }
     },
 
@@ -36,6 +39,8 @@ module.exports = function(grunt) {
     'shell:compile',
     'processhtml'     
   ]);
+
+  grunt.registerTask('eslint', ['shell:eslint']);
   
   grunt.registerTask('start', ['shell:startDevServer']);
 };
