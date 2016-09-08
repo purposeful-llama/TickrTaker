@@ -26,9 +26,12 @@ export default class ActionItem extends Component {
   }
 
   render () {
+    console.log(this.state.item);
     return (
-      <div>
-      This is an item view! {this.props.params.id}
+      <div className="container-flex">
+        <h2>{this.state.item.title}</h2>
+        <div>Description: {this.state.item.description}</div>
+        <img src={this.state.item.picture}></img>
       </div>
     );
   }

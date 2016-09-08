@@ -52,7 +52,7 @@ export default class AuctionEntry extends Component {
       <div className='auction-entry-container col-md'>
         <h3>{this.props.item.title || 'Sample Title'}</h3>
         <div>
-          <img src={'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg'}></img>
+          <img src={this.props.item.picture}></img>
         </div>
         <div>
           Current Price: <span>{this.state.currentPrice}</span>
