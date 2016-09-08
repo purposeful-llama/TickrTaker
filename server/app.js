@@ -27,7 +27,7 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
   clientID: apiKeys.Facebook_App_ID,
   clientSecret: apiKeys.Facebook_App_Secret,
-  callbackURL: 'http://localhost:3000/auth/facebook/callback',
+  callbackURL: window.location.protocol + '//' + window.location.hostname + ':' + window.location.port + '/auth/facebook/callback',
   profileFields: ['email', 'displayName', 'gender']
 },
   function(accessToken, refreshToken, profile, done) {
