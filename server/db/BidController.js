@@ -1,3 +1,4 @@
+var async = require('async');
 module.exports = (db, Sequelize, User, Item) => {
   var Bid = db.define('bid', {
     price: {type: Sequelize.INTEGER, allowNull: false}
@@ -17,11 +18,34 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var getBidsForSeller = (req, res, next) => {
-    checkUser(req, res, false, function(req, res, user) {
-      db.Bid.Create(req.body)
-      .then(function(bid) {
-        console.log(bid);
-        res.send('created new bid');
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
+      user.getBids({raw: true})
+      .then(function(bids) {
+        console.log('BIDS ******************', bids);
+        var itemArr = [];
+        var asyncBids = bids.map(function(bid) {
+          return Item.find({where: {id: bid.itemId}})
+          .then(function(item) {
+            return item.getBids({raw: true})
+            .then(function(itemBids) {
+              var maxBid = 0;
+              itemBids.forEach(function(bidsOnItem) {
+                if (bidsOnItem.price > maxBid) {
+                  maxBid = bidsOnItem.price;
+                }
+              });
+              itemArr.push({item: item.dataValues, myBid: bid, highestBid: maxBid});
+              // console.log(itemArr);
+            });
+            // itemArr.push({item : item, bid: bid});
+          });
+        });
+        Promise.all(asyncBids)
+        .then(function() {
+          console.log('sending item array', itemArr);
+          res.send(itemArr);
+        });
       });
     });
   };
@@ -29,7 +53,8 @@ module.exports = (db, Sequelize, User, Item) => {
   var getBidsForItem = (req, res, next, itemId) => {
     Item.find({id: itemId})
     .then(function(item) {
-      item.getBids({raw: true}).then(function(bids) {
+      item.getBids({raw: true})
+      .then(function(bids) {
         console.log(bids);
         res.send(bids);
       });
@@ -37,7 +62,8 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var putBidOnItem = (req, res, next, itemId) => {
-    checkUser(req, res, false, function(req, res, bidder) {
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(bidder) {
       db.Item.findOne({id: itemId})
       .then(function(item) {
         db.Bid.Create(req.body)
@@ -52,7 +78,8 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var removeBidFromItem = (req, res, next, itemId) => {
-    checkUser(req, res, false, function(req, res, user) {
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
       Item.findOne({where: {id: itemId}, raw: true})
       .then(function(item) {
         Bid.destroy({where: {itemId: item.id, userId: user.id}})
@@ -60,8 +87,8 @@ module.exports = (db, Sequelize, User, Item) => {
           console.log(bid);
           res.send('deleted item');
         });
-      });
-    });  
+      });      
+    });
   };
 
   return {

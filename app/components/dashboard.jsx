@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 
+import {WinningBid} from './';
+
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
-    }
+      itemsForSale: [],
+      itemsWinningBidOn: [],
+      itemsLosingBidOn: []
+    };
   }
   componentWillMount() {
     var context = this;
@@ -20,7 +24,28 @@ export default class Dashboard extends Component {
           headers: {'Content-Type': 'application/json'},
           data: JSON.stringify(user),
           success: function(items) {
-            context.setState({'items': items});
+            context.setState({'itemsForSale': items});
+          }
+        });
+        $.ajax({
+          method: 'POST',
+          url: 'api/bids',
+          headers: {'Content-Type': 'application/json'},
+          data: JSON.stringify(user),
+          success: function(items) {
+            var winningBids = [];
+            var losingBids = [];
+            items.forEach(function(item) {
+              if (item.myBid.price === item.highestBid) {
+                winningBids.push(item);
+              } else {
+                losingBids.push(item);
+              }
+            });
+            context.setState({
+              'itemsWinningBidOn': winningBids, 
+              'itemsLosingBidOn': losingBids
+            });
             console.log(context.state);
           }
         });
@@ -35,10 +60,24 @@ export default class Dashboard extends Component {
           Welcome to the dashboard!!!
 
         </div>
-        <div> {this.state.items.map((item) => {
+        <div> {this.state.itemsForSale.map((item) => {
           console.log(item);
-          return (<div> {item.title} </div>);
+          return (<SaleItem item={item}/>);
         }) }
+        </div>
+        <div>
+          {this.state.itemsWinningBidOn.map((item) => {
+            console.log(item);
+            return(<WinningBid/>);
+          })}
+        </div>
+        <div>
+          {
+            this.state.itemsLosingBidOn.map((item) => {
+              console.log(item);
+              return(<LosingBid/>);
+            })
+  }
         </div>
       </div>
     );
