@@ -73,7 +73,7 @@ export default class WinningBid extends Component {
 
   render () {
     var button;
-    var id = '/item/' + this.props.item.item.id;
+    var id = '/item/'    + this.props.item.item.id;
     return (
       <div style={{margin: '20px', width: '400px', textAlign: 'center'}} className='auction-entry-container col-md'>
 
