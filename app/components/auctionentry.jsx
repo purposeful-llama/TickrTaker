@@ -52,6 +52,7 @@ export default class AuctionEntry extends Component {
   render () {
     var button;
     var id = '/item/' + this.props.item.id;
+
     return (
       <div className='auction-entry-container col-md'>
         <h3>{this.props.item.title || 'Sample Title'}</h3>

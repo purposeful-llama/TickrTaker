@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 export default class WinningBid extends Component {
   constructor (props) {
@@ -54,6 +55,7 @@ export default class WinningBid extends Component {
 
   render () {
     var button;
+    var id = '/item/' + this.props.item.item.id;
     return (
       <div style={{margin: '20px', width: '400px', textAlign: 'center'}}className='auction-entry-container col-md'>
         <h3>{this.props.item.item.title || 'Sample Title'}</h3>
@@ -74,7 +76,7 @@ export default class WinningBid extends Component {
           </tbody>
         </table>
           <div>
-            <button type='button' className='btn btn-primary'> Make Another Bid </button>
+            <Link className='btn btn-primary' to={id}> Item Page </Link>
           </div>        
       </div>
     );
