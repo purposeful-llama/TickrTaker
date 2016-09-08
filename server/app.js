@@ -76,7 +76,7 @@ app.get('/auth/facebook', passport.authenticate('facebook', {
 // authentication has failed.
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
-    successRedirect: '/#/', 
+    successRedirect: '/#/dashboard', 
     failureRedirect: '/#/login'
   })
 );
@@ -93,6 +93,7 @@ app.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
+
 app.get('/production', express.static('../app/compiled'));
 app.get('/*', express.static('../app'));
 app.listen(3000, function() {
