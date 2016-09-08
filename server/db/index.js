@@ -43,6 +43,15 @@ db.sync({force: true})
         picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
         startPrice: 10000.00,
         endPrice: 100.00
+      }).then(function (item) {
+        lex.addItem(item);
+      });
+      ItemController.Item.create({
+        title: 'Rocket',
+        description: 'A rocket!', 
+        picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
+        startPrice: 1000330.00,
+        endPrice: 10.00
       })
       .then(function(item) {
         seller.addItem(item);

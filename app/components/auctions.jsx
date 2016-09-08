@@ -17,7 +17,7 @@ export default class Auction extends Component {
 
   updateEntrys (entryArray) {
     this.setState({
-      entrys: [entryArray]
+      entrys: entryArray
     });
     console.log(this.state);
   }
@@ -29,6 +29,7 @@ export default class Auction extends Component {
       url: '/api/allitems',
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
+        console.log(res);
         context.updateEntrys(res);
       }
     });
@@ -42,6 +43,7 @@ export default class Auction extends Component {
           <div className="row">
           {
             this.state.entrys.map((entry) => {
+              console.log(entry);
               return (<AuctionEntry item={entry} auth={this.props.auth} />);
             })
           }
