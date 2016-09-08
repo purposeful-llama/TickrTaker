@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Auction from './auctions.jsx';
 import {Link} from 'react-router';
+import Mainitems from './mainitems.jsx';
 
 export default class Main extends Component {
   constructor(props) {
@@ -8,7 +9,8 @@ export default class Main extends Component {
 
     this.state = {
   	  tickr: false,
-  	  howWorks:false
+  	  howWorks:false,
+      items:[]
     };
   }
 
@@ -24,14 +26,28 @@ export default class Main extends Component {
   	});
   }
 
+  componentWillMount () {
+    $.ajax({
+      method: 'GET',
+      url: '/api/allitems',
+      headers: {'Content-Type': 'application/json'},
+      success: function (res) {
+        this.setState({
+          items:res
+        });
+      }.bind(this),
+      error: function(err) {
+        console.log('Error', err);
+      }.bind(this)
+    });
+  }
+
   render () {
     var tickrText = 'Tickr is a reverse bidding website that purchase prices for items goes down instead of up.' +
                     ' Reverse selling method provides fast profit for seller and reasonable prices for buyer';
     var howWorksText = 'So easy, create you account, choose the item and booom! ';
-
   	var introTickr = this.state.tickr ? tickrText : '';
   	var introHow = this.state.howWorks ? howWorksText : '';
-
     return (
       <div>
         <div>
@@ -44,6 +60,13 @@ export default class Main extends Component {
         </div>
         <div>
           <Link to='/auctions' onClick={this.showTickrIntro.bind(this)}><h3>Getting started</h3></Link>
+        </div>
+        <div>
+          {
+            this.state.items.map((element) => {
+              return (<Mainitems item={element} />);
+            })
+          }
         </div>
       </div>
     );
