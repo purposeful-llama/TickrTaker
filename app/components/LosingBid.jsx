@@ -55,7 +55,7 @@ export default class LosingBid extends Component {
         <h4>{this.props.item.item.title || 'Sample Title'}</h4>
 
         <div>
-          <img src={'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg'}></img>
+          <img src={this.props.item.item.picture}></img>
         </div>
         <table style= {{width: '100%', textAlign: 'center', marginBottom: '20px'}}>
           <tbody>
