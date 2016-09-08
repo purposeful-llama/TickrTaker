@@ -21,9 +21,10 @@ import AuctionItem from './components/auctionitem.jsx';
 // };
 
 ReactDOM.render((
+  
   <Router history={browserHistory}>
     <Route path='/' component={App} >
-      <Route path='/main' component={Main} />
+      <IndexRoute component={Main} />
       <Route path='/auctions' component={Auctions} />
       <Route path='/item/:id' component={AuctionItem} />
       <Route path='/dashboard' component= {Dashboard} />
