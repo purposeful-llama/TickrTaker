@@ -10,7 +10,7 @@ export default class WinningBid extends Component {
       currentPrice: undefined
     };
     this.calcPrice = this.calcPrice.bind(this);
-    console.log(this.props.item);
+    this.goToLink = this.goToLink.bind(this);
   }
 
   componentDidMount () {
@@ -63,6 +63,12 @@ export default class WinningBid extends Component {
     // minutes = (minutes < 10) ? '0' + minutes : minutes;
     // seconds = (seconds < 10) ? '0' + seconds : seconds;
     // return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
+  }
+  goToLink() {
+    window.location = '/item/' + this.props.item.item.id;
+  }
+  hover(e) {
+    e.target.border = 'solid';
   }
 
   render () {
