@@ -40,7 +40,7 @@ db.sync({force: true})
       ItemController.Item.create({
         title: 'a thing',
         description: 'i dont know what to write', 
-        picture: 'www.imgr.com/2308afe.gif',  
+        picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
         startPrice: 10000.00,
         endPrice: 100.00
       })
