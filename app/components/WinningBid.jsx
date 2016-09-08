@@ -9,7 +9,7 @@ export default class WinningBid extends Component {
       currentPrice: undefined
     };
     this.calcPrice = this.calcPrice.bind(this);
-    console.log(this.props.item);
+    this.goToLink = this.goToLink.bind(this);
   }
 
   componentDidMount () {
@@ -52,12 +52,18 @@ export default class WinningBid extends Component {
     seconds = (seconds < 10) ? '0' + seconds : seconds;
     return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
   }
+  goToLink() {
+    window.location = '/item/' + this.props.item.item.id;
+  }
+  hover(e) {
+    e.target.border = 'solid';
+  }
 
   render () {
     var button;
     var id = '/item/' + this.props.item.item.id;
     return (
-      <div style={{margin: '20px', width: '400px', textAlign: 'center'}}className='auction-entry-container col-md'>
+      <div onClick = {this.goToLink} onMouseOver = {this.hover} style={{margin: '20px', width: '400px', textAlign: 'center', background: 'rgba(199,238,196, 0.5)'}} className='auction-entry-container col-md'>
         <h3>{this.props.item.item.title || 'Sample Title'}</h3>
         <div>
           <img src={this.props.item.item.picture}></img>
