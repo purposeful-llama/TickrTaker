@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class ActionItem extends Component {
+export default class AuctionItem extends Component {
   constructor () {
     super ();
     this.state = {
@@ -17,7 +17,7 @@ export default class ActionItem extends Component {
     var context = this;
     $.ajax({
       method: 'GET',
-      url: '/api/allitems',
+      url: '/api/singleitem/' + this.props.params.id,
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
         context.setState({item: res});
