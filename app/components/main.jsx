@@ -24,7 +24,6 @@ export default class Main extends Component {
   	});
   }
 
-  
   render () {
     var tickrText = 'Tickr is a reverse bidding website that purchase prices for items goes down instead of up.' +
                     ' Reverse selling method provides fast profit for seller and reasonable prices for buyer';
