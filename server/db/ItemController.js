@@ -23,8 +23,9 @@ module.exports = (db, Sequelize, User) => {
   //   });
   // };
   var getAllItems = (req, res, next) => {
-    Item.find({raw: true})
+    Item.findAll({raw: true})
     .then(function(items) {
+      console.log(items);
       res.send(items);
     });
   };
