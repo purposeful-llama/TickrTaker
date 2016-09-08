@@ -50,7 +50,7 @@ export default class AuctionEntry extends Component {
     var id = '/item/' + this.props.item.id;
     return (
       <div className='auction-entry-container col-md'>
-        <h3>{this.props.item.item.title || 'Sample Title'}</h3>
+        <h3>{this.props.item.title || 'Sample Title'}</h3>
         <div>
           <img src={'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg'}></img>
         </div>
