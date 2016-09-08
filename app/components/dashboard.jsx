@@ -27,6 +27,7 @@ export default class Dashboard extends Component {
           headers: {'Content-Type': 'application/json'},
           data: JSON.stringify(user),
           success: function(items) {
+            console.log(items);
             context.setState({'itemsForSale': items});
           }
         });
@@ -50,7 +51,6 @@ export default class Dashboard extends Component {
               'itemsLosingBidOn': losingBids
             });
             context.render();
-            console.log(context.state);
           }
         });
       }
@@ -66,20 +66,20 @@ export default class Dashboard extends Component {
         </div>
 
         <div> <h2>Winning Bids </h2>
-          {this.state.itemsWinningBidOn.map((winningBid) => {
-            return (<WinningBid item={winningBid}/>);
+          {this.state.itemsWinningBidOn.map((winningBid, index) => {
+            return (<WinningBid key = {index} item={winningBid}/>);
           })}
         </div>
         <div> <h2> Losing Bids </h2>
           {
-            this.state.itemsLosingBidOn.map((losingBid) => {
-              return (<LosingBid item={losingBid}/>);
+            this.state.itemsLosingBidOn.map((losingBid, index) => {
+              return (<LosingBid key= {index} item={losingBid}/>);
             })
           }
         </div>
         <div> <h2> Items on Auction </h2>
-        {this.state.itemsForSale.map((saleItem) => {
-          return (<SaleItem item={saleItem}/>);
+        {this.state.itemsForSale.map((saleItem, index) => {
+          return (<SaleItem key = {index} item={saleItem}/>);
         }) }
         </div>
       </div>
