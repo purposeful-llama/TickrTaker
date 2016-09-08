@@ -65,19 +65,22 @@ export default class Dashboard extends Component {
 
         </div>
 
-        <div> <h2>Winning Bids </h2>
+        <div> <h2>Winning Bids </h2> </div>
+        <div style ={{background: 'rgba(211, 211, 211, 0.5)', padding: '30px', margin: '15px', borderRadius:'10px'}}>
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
             return (<WinningBid key = {index} item={winningBid}/>);
           })}
         </div>
-        <div> <h2> Losing Bids </h2>
+        <div> <h2> Losing Bids </h2> </div>
+        <div style ={{background: 'rgba(211, 211, 211, 0.5)', padding: '15px', margin: '15px', borderRadius:'10px'}}>
           {
             this.state.itemsLosingBidOn.map((losingBid, index) => {
               return (<LosingBid key= {index} item={losingBid}/>);
             })
           }
         </div>
-        <div> <h2> Items on Auction </h2>
+        <div> <h2> Items on Auction </h2> </div>
+        <div style ={{background: 'rgba(211, 211, 211, 0.5)', padding: '30px', margin: '15px', borderRadius:'10px'}}>
         {this.state.itemsForSale.map((saleItem, index) => {
           return (<SaleItem key = {index} item={saleItem}/>);
         }) }
