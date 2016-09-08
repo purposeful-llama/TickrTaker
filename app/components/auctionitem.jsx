@@ -6,16 +6,17 @@ export default class AuctionItem extends Component {
     this.state = {
       item: {},
       currentPrice: undefined,
-      bids: undefined
+      bids: []
     };
     this.getItem = this.getItem.bind(this);
     this.getItemBids = this.getItemBids.bind(this);
     this.calcPrice = this.calcPrice.bind(this);
+    this.sendItemBid = this.sendItemBid.bind(this);
   }
 
   componentDidMount () {
-    this.getItem();
     this.getItemBids();
+    this.getItem();
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
     });
@@ -23,7 +24,6 @@ export default class AuctionItem extends Component {
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       
     }), 1000);
-    this.calcPrice = this.calcPrice.bind(this);
   }
 
   componentWillUnmount () {
@@ -56,13 +56,40 @@ export default class AuctionItem extends Component {
       url: '/api/items/bids/' + this.props.params.id,
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
-        context.setState({bids: res});
+        var sorted = res.sort(function (a, b) {
+          return a.price < b.price;
+        });
+        console.log(sorted[0].price);
+        context.setState({bids: sorted[0]});
+        console.log(context.state);
+      }
+    });
+
+  }
+  sendItemBid() {
+    var context = this;
+    $.ajax({
+      method: 'GET',
+      url: '/api/user_data',
+      success: function(user) {
+        console.log(user);
+        $.ajax({
+          method: 'POST',
+          url: '/api/items/bids/' + context.props.params.id,
+          headers: {'Content-Type': 'application/json'},
+          data: JSON.stringify({user: user, 
+            bid: $('#bid').val()}),
+          success: function (res) {
+            console.log(res);
+            context.render();
+            $('#bid').val('');
+          }
+        });
       }
     });
   }
 
   render () {
-    console.log(this.state.bids);
     return (
       <div className="container-flex">
         <h2>{this.state.item.title}</h2>
@@ -71,8 +98,10 @@ export default class AuctionItem extends Component {
         <div>Start Date: {this.state.item.startDate}</div>
         <div>End Date: {this.state.item.endDate}</div>
         <div> Current Price: {this.state.currentPrice} </div>
+        <div> Highest Bid: $ {this.state.bids.price}</div>
         <form>
-          <div>Enter Bid </div>
+          <div>Enter Bid <input id="bid" placeholder="Enter a bid"></input> </div>
+          <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
         </form>
       </div>
     );

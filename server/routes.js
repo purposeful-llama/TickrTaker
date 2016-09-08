@@ -66,6 +66,7 @@ module.exports = (app, db) => {
       // The user is not logged in
       res.json({});
     } else {
+      console.log('THIS IS HAPPENING');
       res.json({
         user: req.user
       });
