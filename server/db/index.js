@@ -24,39 +24,44 @@ db.sync({force: true})
     // address: '944 Market St.',
     // phone_number: 6508689933,
     email: 'lex@gmail.com',
-  });
-  UserController.User.create({
-    name: 'Kunal Rathi',
-    id: '10206128224638462',
-    // username: 'Kunal',
-    // password: 'password',
-    // address: '6106 Countess Dr.',
-    // phone_number: 4083916950,
-    email: 'volcanic.phoenix@gmail.com',
-  })
-  .then(function(seller) {
-  
-    console.log('made one item *********');
-    console.log(seller.dataValues.username);
-    
-    ItemController.Item.create({
-      title: 'a thing',
-      description: 'i dont know what to write', 
-      picture: 'www.imgr.com/2308afe.gif',  
-      startPrice: 1000,
-      endPrice: 200
+  }).then(function(lex) {
+    UserController.User.create({
+      name: 'Kunal Rathi',
+      id: '10206128224638462',
+      // username: 'Kunal',
+      // password: 'password',
+      // address: '6106 Countess Dr.',
+      // phone_number: 4083916950,
+      email: 'volcanic.phoenix@gmail.com',
     })
-    .then(function(item) {
-      seller.addItem(item);
-      console.log('CREATED ITEM');
-      UserController.User.find({where: {name: 'Kunal Rathi'}})
-      .then(function(bidder) {
-        BidController.Bid.create({
-          price: 500
-        })
-        .then(function(bid) {
-          item.addBid(bid);
-          bidder.addBid(bid);
+    .then(function(seller) {
+      console.log('made one item *********');
+      console.log(seller.dataValues.username);
+      ItemController.Item.create({
+        title: 'a thing',
+        description: 'i dont know what to write', 
+        picture: 'www.imgr.com/2308afe.gif',  
+        startPrice: 10000.00,
+        endPrice: 100.00
+      })
+      .then(function(item) {
+        seller.addItem(item);
+        console.log('CREATED ITEM');
+        UserController.User.find({where: {name: 'Kunal Rathi'}})
+        .then(function(bidder) {
+          BidController.Bid.create({
+            price: 600.00
+          }).then(function(bid) {
+            item.addBid(bid);
+            lex.addBid(bid);
+          });
+          BidController.Bid.create({
+            price: 495.95
+          })
+          .then(function(bid) {
+            item.addBid(bid);
+            bidder.addBid(bid);
+          });
         });
       });
     });

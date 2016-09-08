@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import {WinningBid} from './WinningBid.jsx';
-import {LosingBid} from './LosingBid.jsx';
-
+import WinningBid from './WinningBid.jsx';
+import LosingBid from './LosingBid.jsx';
+import SaleItem from './saleitem.jsx';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -13,6 +13,7 @@ export default class Dashboard extends Component {
       itemsLosingBidOn: []
     };
   }
+
   componentDidMount() {
     var context = this;
     $.ajax({
@@ -48,6 +49,7 @@ export default class Dashboard extends Component {
               'itemsWinningBidOn': winningBids, 
               'itemsLosingBidOn': losingBids
             });
+            context.render();
             console.log(context.state);
           }
         });
@@ -62,24 +64,23 @@ export default class Dashboard extends Component {
           Welcome to the dashboard!!!
 
         </div>
-        <div> {this.state.itemsForSale.map((item) => {
-          console.log(item);
-          return (<SaleItem item={item}/>);
-        }) }
-        </div>
-        <div>
-          {this.state.itemsWinningBidOn.map((item) => {
-            console.log(item);
-            return (<WinningBid/>);
+
+        <div> <h2>Winning Bids </h2>
+          {this.state.itemsWinningBidOn.map((winningBid) => {
+            return (<WinningBid item={winningBid}/>);
           })}
         </div>
-        <div>
+        <div> <h2> Losing Bids </h2>
           {
-            this.state.itemsLosingBidOn.map((item) => {
-              console.log(item);
-              return (<LosingBid/>);
+            this.state.itemsLosingBidOn.map((losingBid) => {
+              return (<LosingBid item={losingBid}/>);
             })
-  }
+          }
+        </div>
+        <div> <h2> Items on Auction </h2>
+        {this.state.itemsForSale.map((saleItem) => {
+          return (<SaleItem item={saleItem}/>);
+        }) }
         </div>
       </div>
     );
