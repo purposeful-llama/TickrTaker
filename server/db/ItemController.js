@@ -29,6 +29,12 @@ module.exports = (db, Sequelize, User) => {
     });
   };
 
+  var getOneItem = (req, res, next, itemId) => {
+    Item.findOne({where: {id: itemId}, raw:true})
+    .then(function(item) {
+      res.send(item);
+    });
+  };
   var getItemsForSale = (req, res, next) => {
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {

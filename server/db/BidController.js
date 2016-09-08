@@ -1,7 +1,7 @@
 // var async = require('async');
 module.exports = (db, Sequelize, User, Item) => {
   var Bid = db.define('bid', {
-    price: {type: Sequelize.INTEGER, allowNull: false}
+    price: {type: Sequelize.FLOAT, allowNull: false}
   });
 
   var checkUser = (req, res, rawBool, callback) => {
@@ -66,7 +66,7 @@ module.exports = (db, Sequelize, User, Item) => {
     .then(function(bidder) {
       db.Item.findOne({id: itemId})
       .then(function(item) {
-        db.Bid.Create(req.body)
+        db.Bid.Create({where: {price: req.body.bid}})
         .then(function(bid) {
           item.addBid(bid);
           bidder.addBid(bid);

@@ -17,6 +17,10 @@ module.exports = (app, db) => {
   });
 
   //ITEMS ENDPOINT
+  app.get('/api/singleItem/:itemId', (req, res, next) => {
+    db.ItemController.getOneItem(req, res, next, req.params.itemId);
+  });
+
   app.get('/api/items/bids/:itemId', (req, res, next) => {
     db.BidController.getBidsForItem(req, res, next, req.params.itemId);
   });
