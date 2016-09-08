@@ -17,13 +17,13 @@ BidController.Bid.belongsTo(UserController.User, {as: 'bidder'});
 db.sync({force: true})
 .then(function() {
   UserController.User.create({
-    name: 'Lex',
-    id: '1024',
+    name: 'Alexander Anastasios Pantelides',
+    id: '10154095627189811',
     // username: 'Lex',
     // password: 'passwordtoo',
     // address: '944 Market St.',
     // phone_number: 6508689933,
-    email: 'lex@gmail.com',
+    email: 'dark_dragoon10@hotmail.com',
   }).then(function(lex) {
     UserController.User.create({
       name: 'Kunal Rathi',
