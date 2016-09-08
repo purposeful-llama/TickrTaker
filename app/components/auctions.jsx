@@ -37,7 +37,7 @@ export default class Auction extends Component {
   render () {
     return (
       <div>
-        <h1>Current Auctions</h1>
+        <h1 className="text-center">Current Auctions</h1>
         <div className="container" style={{display: 'flex', 'flexWrap': 'wrap'}}>
           <div className="row">
           {
