@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 export default class AuctionEntry extends Component {
   constructor (props) {
@@ -46,6 +47,7 @@ export default class AuctionEntry extends Component {
 
   render () {
     var button;
+    var id = '/item/' + this.props.item.id;
     return (
       <div className='auction-entry-container col-md'>
         <h3>{this.props.item.item.title || 'Sample Title'}</h3>
@@ -61,7 +63,7 @@ export default class AuctionEntry extends Component {
         { 
           button = this.props.auth() ? (
           <div>
-            <button type='button' className='btn btn-primary'> Bid </button>
+            <Link className='btn btn-primary' to={id} > Bid </Link>
           </div>
           )
         : <div /> 
