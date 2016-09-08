@@ -81,8 +81,8 @@ app.get('/auth/facebook', passport.authenticate('facebook', {
 // authentication has failed.
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
-    successRedirect: '/#/dashboard', 
-    failureRedirect: '/#/'
+    successRedirect: '/dashboard', 
+    failureRedirect: '/'
   })
 );
 
@@ -99,16 +99,20 @@ app.get('/logout', function(req, res) {
   res.redirect('/');
 });
 
-// app.get('/production', express.static('../app/compiled'));
-// app.get('/compiled', express.static('../app/compiled'));
+// app.use()
+
+app.use('/compiled', express.static('../app/compiled'));
 if (process.env.NODE_ENV === 'production') {
-  app.get('/*', express.static('../app/compiled'));
+  app.get('*', function (request, response) {
+    response.sendFile(path.resolve(__dirname, '../app/compiled', 'index.html'));
+  });
+  // app.get('/*', express.static('../app/compiled'));
 } else { //if (process.env.NODE_ENV === 'development') {
-  app.get('/*', express.static('../app'));
+  // app.get('/*', express.static('../app'));
+  app.get('*', function (request, response) {
+    response.sendFile(path.resolve(__dirname, '../app', 'index.html'));
+  });
 }
-// app.get('*', function (request, response) {
-//   response.sendFile(path.resolve(__dirname, '../app', 'index.html'));
-// });
 
 app.listen(3000, function() {
   console.log('listening on port 3000');
