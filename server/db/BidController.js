@@ -51,8 +51,10 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var getBidsForItem = (req, res, next, itemId) => {
-    Item.find({id: itemId})
+    console.log('ITEM ID', itemId);
+    Item.find({where: {id: itemId}})
     .then(function(item) {
+      console.log(item.dataValues, '<<<<<<<<<<<<<<<<<<<<<<<<<');
       item.getBids({raw: true})
       .then(function(bids) {
         console.log(bids);
@@ -62,16 +64,21 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var putBidOnItem = (req, res, next, itemId) => {
-    User.findOne({where: {id: req.body.user.id}})
+    User.findOne({where: {id: req.body.user.user.id}})
     .then(function(bidder) {
-      db.Item.findOne({id: itemId})
+      Item.findOne({where: {id: itemId}})
       .then(function(item) {
-        db.Bid.Create({where: {price: req.body.bid}})
+        Bid.create({price: Number(req.body.bid)})
         .then(function(bid) {
-          item.addBid(bid);
+          item.addBid(bid).then(function(){
+            item.getBids({raw: true}).then(function(bids) {
+              console.log('BIDS ARE HERE >>>>>>>>>>', bids);
+            });
+            res.send(item.dataValues);
+            
+          });
           bidder.addBid(bid);
           console.log(item);
-          res.send(item.dataValues);
         });
       });
     });
@@ -95,6 +102,7 @@ module.exports = (db, Sequelize, User, Item) => {
     Bid: Bid,
     getBidsForSeller: getBidsForSeller,
     getBidsForItem: getBidsForItem,
-    removeBidFromItem: removeBidFromItem
+    removeBidFromItem: removeBidFromItem,
+    putBidOnItem: putBidOnItem
   };
 };
