@@ -15,13 +15,17 @@ export default class AuctionEntry extends Component {
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaing: this.calcTime()
     });
-    setInterval(() => this.setState({
+    this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaing: this.calcTime()
     }), 1000);
     this.calcPrice = this.calcPrice.bind(this);
     this.calcTime = this.calcTime.bind(this);
 
+  }
+  componentWillUnmount () {
+    this.interval && clearInterval(this.interval);
+    this.interval = false;
   }
 
   calcPrice () {

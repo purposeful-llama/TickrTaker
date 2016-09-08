@@ -78,6 +78,7 @@ module.exports = (db, Sequelize, User) => {
     getItemsForSale: getItemsForSale,
     getAllItems: getAllItems,
     putItemForSale: putItemForSale,
-    removeItemFromSale: removeItemFromSale
+    removeItemFromSale: removeItemFromSale,
+    getOneItem: getOneItem
   };
 };

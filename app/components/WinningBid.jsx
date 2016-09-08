@@ -17,7 +17,7 @@ export default class WinningBid extends Component {
       timeRemaing: this.calcTime(),
       currentBid: '$ ' + this.props.item.myBid.price.toFixed(2)
     });
-    setInterval(() => this.setState({
+    this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaing: this.calcTime()
     }), 1000);
@@ -25,6 +25,11 @@ export default class WinningBid extends Component {
     this.calcTime = this.calcTime.bind(this);
 
   }
+  componentWillUnmount () {
+    this.interval && clearInterval(this.interval);
+    this.interval = false;
+  }
+
 
   calcPrice () {
 
