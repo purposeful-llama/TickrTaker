@@ -54,20 +54,21 @@ module.exports = (db, Sequelize) => {
   };
 
   var updateUser = (req, res, userObject) => {
-    var username = req.get('username');
-    var password = req.get('password');
-    console.log('updating user', userObject);
-    console.log(req.body);
-    User.find({ where: userObject})
+    //var username = req.get('username');
+    //var password = req.get('password');
+    // userObject = JSON.parse(userObject);
+    console.log('this is the req.user.dataValues', req.user.dataValues);
+    User.find({ where: { id:req.user.dataValues.id }})
     .then(function(user) {
       if (!user) {
         console.log('cannot edit nonexistent user');
         res.redirect('/signin');
       } else {
-        console.log('Updating User');
-        user.update({where: userObject, raw: true})
+        console.log('Updating User with ', userObject.userData.email);
+        user.update(userObject.userData)
         .then(function(newUserInfo) {
-          res.send(JSON.stringify(newUserInfo.dataValues));
+          console.log(newUserInfo.dataValues);
+          res.send(newUserInfo.dataValues);
         });
       }
     });
