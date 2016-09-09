@@ -48,7 +48,11 @@ export default class Dashboard extends Component {
               if (item.myBid.price === item.highestBid) {
                 winningBids.push(item);
               } else {
-                losingBids.push(item);
+                for (var i = 0; i < winningBids.length; i++) {
+                  if (item.item.id !== winningBids[i].item.id) {
+                    losingBids.push(item);
+                  }
+                }
               }
             });
             console.log('bids are', winningBids, losingBids);
