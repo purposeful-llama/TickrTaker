@@ -18,7 +18,6 @@ export default class AddAuctionItem extends Component {
       browserHistory.push('/');
     }
     $('.alert .close').on('click', function(e) {
-      console.log('hi');
       $(this).parent().hide();
     });
   }
@@ -30,7 +29,13 @@ export default class AddAuctionItem extends Component {
       var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
       return urlregex.test(textval);
     };
-
+    $('#item-name-error').hide();
+    $('#item-img-null-error').hide();
+    $('#item-img-valid-error').hide();
+    $('#item-desc-error').hide();
+    $('#item-edate-null-error').hide();
+    $('#item-cval-over-error').hide();
+    $('#item-eval-over-error').hide();
     if ($('#item-title').val() === '') {
       $('#item-name-error').show();
       valid = false;
@@ -38,9 +43,7 @@ export default class AddAuctionItem extends Component {
     if ($('#image-url').val() === '') {
       $('#item-img-null-error').show();
       valid = false;
-    }
-    if (!filter($('#image-url').val())) {
-      console.log($('#image-url').val());
+    } else if (!filter($('#image-url').val())) {
       $('#item-img-valid-error').show();
       valid = false;
     }
