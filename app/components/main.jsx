@@ -33,7 +33,7 @@ export default class Main extends Component {
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
         this.setState({
-          items:res
+          items: res
         });
       }.bind(this),
       error: function(err) {

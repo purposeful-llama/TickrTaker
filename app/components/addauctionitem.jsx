@@ -17,6 +17,10 @@ export default class AddAuctionItem extends Component {
     if ( !this.props.auth() ) {
       browserHistory.push('/');
     }
+    $('.alert .close').on('click', function(e) {
+      console.log('hi');
+      $(this).parent().hide();
+    });
   }
 
   submitForm() {
@@ -102,10 +106,7 @@ export default class AddAuctionItem extends Component {
   }
 
   render() {
-    $('.alert .close').on('click', function(e) {
-      console.log('hi');
-      $(this).parent().hide();
-    });
+    
     
     return (
     <div style = {{margin: 50}}>
