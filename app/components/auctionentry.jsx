@@ -60,26 +60,27 @@ export default class AuctionEntry extends Component {
     var id = '/item/' + this.props.item.id;
 
     return (
-      <div>
+      <div className="col-xs-12">
+      <row>
         <h3>{this.props.item.title || 'Sample Title'}</h3>
-        <div>
+        <div className="col-xs-3">
           <img src={this.props.item.picture}></img>
         </div>
-        <div>
+        <div className="col-xs-3">
           Current Price: <span>{this.state.currentPrice}</span>
         </div>
-        <div>
+        <div className="col-xs-3">
           Time remaining: <span>{this.state.timeRemaining}</span>
         </div>
         { 
           button = this.props.auth() ? (
-          <div>
+          <div className="col-xs-3">
             <Link className='btn btn-primary' to={id} > Bid </Link>
           </div>
           )
         : <div /> 
         }
-        
+      </row>  
       </div>
     );
   }

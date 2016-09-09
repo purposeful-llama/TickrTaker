@@ -39,8 +39,8 @@ export default class Auction extends Component {
     return (
       <div>
         <h1 className="text-center">Current Auctions</h1>
-        <div className="container" style={{display: 'flex', 'flexWrap': 'wrap'}}>
-          <div className="row">
+        <div className="container">
+          <div className="row" style={{ 'justify-content': 'space-around', 'display': 'flex', 'flexWrap': 'wrap'}}>
           {
             this.state.entrys.map((entry, i) => {
               console.log(entry);
