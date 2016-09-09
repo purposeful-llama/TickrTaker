@@ -4,19 +4,6 @@ module.exports = (db, Sequelize, User, Item) => {
     price: {type: Sequelize.FLOAT, allowNull: false}
   });
 
-  var checkUser = (req, res, rawBool, callback) => {
-    var username = req.get('username');
-    var password = req.get('password');
-    User.find({ where: { username: username, password: password }, raw: rawBool })
-    .then(function(user) {
-      if (!user) {
-        res.redirect('signin');
-      } else {
-        callback(req, res, user);
-      }
-    });
-  };
-
   var getBidsForSeller = (req, res, next) => {
     console.log('GETTING BIDS FOR SELLER');
     User.findOne({where: {id: req.body.user.id}})

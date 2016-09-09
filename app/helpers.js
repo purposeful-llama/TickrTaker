@@ -1,13 +1,13 @@
 export const calcPrice = function(startPrice, endPrice, startDate, endDate) {
   console.log(startPrice, endPrice, startDate, endDate);
-  return ((startPrice - endPrice) / 
-    ((Date.parse(endDate)) - Date.parse(startDate)))
-  * (Date.parse(endDate) - Date.now());
+  return Math.max(( (startPrice - endPrice) / 
+    ((Date.parse(endDate)) - Date.parse(startDate))
+  * (Date.parse(endDate) - Date.now())), endPrice);
 };
 
 export const calcTime = function(endDate) {
 
-  var duration = Date.parse(endDate) - Date.now();
+  var duration = Math.max(Date.parse(endDate) - Date.now(), 0);
   var seconds = parseInt((duration / 1000) % 60);
   var minutes = parseInt((duration / (1000 * 60)) % 60);
   var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
