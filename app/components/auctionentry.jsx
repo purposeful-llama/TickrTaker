@@ -10,11 +10,14 @@ export default class AuctionEntry extends Component {
     this.calcPrice = this.calcPrice.bind(this);
   }
 
-  componentDidMount () {
+  componentWillMount() {
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     });
+  }
+  
+  componentDidMount () {
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()

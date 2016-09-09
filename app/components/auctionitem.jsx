@@ -16,17 +16,20 @@ export default class AuctionItem extends Component {
     this.calcTime = this.calcTime.bind(this);
     this.sendItemBid = this.sendItemBid.bind(this);
   }
-
-  componentDidMount () {
-    if ( !this.props.auth() ) {
-      browserHistory.push('/');
-    }
+  componentWillMount () {
     this.getItemBids();
     this.getItem();
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     });
+  }
+  
+  componentDidMount () {
+    if ( !this.props.auth() ) {
+      browserHistory.push('/');
+    }
+    
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
@@ -87,7 +90,7 @@ export default class AuctionItem extends Component {
   }
 
   sendItemBid() {
-    if (this.state.bids === undefined || $('#bid').val() > this.state.bids.price + 1) {
+    if (this.state.bids === undefined || $('#bid').val() > this.state.bids.price + 1 && $('#bid').val() !== '') {
       var context = this;
       $.ajax({
         method: 'GET',
@@ -101,7 +104,7 @@ export default class AuctionItem extends Component {
               bid: $('#bid').val()}),
             success: function (res) {
               $('#bid').val('');
-              location.reload();
+              context.getItemBids();
             }
           });
         }
