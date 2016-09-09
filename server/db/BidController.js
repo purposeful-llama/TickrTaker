@@ -70,7 +70,7 @@ module.exports = (db, Sequelize, User, Item) => {
       .then(function(item) {
         Bid.create({price: Number(req.body.bid)})
         .then(function(bid) {
-          item.addBid(bid).then(function(){
+          item.addBid(bid).then(function() {
             item.getBids({raw: true}).then(function(bids) {
               console.log('BIDS ARE HERE >>>>>>>>>>', bids);
             });
