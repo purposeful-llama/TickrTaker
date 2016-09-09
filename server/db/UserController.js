@@ -54,9 +54,7 @@ module.exports = (db, Sequelize) => {
   };
 
   var updateUser = (req, res, userObject) => {
-    //var username = req.get('username');
-    //var password = req.get('password');
-    // userObject = JSON.parse(userObject);
+    
     console.log('this is the req.user.dataValues', req.user.dataValues);
     User.find({ where: { id:req.user.dataValues.id }})
     .then(function(user) {
