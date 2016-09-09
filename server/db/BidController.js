@@ -119,6 +119,7 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var putBidOnItem = (req, res, next, itemId) => {
+<<<<<<< HEAD
     validateBid(req.body.bid, itemId, () => {
       console.log(req.body);
       updateBid(req, res, req.body.user.user, req.body.bid, itemId, null, () => {

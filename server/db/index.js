@@ -14,73 +14,73 @@ BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
 
-db.sync({force: true})
-.then(function() {
-  UserController.User.create({
-    name: 'Alexander Anastasios Pantelides',
-    id: '10154095627189811',
-    // username: 'Lex',
-    // password: 'passwordtoo',
-    // address: '944 Market St.',
-    // phone_number: 6508689933,
-    email: 'dark_dragoon10@hotmail.com',
-  }).then(function(lex) {
-    UserController.User.create({
-      name: 'Kunal Rathi',
-      id: '10206128224638462',
-      // username: 'Kunal',
-      // password: 'password',
-      // address: '6106 Countess Dr.',
-      // phone_number: 4083916950,
-      email: 'volcanic.phoenix@gmail.com',
-    })
-    .then(function(seller) {
-      console.log('made one item *********');
-      console.log(seller.dataValues.username);
-      ItemController.Item.create({
-        title: 'a thing',
-        description: 'i dont know what to write', 
-        picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
-        startPrice: 10000.00,
-        endPrice: 100.00
-      }).then(function (item) {
-        lex.addItem(item);
-      });
-      ItemController.Item.create({
-        title: 'Rocket',
-        description: 'A rocket!', 
-        picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
-        startPrice: 1000330.00,
-        endPrice: 10.00
-      })
-      .then(function(item) {
-        seller.addItem(item);
-        console.log('CREATED ITEM');
-        UserController.User.find({where: {name: 'Kunal Rathi'}})
-        .then(function(bidder) {
-          BidController.Bid.create({
-            price: 600.00
-          }).then(function(bid) {
-            item.addBid(bid);
-            lex.addBid(bid);
-          });
-          BidController.Bid.create({
-            price: 495.95
-          })
-          .then(function(bid) {
-            item.addBid(bid).then(function(item) {
-              item.getBids({raw: true}).then(function(bids) {
-                console.log(bids);
-              });
-            });
-            bidder.addBid(bid);
-          });
-        });
-      });
-    });
-  });
-});
-
+db.sync({force: true});
+// .then(function() {
+//   UserController.User.create({
+//     name: 'Alexander Anastasios Pantelides',
+//     id: '10154095627189811',
+//     // username: 'Lex',
+//     // password: 'passwordtoo',
+//     // address: '944 Market St.',
+//     // phone_number: 6508689933,
+//     email: 'dark_dragoon10@hotmail.com',
+//   }).then(function(lex) {
+//     UserController.User.create({
+//       name: 'Kunal Rathi',
+//       id: '10206128224638462',
+//       // username: 'Kunal',
+//       // password: 'password',
+//       // address: '6106 Countess Dr.',
+//       // phone_number: 4083916950,
+//       email: 'volcanic.phoenix@gmail.com',
+//     })
+//     .then(function(seller) {
+//       console.log('made one item *********');
+//       console.log(seller.dataValues.username);
+//       ItemController.Item.create({
+//         title: 'a thing',
+//         description: 'i dont know what to write', 
+//         picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
+//         startPrice: 10000.00,
+//         endPrice: 100.00
+//       }).then(function (item) {
+//         lex.addItem(item);
+//       });
+//       ItemController.Item.create({
+//         title: 'Rocket',
+//         description: 'A rocket!', 
+//         picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
+//         startPrice: 1000330.00,
+//         endPrice: 10.00
+//       })
+//       .then(function(item) {
+//         seller.addItem(item);
+//         console.log('CREATED ITEM');
+//         UserController.User.find({where: {name: 'Kunal Rathi'}})
+//         .then(function(bidder) {
+//           BidController.Bid.create({
+//             price: 600.00
+//           }).then(function(bid) {
+//             item.addBid(bid);
+//             lex.addBid(bid);
+//           });
+//           BidController.Bid.create({
+//             price: 495.95
+//           })
+//           .then(function(bid) {
+//             item.addBid(bid).then(function(item) {
+//               item.getBids({raw: true}).then(function(bids) {
+//                 console.log(bids);
+//               });
+//             });
+//             bidder.addBid(bid);
+//           });
+//         });
+//       });
+//     });
+//   });
+// });
+>>>>>>> ae1b6f0177d4c1fa64c212dd61f6cd7d0c232064
 
 module.exports = {
   db: db,
