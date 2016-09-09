@@ -19,8 +19,8 @@ export default class UserSetting extends Component {
     e.preventDefault();
     var valid = true;
     var filter = function validateURL(textval) {
-      var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
-      return urlregex.test(textval);
+      // var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+      return true//urlregex.test(textval);
     };
 
     if ($('#user-password').val() === '' && setSomething === 'passWord') {
@@ -113,23 +113,23 @@ export default class UserSetting extends Component {
   }
   
   render() {
-    var passCheck = this.state.passWord ? <div><form onSubmit={this.handleSubmit.bind(this, 'passWord')}><input id='user-password' type='text' placeholder='Type new password' className="input-xlarge"></input>
-                                            <button style={{marginLeft:15}} type='button' className="passwordBtn btn btn-primary">Submit</button></form>
+    var passCheck = this.state.passWord ? <div><form onSubmit={this.handleSubmit.bind(this, 'passWord')}><input id='user-password' type='password' placeholder='Type new password' className="input-xlarge"></input>
+                                            <button style={{marginLeft:15}} type='submit' className="passwordBtn btn btn-primary">Submit</button></form>
                                             <div className="passwordError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
                                             <strong>Woah! Invalid Password </strong><small>Please enter a valid password</small></div>
                                           </div> : '';
-    var mailCheck = this.state.email ?  <div><form onSubmit={this.handleSubmit.bind(this, 'email')}><input  id='user-email' type='text' placeholder='Type new email' className="input-xlarge"></input>
-                                          <button style={{marginLeft:15}} type='button' className="emailBtn btn btn-primary">Submit</button></form>
+    var mailCheck = this.state.email ?  <div><form onSubmit={this.handleSubmit.bind(this, 'email')}><input id='user-email' type="email" placeholder='Type new email' className="input-xlarge"></input>
+                                          <button style={{marginLeft:15}} type='submit' className="emailBtn btn btn-primary">Submit</button></form>
                                           <div className="emailError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
                                           <strong>Woah! Invalied email </strong><small>Please enter a valid email address</small></div>
                                        </div> : '';
     var addressCheck = this.state.address ? <div><form onSubmit={this.handleSubmit.bind(this, 'address')}><input id='user-address' type='text' placeholder='Type new address' className="input-xlarge"></input>
-                                              <button style={{marginLeft:15}} type='button' className="addressBtn btn btn-primary">Submit</button></form>
+                                              <button style={{marginLeft:15}} type='submit' className="addressBtn btn btn-primary">Submit</button></form>
                                               <div className="addressError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
                                               <strong>Woah! Invalid address </strong><small>Please enter a valid address</small></div>
                                             </div> : '';
-    var phoneCheck = this.state.phone ? <div><form onSubmit={this.handleSubmit.bind(this, 'phone')}><input id='user-phone' type='text' placeholder='Type new phone number' className="input-xlarge"></input>
-                                          <button style={{marginLeft:15}} type='button' className="phoneBtn btn btn-primary">Submit</button></form>
+    var phoneCheck = this.state.phone ? <div><form onSubmit={this.handleSubmit.bind(this, 'phone')}><input id='user-phone' type='number' placeholder='Type new phone number' className="input-xlarge"></input>
+                                          <button style={{marginLeft:15}} type='submit' className="phoneBtn btn btn-primary">Submit</button></form>
                                           <div className="phoneError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
                                           <strong>Woah! Invalid Phone number </strong><small>Please enter a valid phone number</small></div>
                                         </div> : '';
