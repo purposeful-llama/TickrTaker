@@ -74,9 +74,9 @@ module.exports = (db, Sequelize, User, Item) => {
     Item.findOne({where: {id: itemId}})
     .then(function(item) {
 
-      if (Date.parse(item.dataValues.endDate) < Date.parse(Date())) {
-        valid = false;
-      }
+      // if (Date.parse(item.dataValues.endDate) < Date.parse(Date())) {
+      //   valid = false;
+      // }
 
       item.getBids({raw: true})
       .then(function(bids) {
