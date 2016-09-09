@@ -13,11 +13,11 @@ export default class AuctionEntry extends Component {
   componentDidMount () {
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
-      timeRemaing: this.calcTime()
+      timeRemaining: this.calcTime()
     });
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
-      timeRemaing: this.calcTime()
+      timeRemaining: this.calcTime()
     }), 1000);
     this.calcPrice = this.calcPrice.bind(this);
     this.calcTime = this.calcTime.bind(this);
@@ -54,7 +54,7 @@ export default class AuctionEntry extends Component {
     var id = '/item/' + this.props.item.id;
 
     return (
-      <div className='auction-entry-container col-md'>
+      <div>
         <h3>{this.props.item.title || 'Sample Title'}</h3>
         <div>
           <img src={this.props.item.picture}></img>
@@ -63,7 +63,7 @@ export default class AuctionEntry extends Component {
           Current Price: <span>{this.state.currentPrice}</span>
         </div>
         <div>
-          Time remaining: <span>{this.state.timeRemaing}</span>
+          Time remaining: <span>{this.state.timeRemaining}</span>
         </div>
         { 
           button = this.props.auth() ? (
