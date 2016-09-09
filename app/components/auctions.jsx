@@ -22,10 +22,19 @@ export default class Auction extends Component {
     console.log(this.state);
   }
 
-  grabAuctions () {
+  grabAuctions (e) {
+    e && e.preventDefault();
     var context = this;
+    var filter = '';
+    console.log($('#search').val());
+    if ($('#search').val() !== '') {
+      filter = $('#search').val();
+    }
     $.ajax({
       method: 'GET',
+      data: {
+        search: filter
+      },
       url: '/api/allitems',
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
@@ -40,7 +49,13 @@ export default class Auction extends Component {
       <div>
         <h1 className="text-center">Current Auctions</h1>
         <div className="container">
-          <div className="row" style={{ 'justify-content': 'space-around', 'display': 'flex', 'flexWrap': 'wrap'}}>
+          <div className="row">
+            <form onSubmit={this.grabAuctions.bind(this)}>
+              <div className="col-xs-2">Search: </div>
+              <input id="search" className="col-xs-8" />
+            </form>
+          </div>
+          <div className="row" style={{ 'justifyContent': 'space-around', 'display': 'flex', 'flexWrap': 'wrap'}}>
           {
             this.state.entrys.map((entry, i) => {
               console.log(entry);
