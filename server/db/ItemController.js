@@ -49,12 +49,13 @@ module.exports = (db, Sequelize, User) => {
   };
 
   var putItemForSale = (req, res, next) => {
-    console.log(req.body);
+    // console.log('this is the body of the request', req.body);
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
-      console.log(user);
+      console.log('this is the user', user);
       Item.create(req.body.item)
         .then(function(item) {
+          console.log('this is the item', item);
           user.addItem(item);
           console.log(user);
           res.send('created new item');
