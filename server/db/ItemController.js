@@ -62,7 +62,7 @@ module.exports = (db, Sequelize, User) => {
     console.log('i am validating your item');
     return ((item.startPrice > item.endPrice) &&
             (item.startPrice > 0) &&
-            (item.endPrice > 0) &&
+            (item.endPrice >= 0) &&
             (validateUrl(item.picture)));
             // (typeof item.endDate) === Date);
   };
