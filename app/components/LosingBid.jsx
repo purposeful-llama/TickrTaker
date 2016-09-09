@@ -34,12 +34,12 @@ export default class LosingBid extends Component {
   calcPrice () {
 
     var cal = ((this.props.item.item.startPrice - this.props.item.item.endPrice) /
-    ((Date.parse(this.props.item.item.endDate) + 2.592e+9) - Date.parse(this.props.item.item.startDate))) * (Date.parse(this.props.item.item.endDate) + 2.592e+9 - Date.now());
+    ((Date.parse(this.props.item.item.endDate)) - Date.parse(this.props.item.item.startDate))) * (Date.parse(this.props.item.item.endDate) - Date.now());
     return cal;
   }
 
   calcTime () {
-    var duration = Date.parse(this.props.item.item.endDate) + 2.592e+9 - Date.now();
+    var duration = Date.parse(this.props.item.item.endDate) - Date.now();
     var seconds = parseInt((duration / 1000) % 60);
     var minutes = parseInt((duration / (1000 * 60)) % 60);
     var hours = parseInt((duration / (1000 * 60 * 60)) % 24);

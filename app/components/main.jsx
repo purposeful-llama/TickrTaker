@@ -8,22 +8,22 @@ export default class Main extends Component {
     super(props);
 
     this.state = {
-  	  tickr: false,
-  	  howWorks:false,
-      items:[]
+      tickr: false,
+      howWorks: false,
+      items: []
     };
   }
 
   showTickrIntro() {
-  	this.setState({
+    this.setState({
       tickr: !this.state.tickr
-  	});
+    });
   }
 
   showHowItWorks() {
-  	this.setState({
+    this.setState({
       howWorks: !this.state.howWorks
-  	});
+    });
   }
 
   componentWillMount () {
@@ -33,7 +33,7 @@ export default class Main extends Component {
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
         this.setState({
-          items:res
+          items: res
         });
       }.bind(this),
       error: function(err) {
@@ -46,8 +46,9 @@ export default class Main extends Component {
     var tickrText = 'Tickr is a reverse bidding website that purchase prices for items goes down instead of up.' +
                     ' Reverse selling method provides fast profit for seller and reasonable prices for buyer';
     var howWorksText = 'So easy, create you account, choose the item and booom! ';
-  	var introTickr = this.state.tickr ? tickrText : '';
-  	var introHow = this.state.howWorks ? howWorksText : '';
+    var introTickr = this.state.tickr ? tickrText : '';
+    var introHow = this.state.howWorks ? howWorksText : '';
+
     return (
       <div>
         <div>
@@ -63,8 +64,8 @@ export default class Main extends Component {
         </div>
         <div>
           {
-            this.state.items.map((element) => {
-              return (<Mainitems item={element} />);
+            this.state.items.map((element, index) => {
+              return (<Mainitems key={index} item={element} />);
             })
           }
         </div>

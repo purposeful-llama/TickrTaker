@@ -26,7 +26,7 @@ ReactDOM.render((
     <Route path='/' component={App} >
       <IndexRoute component={Main} />
       <Route path='/auctions' component={Auctions} />
-      <Route path='/item/:id' component={AuctionItem} />
+      <Route path='/item/:id' component={AuctionItem}/>
       <Route path='/dashboard' component= {Dashboard} />
       <Route path='/makeauction' component = {AddAuctionItem}/>
       <Route path='*' component={NotFound} />
