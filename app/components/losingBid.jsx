@@ -17,12 +17,12 @@ export default class LosingBid extends Component {
     this.setState({
       currentPrice: '$ ' + this.calcPrice().toFixed(2),
       currentHighestBid: '$ ' + this.props.item.highestBid.toFixed(2),
-      timeRemaing: this.calcTime(),
+      timeRemaining: this.calcTime(),
       currentBid: '$ ' + this.props.item.myBid.price.toFixed(2)
     });
     this.interval = setInterval(() => this.setState({
       currentPrice: '$ ' + this.calcPrice().toFixed(2),
-      timeRemaing: this.calcTime()
+      timeRemaining: this.calcTime()
     }), 1000);
     this.calcPrice = this.calcPrice.bind(this);
     this.calcTime = this.calcTime.bind(this);
@@ -78,7 +78,7 @@ export default class LosingBid extends Component {
         <table style= {{width: '100%', textAlign: 'center', marginBottom: '20px'}}>
           <tbody>
           <tr>
-            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaing}</small></td>
+            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>
           </tr>
           <tr>
             <td>Current Price: </td><td>{this.state.currentPrice}</td>
