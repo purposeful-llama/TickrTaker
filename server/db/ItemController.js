@@ -1,6 +1,7 @@
 var moment = require('moment');
 module.exports = (db, Sequelize, User) => {
-  endDateDefault = moment().add(30, 'days');
+  endDateDefault = moment().add(200, 'minutes');
+  console.log(endDateDefault);
   
   var Item = db.define('item', {
     title: {type: Sequelize.TEXT, allowNull: false},
@@ -14,32 +15,25 @@ module.exports = (db, Sequelize, User) => {
     valid: {type: Sequelize.BOOLEAN, defaultValue: true}
   });
 
-  // var checkUser = (req, res, rawBool, callback) => {
-  //   var username = req.get('username');
-  //   var password = req.get('password');
-  //   User.find({ where: { username: username, password: password }, raw: rawBool })
-  //   .then(function(user) {
-  //     if (!user) {
-  //       res.redirect('/signin');
-  //     } else {
-  //       callback(req, res, user);
-  //     }
-  //   });
-  // };
-
-  const checkValidBids = () => {
+  const checkValidItems = () => {
     Item.findAll({where: {valid: true}})
     .then(function(currentItems) {
       currentItems.forEach((aCurrentItem) => {
-
+        if (Date.parse(new Date(aCurrentItem.dataValues.endDate)) < Date.parse(Date())) {
+          console.log('it is less than val');
+          aCurrentItem.update({valid: false});
+        }
       });
     });
   };
+  
+  setInterval(checkValidItems, 100000);
 
   const getAllItems = (req, res, next) => {
     var searchQuery = req.query.search || '';
     Item.findAll(
       {where: {
+        valid: true,
         $or: [
           { 'title' : {like: '%' + searchQuery + '%'}},
           { 'description' : {like: '%' + searchQuery + '%'}}
@@ -62,7 +56,7 @@ module.exports = (db, Sequelize, User) => {
   const getItemsForSale = (req, res, next) => {
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
-      user.getItems({raw: true})
+      user.getItems({where: {valid: true}, raw: true})
       .then(function(items) {
         console.log(items);
         res.send(items);
@@ -95,7 +89,6 @@ module.exports = (db, Sequelize, User) => {
         Item.create(req.body.item)
           .then(function(item) {
             user.addItem(item);
-            user.getItems().then(function(items) {console.log(items);});
             res.send('created new item');
           }); 
       });
