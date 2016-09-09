@@ -69,7 +69,14 @@ export default class AuctionItem extends Component {
         var sorted = res.sort(function (a, b) {
           return a.price < b.price;
         });
+<<<<<<< b03575ce3ce7b194a413910f60d65babd7fc895e
         context.setState({bids: sorted[0]});
+=======
+        console.log(sorted);
+        console.log(sorted.length ? sorted[0].price : 'no bids');
+        context.setState({bids: sorted[0] || 0});
+        console.log(context.state);
+>>>>>>> fix visual bug where current bid appears as $  NaN
       }
     });
 
@@ -131,7 +138,7 @@ export default class AuctionItem extends Component {
         <h2>{this.state.item.title}</h2>
         <div>Description: {this.state.item.description}</div>
         <img src={this.state.item.picture}></img>
-<<<<<<< e5a120c0e0695aa6fcc454158c38e7981196cf2f
+<<<<<<< b03575ce3ce7b194a413910f60d65babd7fc895e
         <div>Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</div>
         <div>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
         <div>Time Remaining: {this.state.timeRemaining}</div>
@@ -139,16 +146,15 @@ export default class AuctionItem extends Component {
         <div> Highest Bid:{this.state.bids !== undefined ? '$ ' + this.state.bids.price : ' No Bids' }</div>
         <form id="bid-form" onSubmit={this.sendItemBid}>
           <div>Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
-          <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
 =======
         <div>Start Date: {this.state.item.startDate}</div>
         <div>End Date: {this.state.item.endDate}</div>
         <div> Current Price: {this.state.currentPrice === '$  NaN' ? '...' : this.state.currentPrice} </div>
         <div> Highest Bid: $ {this.state.bids.price}</div>
-        <form onSubmit={this.sendItemBid}>
+        <form>
           <div>Enter Bid <input id="bid" placeholder="Enter a bid"></input> </div>
-          <button type="submit" className="btn btn-primary"> Submit Bid </button>
->>>>>>> clearInterval for mainpage after login in componentDidUnmount
+>>>>>>> fix visual bug where current bid appears as $  NaN
+          <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
         </form>
         <div className="alert alert-danger fade in" role="alert" id="bid-error" style={{display: 'none'}}>
             <button type="button" className="close">×</button>
