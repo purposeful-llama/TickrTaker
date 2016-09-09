@@ -22,9 +22,10 @@ export default class Auction extends Component {
     console.log(this.state);
   }
 
-  grabAuctions () {
+  grabAuctions (e) {
+    e && e.preventDefault();
     var context = this;
-    var filter;
+    var filter = '';
     console.log($('#search').val());
     if ($('#search').val() !== '') {
       filter = $('#search').val();
@@ -34,7 +35,7 @@ export default class Auction extends Component {
       data: {
         search: filter
       },
-      url: '/api/allitems/',
+      url: '/api/allitems',
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
         console.log(res);
