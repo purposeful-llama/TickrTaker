@@ -59,18 +59,19 @@ module.exports = (db, Sequelize, User) => {
   };
 
   const validateItem = (item) => {
+    console.log('i am validating your item');
     return ((item.startPrice > item.endPrice) &&
             (item.startPrice > 0) &&
             (item.endPrice > 0) &&
-            (item.minimumBidIncrement > 0) &&
-
-            (validateUrl(item.picture)) &&
-            (typeof item.endDate) === Date);
+            (validateUrl(item.picture)));
+            // (typeof item.endDate) === Date);
   };
 
   const putItemForSale = (req, res, next) => {
+    console.log(req.body);
     // console.log('this is the body of the request', req.body);
     if (validateItem(req.body.item)) {
+      console.log('a valid item has been passed');
       User.findOne({where: {id: req.body.user.id}})
       .then(function(user) {
         Item.create(req.body.item)
