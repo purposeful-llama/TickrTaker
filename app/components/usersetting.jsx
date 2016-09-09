@@ -25,7 +25,7 @@ export default class UserSetting extends Component {
 
     $.ajax({
       method: 'PUT',
-      url: '/user',
+      url: '/users',
       // data: // TODO Later
       headers: {'Content-Type': 'application/json'},
       success: function(data) {
@@ -79,15 +79,15 @@ export default class UserSetting extends Component {
           {passCheck}
         </div>
         <div>
-          <Link to='/usersetting' onClick={this.handleEmail.bind(this)}><h3>How it works?</h3></Link>
+          <Link to='/usersetting' onClick={this.handleEmail.bind(this)}><h3>Change Email</h3></Link>
           {mailCheck}
         </div>
         <div>
-          <Link to='/usersetting' onClick={this.handleAddress.bind(this)}><h3>Getting started</h3></Link>
+          <Link to='/usersetting' onClick={this.handleAddress.bind(this)}><h3>Change Address</h3></Link>
           {addressCheck}
         </div>
         <div>
-          <Link to='/usersetting' onClick={this.handlePhone.bind(this)}><h3>Getting started</h3></Link>
+          <Link to='/usersetting' onClick={this.handlePhone.bind(this)}><h3>Change Number</h3></Link>
           {phoneCheck}
         </div>
       </div>

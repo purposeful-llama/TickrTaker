@@ -58,7 +58,7 @@ module.exports = (db, Sequelize) => {
     var password = req.get('password');
     console.log('updating user', userObject);
     console.log(req.body);
-    User.find({ where: {username: username}})
+    User.find({ where: userObject})
     .then(function(user) {
       if (!user) {
         console.log('cannot edit nonexistent user');
