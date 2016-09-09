@@ -5,10 +5,10 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
     shell: {
       dev: {
-        command: 'set NODE_ENV=development && nodemon app.js'
+        command: 'export NODE_ENV=development && nodemon app.js'
       },
       prod: {
-        command: 'set NODE_ENV=production && nodemon app.js'
+        command: 'export NODE_ENV=production && nodemon app.js'
       }
     }
   });

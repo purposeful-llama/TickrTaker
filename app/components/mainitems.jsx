@@ -10,10 +10,9 @@ export default class Mainitems extends Component {
     };
   }
 
-  componentWillMount() {
-    this.calcTime();
-    this.calcPrice();
-  }
+  // componentWillMount() {
+    
+  // }
 
   componentDidMount() {
     this.interval = setInterval(function () {
