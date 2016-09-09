@@ -7,6 +7,7 @@ export default class AddAuctionItem extends Component {
   constructor(props) {
     super(props);
     this.submitForm = this.submitForm.bind(this);
+    this.cancelForm = this.cancelForm.bind(this);
     this.state = {
       item: {}
     };
@@ -96,8 +97,13 @@ export default class AddAuctionItem extends Component {
     e.currentTarget.type = 'date';
   }
 
+  cancelForm() {
+    browserHistory.push('/dashboard');
+  }
+
   render() {
     $('.alert .close').on('click', function(e) {
+      console.log('hi');
       $(this).parent().hide();
     });
     
@@ -123,11 +129,11 @@ export default class AddAuctionItem extends Component {
                               <input id="image-url" style = {{width: 500 + 'px'}} name="img" type="url" placeholder="Enter an image link for the product" className="input-xlarge" />
                               <p className="help-block"></p>
                           </div>
-                          <div className="alert alert-danger fade in" role="alert" id="item-img-valid-error" style={{display: 'none'}}>
+                          <div className="alert alert-danger fade in" role="alert" id="item-img-null-error" style={{display: 'none'}}>
                               <button type="button" className="close">×</button>
                               <strong>Woah! </strong>Please provide an image. <small>Tip: Upload an image to imgur.com and link it!</small>
                           </div>
-                          <div className="alert alert-danger fade in" role="alert" id="item-img-null-error" style={{display: 'none'}}>
+                          <div className="alert alert-danger fade in" role="alert" id="item-img-valid-error" style={{display: 'none'}}>
                               <button type="button" className="close">×</button>
                               <strong>Woah! </strong>Please provide a valid image url. <small>Tip: Copy paste your url again!</small>
                           </div>
@@ -187,7 +193,7 @@ export default class AddAuctionItem extends Component {
                           </div>
                       </div>
                   </fieldset>
-                  <button type='button' id='post-item-submit' className="btn btn-primary" onClick={this.submitForm}>Post Item</button> <button type='button' className="btn btn-primary" >Cancel</button>
+                  <button type='button' id='post-item-submit' className="btn btn-primary" onClick={this.submitForm}>Post Item</button> <button onClick={this.cancelForm} type='button' className="btn btn-primary" >Cancel</button>
               </form>
     </div>
     );

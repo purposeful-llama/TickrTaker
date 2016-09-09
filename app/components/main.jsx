@@ -8,9 +8,9 @@ export default class Main extends Component {
     super(props);
 
     this.state = {
-  	  tickr: false,
-  	  howWorks:false,
-      items:[]
+      tickr: false,
+      howWorks: false,
+      items: []
     };
   }
 
@@ -64,8 +64,8 @@ export default class Main extends Component {
         </div>
         <div>
           {
-            this.state.items.map((element) => {
-              return (<Mainitems item={element} />);
+            this.state.items.map((element, index) => {
+              return (<Mainitems key={index} item={element} />);
             })
           }
         </div>

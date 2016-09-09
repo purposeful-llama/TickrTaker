@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 export default class Mainitems extends Component {
 
   constructor(props) {
-  	super(props);
+    super(props);
 
-  	this.state={
-  		currentPrice:undefined
-  	}
+    this.state = {
+      currentPrice: undefined
+    };
   }
 
   componentWillMount() {
@@ -16,13 +16,14 @@ export default class Mainitems extends Component {
   }
 
   componentDidMount() {
-  	setInterval(function () {
+    this.interval = setInterval(function () {
       this.calcTime();
-    }.bind(this), 1000);
-
-	setInterval(function () {
       this.calcPrice();
     }.bind(this), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   calcPrice () {
@@ -47,12 +48,12 @@ export default class Mainitems extends Component {
     seconds = (seconds < 10) ? '0' + seconds : seconds;
     var resultTime = days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
     this.setState({
-      timeRemaining:resultTime
+      timeRemaining: resultTime
     });
   }
   
   render() {
-    return(
+    return (
       <div>
         <div>
           <h3>{this.props.item.title || 'Sample Title'}</h3>
