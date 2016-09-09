@@ -15,30 +15,14 @@ export default class Mainitems extends Component {
   // }
 
   componentDidMount() {
-<<<<<<< e5a120c0e0695aa6fcc454158c38e7981196cf2f
     this.interval = setInterval(function () {
       this.calcTime();
-=======
-    // this.calcTime();
-    // this.calcPrice();
-    this.timeInterval = setInterval(function () {
-      this.calcTime();
-    }.bind(this), 1000);
-
-    this.priceInterval = setInterval(function () {
->>>>>>> clearInterval for mainpage after login in componentDidUnmount
       this.calcPrice();
     }.bind(this), 1000);
   }
 
-<<<<<<< e5a120c0e0695aa6fcc454158c38e7981196cf2f
   componentWillUnmount() {
     clearInterval(this.interval);
-=======
-  componentWillUnmount () {
-    clearInterval(this.timeInterval);
-    clearInterval(this.priceInterval);
->>>>>>> clearInterval for mainpage after login in componentDidUnmount
   }
 
   calcPrice () {
