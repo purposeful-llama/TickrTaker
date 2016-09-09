@@ -19,7 +19,6 @@ export default class Auction extends Component {
     this.setState({
       entrys: entryArray
     });
-    console.log(this.state);
   }
 
   grabAuctions () {
@@ -43,7 +42,6 @@ export default class Auction extends Component {
           <div className="row">
           {
             this.state.entrys.map((entry) => {
-              console.log(entry);
               return (<AuctionEntry item={entry} auth={this.props.auth} />);
             })
           }

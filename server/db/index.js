@@ -43,7 +43,8 @@ db.sync({force: true})
         description: 'i dont know what to write', 
         picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
         startPrice: 10000.00,
-        endPrice: 100.00
+        endPrice: 100.00,
+        endDate: '2016-10-30T06:05:57.208Z'
       }).then(function (item) {
         lex.addItem(item);
       });
@@ -52,7 +53,8 @@ db.sync({force: true})
         description: 'A rocket!', 
         picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
         startPrice: 1000330.00,
-        endPrice: 10.00
+        endPrice: 10.00,
+        endDate: '2016-11-30T06:05:57.208Z'
       })
       .then(function(item) {
         seller.addItem(item);

@@ -33,7 +33,7 @@ export default class AuctionItem extends Component {
   calcPrice () {
 
     var cal = ((this.state.item.startPrice - this.state.item.endPrice) /
-    ((Date.parse(this.state.item.endDate) + 2.592e+9) - Date.parse(this.state.item.startDate))) * (Date.parse(this.state.item.endDate) + 2.592e+9 - Date.now());
+    ((Date.parse(this.state.item.endDate)) - Date.parse(this.state.item.startDate))) * (Date.parse(this.state.item.endDate) - Date.now());
     return cal;
   }
 
@@ -59,9 +59,7 @@ export default class AuctionItem extends Component {
         var sorted = res.sort(function (a, b) {
           return a.price < b.price;
         });
-        console.log(sorted[0].price);
         context.setState({bids: sorted[0]});
-        console.log(context.state);
       }
     });
 
@@ -72,7 +70,6 @@ export default class AuctionItem extends Component {
       method: 'GET',
       url: '/api/user_data',
       success: function(user) {
-        console.log(user);
         $.ajax({
           method: 'POST',
           url: '/api/items/bids/' + context.props.params.id,
@@ -80,7 +77,6 @@ export default class AuctionItem extends Component {
           data: JSON.stringify({user: user, 
             bid: $('#bid').val()}),
           success: function (res) {
-            console.log(res);
             context.render();
             $('#bid').val('');
           }
@@ -89,14 +85,20 @@ export default class AuctionItem extends Component {
     });
   }
 
+
   render () {
+    var startDate = new Date(Date.parse(this.state.item.startDate));
+    var startDateFormatted = startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() + '  ' + startDate.getHours() % 12 + ':' + ((startDate.getMinutes() < 10) ? '0' + startDate.getMinutes() : startDate.getMinutes()) + (startDate.getHours() > 12 ? ' PM' : ' AM');
+    var endDate = new Date(Date.parse(this.state.item.endDate));
+    var endDateFormatted = startDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + '  ' + endDate.getHours() % 12 + ':' + ((endDate.getMinutes() < 10) ? '0' + endDate.getMinutes() : endDate.getMinutes()) + (endDate.getHours() >= 12 ? ' PM' : ' AM');
+
     return (
       <div className="container-flex">
         <h2>{this.state.item.title}</h2>
         <div>Description: {this.state.item.description}</div>
         <img src={this.state.item.picture}></img>
-        <div>Start Date: {this.state.item.startDate}</div>
-        <div>End Date: {this.state.item.endDate}</div>
+        <div>Start Date: {startDateFormatted}</div>
+        <div>End Date: {endDateFormatted}</div>
         <div> Current Price: {this.state.currentPrice} </div>
         <div> Highest Bid: $ {this.state.bids.price}</div>
         <form>

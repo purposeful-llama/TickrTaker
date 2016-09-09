@@ -15,15 +15,15 @@ export default class Main extends Component {
   }
 
   showTickrIntro() {
-  	this.setState({
+    this.setState({
       tickr: !this.state.tickr
-  	});
+    });
   }
 
   showHowItWorks() {
-  	this.setState({
+    this.setState({
       howWorks: !this.state.howWorks
-  	});
+    });
   }
 
   componentWillMount () {
@@ -46,8 +46,9 @@ export default class Main extends Component {
     var tickrText = 'Tickr is a reverse bidding website that purchase prices for items goes down instead of up.' +
                     ' Reverse selling method provides fast profit for seller and reasonable prices for buyer';
     var howWorksText = 'So easy, create you account, choose the item and booom! ';
-  	var introTickr = this.state.tickr ? tickrText : '';
-  	var introHow = this.state.howWorks ? howWorksText : '';
+    var introTickr = this.state.tickr ? tickrText : '';
+    var introHow = this.state.howWorks ? howWorksText : '';
+
     return (
       <div>
         <div>
