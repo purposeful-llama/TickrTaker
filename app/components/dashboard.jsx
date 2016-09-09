@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 
-import WinningBid from './WinningBid.jsx';
-import LosingBid from './LosingBid.jsx';
-import SaleItem from './saleitem.jsx';
+// import WinningBid from './WinningBid.jsx';
+// import LosingBid from './LosingBid.jsx';
+// import SaleItem from './saleitem.jsx';
 
 export default class Dashboard extends Component {
   constructor(props) {

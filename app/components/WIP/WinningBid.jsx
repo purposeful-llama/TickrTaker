@@ -15,12 +15,12 @@ export default class WinningBid extends Component {
   componentDidMount () {
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
-      timeRemaing: this.calcTime(),
+      timeRemaining: this.calcTime(),
       currentBid: '$ ' + this.props.item.myBid.price.toFixed(2)
     });
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
-      timeRemaing: this.calcTime()
+      timeRemaining: this.calcTime()
     }), 1000);
     this.calcPrice = this.calcPrice.bind(this);
     this.calcTime = this.calcTime.bind(this);
