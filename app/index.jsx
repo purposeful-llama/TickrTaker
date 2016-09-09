@@ -10,6 +10,7 @@ import NotFound from './components/notfound.jsx';
 import Dashboard from './components/dashboard.jsx';
 import AddAuctionItem from './components/addauctionitem.jsx';
 import AuctionItem from './components/auctionitem.jsx';
+import UserSetting from './components/usersetting.jsx';
 // var requireAuth = function(nextState, replace) {
 
 //   // if (document.cookie) {
@@ -29,6 +30,7 @@ ReactDOM.render((
       <Route path='/item/:id' component={AuctionItem}/>
       <Route path='/dashboard' component= {Dashboard} />
       <Route path='/makeauction' component = {AddAuctionItem}/>
+      <Route path='/usersetting' component={UserSetting} />
       <Route path='*' component={NotFound} />
       {
       // <Route path='/login' component={Login} />
