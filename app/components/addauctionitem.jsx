@@ -23,7 +23,8 @@ export default class AddAuctionItem extends Component {
     });
   }
 
-  submitForm() {
+  submitForm(e) {
+    e.preventDefault();
     var valid = true;
     var filter = function validateURL(textval) {
       var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
@@ -38,7 +39,8 @@ export default class AddAuctionItem extends Component {
       $('#item-img-null-error').show();
       valid = false;
     }
-    if (filter($('#image-url').val())) {
+    if (!filter($('#image-url').val())) {
+      console.log($('#image-url').val());
       $('#item-img-valid-error').show();
       valid = false;
     }
@@ -75,9 +77,9 @@ export default class AddAuctionItem extends Component {
       }});
 
       var context = this;
-      $.ajax({
-        method: 'GET',
-        url: 'api/user_data',
+      $.ajax({                //TODO: we should not have to do this
+        method: 'GET',        //once authenticated, we don't have to send 'user'
+        url: 'api/user_data', //it should be available as req.user on the server-side
         success: function(user) {
           console.log(user.user);
           $.ajax({
@@ -87,6 +89,8 @@ export default class AddAuctionItem extends Component {
             data: JSON.stringify({user: user.user, item: context.state.item}),
             success: function(item) {
               console.log('successfully posted item');
+              browserHistory.push('/dashboard');
+
             },
             error: function(error) {
               console.log('error');
@@ -107,10 +111,9 @@ export default class AddAuctionItem extends Component {
 
   render() {
     
-    
     return (
     <div style = {{margin: 50}}>
-        <form className="form-horizontal">
+        <form id='item-form' className="form-horizontal" onSubmit={this.submitForm}>
                   <fieldset>               
                       <h2>What do you want to sell?</h2>
                       <div className="control-group">
@@ -194,7 +197,7 @@ export default class AddAuctionItem extends Component {
                           </div>
                       </div>
                   </fieldset>
-                  <button type='button' id='post-item-submit' className="btn btn-primary" onClick={this.submitForm}>Post Item</button> <button onClick={this.cancelForm} type='button' className="btn btn-primary" >Cancel</button>
+                  <button type='submit' id='post-item-submit' className="btn btn-primary" >Post Item</button> <button onClick={this.cancelForm} type='button' className="btn btn-primary" >Cancel</button>
               </form>
     </div>
     );

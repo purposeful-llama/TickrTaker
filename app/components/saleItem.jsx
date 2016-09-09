@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {calcPrice, calcTime} from '../helpers.js';
 
 
 export default class SaleItem extends Component {
@@ -16,11 +17,11 @@ export default class SaleItem extends Component {
   componentDidMount () {
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
-      timeRemaing: this.calcTime(),
+      timeRemaining: this.calcTime(),
     });
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
-      timeRemaing: this.calcTime()
+      timeRemaining: this.calcTime()
     }), 1000);
     this.calcPrice = this.calcPrice.bind(this);
     this.calcTime = this.calcTime.bind(this);
@@ -33,15 +34,24 @@ export default class SaleItem extends Component {
 
 
   calcPrice () {
-    var thisItem = this.props.item;
-    return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    var thisItem = this.props.item; //it's passed in differently..
+    if (thisItem) {
+      //only run calculations when item is loaded
+      return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    } else {
+      return 0;
+    }
     // var cal = ((this.props.item.startPrice - this.props.item.endPrice) /
     // ((Date.parse(this.props.item.endDate) + 2.592e+9) - Date.parse(this.props.item.startDate))) * (Date.parse(this.props.item.endDate) + 2.592e+9 - Date.now());
     // return cal;
   }
 
   calcTime () {
-    return calcTime(this.state.item.endDate);
+    if (this.props.item) {
+      return calcTime(this.props.item.endDate);
+    } else {
+      return '...';
+    }
     // var duration = Date.parse(this.props.item.endDate) + 2.592e+9 - Date.now();
     // var seconds = parseInt((duration / 1000) % 60);
     // var minutes = parseInt((duration / (1000 * 60)) % 60);
@@ -57,6 +67,7 @@ export default class SaleItem extends Component {
 
   render () {
     var button;
+    console.log(this.props.item);
     var id = '/item/' + this.props.item.id;
     return (
       <div style={{margin: '20px', width: '400px', textAlign: 'center'}}className='auction-entry-container col-md'>
@@ -67,7 +78,7 @@ export default class SaleItem extends Component {
         <table style= {{width: '100%', textAlign: 'center', marginBottom: '20px'}}>
           <tbody>
           <tr>
-            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaing}</small></td>
+            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>
           </tr>
           <tr>
             <td>Current Price: </td><td>{this.state.currentPrice}</td>

@@ -136,7 +136,7 @@ export default class AuctionItem extends Component {
     $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
     });
-    $('#bid-form').submit(function(e) {
+    $('#bid-form').submit(function(e) { //why does this work? wouldn't there be no element to bind?
       e.preventDefault();
     });
     return (
@@ -148,7 +148,7 @@ export default class AuctionItem extends Component {
         <div>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
         <div>Time Remaining: {this.state.timeRemaining}</div>
         <div> Current Price: {this.state.currentPrice} </div>
-        <div> Highest Bid:{this.state.bids !== undefined ? '$ ' + this.state.bids.price : ' No Bids' }</div>
+        <div> Highest Bid: {this.state.bids !== undefined ? '$ ' + this.state.bids.price : ' No Bids' }</div>
         <form id="bid-form" onSubmit={this.sendItemBid}>
           <div>Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
           <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
