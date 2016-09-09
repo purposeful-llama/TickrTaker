@@ -14,7 +14,6 @@ BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
 
-
 db.sync({force: true})
 .then(function() {
   UserController.User.create({
@@ -43,8 +42,7 @@ db.sync({force: true})
         description: 'i dont know what to write', 
         picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
         startPrice: 10000.00,
-        endPrice: 100.00,
-        endDate: '2016-10-30T06:05z'
+        endPrice: 100.00
       }).then(function (item) {
         lex.addItem(item);
       });
@@ -53,8 +51,7 @@ db.sync({force: true})
         description: 'A rocket!', 
         picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
         startPrice: 1000330.00,
-        endPrice: 10.00,
-        endDate: '2016-11-30T16:12z'
+        endPrice: 10.00
       })
       .then(function(item) {
         seller.addItem(item);
@@ -83,9 +80,6 @@ db.sync({force: true})
     });
   });
 });
-
-
-
 module.exports = {
   db: db,
   UserController: UserController,

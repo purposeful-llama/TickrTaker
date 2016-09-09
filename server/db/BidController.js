@@ -18,6 +18,7 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var getBidsForSeller = (req, res, next) => {
+    console.log('GETTING BIDS FOR SELLER');
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
       user.getBids({raw: true})
@@ -54,7 +55,6 @@ module.exports = (db, Sequelize, User, Item) => {
     console.log('ITEM ID', itemId);
     Item.find({where: {id: itemId}})
     .then(function(item) {
-      console.log(item.dataValues, '<<<<<<<<<<<<<<<<<<<<<<<<<');
       item.getBids({raw: true})
       .then(function(bids) {
         console.log(bids);
@@ -63,25 +63,91 @@ module.exports = (db, Sequelize, User, Item) => {
     });
   };
 
-  var putBidOnItem = (req, res, next, itemId) => {
-    User.findOne({where: {id: req.body.user.user.id}})
-    .then(function(bidder) {
-      Item.findOne({where: {id: itemId}})
-      .then(function(item) {
-        Bid.create({price: Number(req.body.bid)})
-        .then(function(bid) {
-          item.addBid(bid).then(function(){
-            item.getBids({raw: true}).then(function(bids) {
-              console.log('BIDS ARE HERE >>>>>>>>>>', bids);
-            });
-            res.send(item.dataValues);
-            
-          });
-          bidder.addBid(bid);
-          console.log(item);
+  var validateBid = (bid, itemId, cb) => {
+    console.log('this is the bid', bid);
+    valid = true;
+    
+    if (bid < 0.01) {
+      valid = false;
+    }
+
+    Item.findOne({where: {id: itemId}})
+    .then(function(item) {
+
+
+      if (Date.parse(item.dataValues.endDate) < Date.parse(Date())) {
+        valid = false;
+      }
+
+      item.getBids({raw: true})
+      .then(function(bids) {
+        bids.forEach(function(itemBid) {
+          if (itemBid.price > bid) {
+            valid = false;
+          }
         });
+        console.log('value of valid', valid);
+        
+        if (valid) {
+          cb();
+        } else {
+          return;
+        }
+      })
+      .catch(function(error) {
+        console.log('could not validate', error);
+        return;
       });
     });
+  };
+  
+  var updateBid = (req, res, user, bid, itemId, cb) => {
+
+    console.log('bid value' + Number(bid));
+    User.findOne({where: {id: user.id}})
+    .then(function(user) {
+      user.getBids()
+      .then(function(bids) {
+        bids.forEach(function(userBid) {
+          if (userBid.dataValues.itemId === Number(itemId)) {
+            userBid.update({price: Number(bid)})
+            .then(() => {
+              console.log('sending updated bid');
+              res.send('updated bid');
+              return;
+            });
+          }
+        });
+        cb();
+      });
+    });
+  };
+
+  var putBidOnItem = (req, res, next, itemId) => {
+    validateBid(req.body.bid, itemId, () => {
+      console.log(req.body);
+      updateBid(req, res, req.body.user.user, req.body.bid, itemId, () => {
+
+        User.findOne({where: {id: req.body.user.user.id}})
+        .then(function(bidder) {
+          Item.findOne({where: {id: itemId}})
+          .then(function(item) {
+            Bid.create({price: Number(req.body.bid)})
+            .then(function(bid) {
+              item.addBid(bid).then(function() {
+                item.getBids({raw: true}).then(function(bids) {
+                  // console.log('BIDS ARE HERE >>>>>>>>>>', bids);
+                });
+                res.send(item.dataValues);
+                
+              });
+              bidder.addBid(bid);
+              // console.log(item);
+            });
+          });
+        });
+      });
+    }); 
   };
 
   var removeBidFromItem = (req, res, next, itemId) => {
