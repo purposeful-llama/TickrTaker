@@ -121,8 +121,8 @@ export default class AddAuctionItem extends Component {
                       <h2>What do you want to sell?</h2>
                       <div className="control-group">
                           <label className="control-label">Title</label>
-                          <div className="controls">
-                              <input id="item-title" style = {{width: 500 + 'px'}} name="title" type="text" placeholder="Enter a descriptive title" className="input-xlarge" />
+                          <div className="controls col-xs-12">
+                              <input id="item-title" name="title" type="text" placeholder="Enter a descriptive title" className="input-xlarge" />
                               <p className="help-block"></p>
                           </div>
                           <div className="alert alert-danger fade in" role="alert" id="item-name-error" style={{display: 'none'}}>
@@ -133,7 +133,7 @@ export default class AddAuctionItem extends Component {
                       <div className="control-group">
                           <label className="control-label">Provide an image</label>
                           <div className="controls">
-                              <input id="image-url" style = {{width: 500 + 'px'}} name="img" type="url" placeholder="Enter an image link for the product" className="input-xlarge" />
+                              <input id="image-url" name="img" type="url" placeholder="Enter an image link for the product" className="input-xlarge" />
                               <p className="help-block"></p>
                           </div>
                           <div className="alert alert-danger fade in" role="alert" id="item-img-null-error" style={{display: 'none'}}>
@@ -170,7 +170,7 @@ export default class AddAuctionItem extends Component {
                       <div className="control-group">
                           <label className="control-label">Current Value</label>
                           <div style = {{marginLeft: -15 + 'px'}} className="controls">
-                              $   <input id="current-value" name="curr-val" type="number" step = "0.01" placeholder="Current Value"
+                              $&nbsp;&nbsp;&nbsp;<input id="current-value" name="curr-val" type="number" step = "0.01" placeholder="Current Value"
                               className="input-xlarge" />
                               <p className="help-block"></p>
                           </div>
@@ -186,7 +186,7 @@ export default class AddAuctionItem extends Component {
                       <div className="control-group">
                           <label className="control-label">Sale Price at End of Auction</label>
                           <div style = {{marginLeft: -15 + 'px'}} className="controls">
-                              $   <input id="end-value" name="end-val" type="number" step = "0.01" placeholder="End Value"
+                              $&nbsp;&nbsp;&nbsp;<input id="end-value" name="end-val" type="number" step = "0.01" placeholder="End Value"
                               className="input-xlarge" />
                               <p className="help-block"></p>
                           </div>
