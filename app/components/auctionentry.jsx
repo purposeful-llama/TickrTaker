@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {calcPrice, calcTime} from '../helpers.js';
 
 export default class AuctionEntry extends Component {
   constructor (props) {
@@ -32,24 +33,26 @@ export default class AuctionEntry extends Component {
   }
 
   calcPrice () {
-
-    var cal = ((this.props.item.startPrice - this.props.item.endPrice) /
-    ((Date.parse(this.props.item.endDate)) - Date.parse(this.props.item.startDate))) * (Date.parse(this.props.item.endDate) - Date.now());
-    return cal;
+    var thisItem = this.props.item;
+    return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    // var cal = ((this.props.item.startPrice - this.props.item.endPrice) /
+    // ((Date.parse(this.props.item.endDate)) - Date.parse(this.props.item.startDate))) * (Date.parse(this.props.item.endDate) - Date.now());
+    // return cal;
   }
 
   calcTime () {
-    var duration = Date.parse(this.props.item.endDate) - Date.now();
-    var seconds = parseInt((duration / 1000) % 60);
-    var minutes = parseInt((duration / (1000 * 60)) % 60);
-    var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-    var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
+    return calcTime(this.props.item.endDate);
+    // var duration = Date.parse(this.props.item.endDate) - Date.now();
+    // var seconds = parseInt((duration / 1000) % 60);
+    // var minutes = parseInt((duration / (1000 * 60)) % 60);
+    // var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+    // var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
 
-    days = (days < 10) ? '0' + days : days;
-    hours = (hours < 10) ? '0' + hours : hours;
-    minutes = (minutes < 10) ? '0' + minutes : minutes;
-    seconds = (seconds < 10) ? '0' + seconds : seconds;
-    return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
+    // days = (days < 10) ? '0' + days : days;
+    // hours = (hours < 10) ? '0' + hours : hours;
+    // minutes = (minutes < 10) ? '0' + minutes : minutes;
+    // seconds = (seconds < 10) ? '0' + seconds : seconds;
+    // return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
   }
 
   render () {
