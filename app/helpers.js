@@ -1,8 +1,8 @@
 export const calcPrice = function(startPrice, endPrice, startDate, endDate) {
   console.log(startPrice, endPrice, startDate, endDate);
   return ((startPrice - endPrice) / 
-    ((Date.parse(endDate) + 2.592e+9 ) - Date.parse(startDate)))
-  * (Date.parse(endDate) + 2.592e+9 - Date.now());
+    ((Date.parse(endDate)) - Date.parse(startDate)))
+  * (Date.parse(endDate) - Date.now());
 };
 
 export const calcTime = function(endDate) {
