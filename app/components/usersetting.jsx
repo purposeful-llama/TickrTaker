@@ -6,13 +6,13 @@ export default class UserSetting extends Component {
   constructor(props) {
     super(props);
 
-    this.state={
-      passWord:false,
-      address:false,
-      phone:false,
-      email:false,
+    this.state = {
+      passWord: false,
+      address: false,
+      phone: false,
+      email: false,
       user: {}
-    }
+    };
   }
 
   handleSubmit() { 
@@ -24,7 +24,7 @@ export default class UserSetting extends Component {
     }});
 
     $.ajax({
-      method:'PUT',
+      method: 'PUT',
       url: '/user',
       // data: // TODO Later
       headers: {'Content-Type': 'application/json'},
@@ -39,38 +39,38 @@ export default class UserSetting extends Component {
 
   handlePassword() {
     this.setState({
-      passWord:!this.state.passWord
+      passWord: !this.state.passWord
     });
   }
 
   handleEmail() {
     this.setState({
-      email:!this.state.email
+      email: !this.state.email
     });
   }
 
   handlePhone() {
     this.setState({
-      phone:!this.state.phone
+      phone: !this.state.phone
     });
   }
 
   handleAddress() {
     this.setState({
-      address:!this.state.address
+      address: !this.state.address
     });
   }
   
 
   render() {
     var passCheck = this.state.passWord ? <div><input id='user-password' type='text' placeholder='Type new password' className="input-xlarge"></input>
-                                          <button style={{marginLeft:15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
+                                          <button style={{marginLeft: 15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
     var mailCheck = this.state.email ? <div><input id='user-email' type='text' placeholder='Type new email' className="input-xlarge"></input>
-                                       <button style={{marginLeft:15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
+                                       <button style={{marginLeft: 15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
     var addressCheck = this.state.address ? <div><input id='user-address' type='text' placeholder='Type new address' className="input-xlarge"></input> 
-                                            <button style={{marginLeft:15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
+                                            <button style={{marginLeft: 15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
     var phoneCheck = this.state.phone ? <div><input id='user-phone' type='text' placeholder='Type new phone number' className="input-xlarge"></input>
-                                        <button style={{marginLeft:15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
+                                        <button style={{marginLeft: 15}} type='button' className="btn btn-primary" onClick={this.handleSubmit.bind(this)}>Submit</button></div> : '';
     return (
       
       <div style = {{margin: 50}}>
