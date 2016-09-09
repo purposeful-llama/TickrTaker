@@ -34,7 +34,7 @@ export default class Mainitems extends Component {
         thisItem.startPrice, 
         thisItem.endPrice, 
         thisItem.startDate, 
-        thisItem.startDate
+        thisItem.endDate
       ).toFixed(2)
     });
   }
