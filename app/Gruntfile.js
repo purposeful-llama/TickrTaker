@@ -25,19 +25,33 @@ module.exports = function(grunt) {
       }
     },
 
-    clean: ['compiled/*']
+    clean: ['compiled/*'],
+
+    cssmin: {
+      options: {
+        shorthandCompacting: false,
+        roundingPrecision: -1
+      },
+      target: {
+        files: {
+          'compiled/style.css': ['style.css']
+        }
+      }
+    }
   });
 
 //dependencies
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-processhtml');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
 //tasks
   grunt.registerTask('build', [
     'clean',
     'shell:compile',
-    'processhtml'     
+    'processhtml',
+    'cssmin'
   ]);
 
   grunt.registerTask('eslint', ['shell:eslint']);
