@@ -40,7 +40,7 @@ module.exports = (db, Sequelize) => {
       console.log('needs password and username');
       res.redirect('/signin');
     } else {
-      User.find({ where: userObject, raw: true })
+      User.find({ where: {id: userObject.id}, raw: true })
       .then(function(user) {
         if (!user) {
           console.log('no user');

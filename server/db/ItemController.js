@@ -8,10 +8,10 @@ module.exports = (db, Sequelize, User) => {
     picture: Sequelize.TEXT,
     startDate: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
     endDate: {type: Sequelize.DATE, allowNull: false, defaultValue: endDateDefault},
-
     startPrice: {type: Sequelize.FLOAT, allowNull: false},
     endPrice: {type: Sequelize.FLOAT, allowNull: false},
-    minimumBidIncrement: {type: Sequelize.FLOAT, defaultValue: 1}
+    minimumBidIncrement: {type: Sequelize.FLOAT, defaultValue: 1},
+    valid: {type: Sequelize.BOOLEAN, defaultValue: true}
   });
 
   // var checkUser = (req, res, rawBool, callback) => {
@@ -26,12 +26,22 @@ module.exports = (db, Sequelize, User) => {
   //     }
   //   });
   // };
+
+  const checkValidBids = () => {
+    Item.findAll({where: {valid: true}})
+    .then(function(currentItems) {
+      currentItems.forEach((aCurrentItem) => {
+
+      });
+    });
+  };
+
   const getAllItems = (req, res, next) => {
     var searchQuery = req.query.search || '';
     Item.findAll(
       {where: {
         $or: [
-          {'title' : {like: '%' + searchQuery + '%'}},
+          { 'title' : {like: '%' + searchQuery + '%'}},
           { 'description' : {like: '%' + searchQuery + '%'}}
         ]
       }, raw: true})

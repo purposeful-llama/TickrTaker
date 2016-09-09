@@ -38,6 +38,7 @@ passport.use(new FacebookStrategy({
     UserController.User.findOrCreate({
       where: {
         id: profile.id,
+      }, defaults: {
         email: profile._json.email,
         name: profile._json.name
       }
