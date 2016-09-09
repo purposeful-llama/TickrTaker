@@ -27,9 +27,9 @@ export default class AuctionItem extends Component {
   }
   
   componentDidMount () {
-    if ( !this.props.auth() ) {
-      browserHistory.push('/');
-    }
+    // if ( !this.props.auth() ) {
+    //   browserHistory.push('/');
+    // }
     
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
@@ -102,8 +102,9 @@ export default class AuctionItem extends Component {
   }
 
 
-  sendItemBid() {
-    if (this.state.bids === undefined || $('#bid').val() > this.state.bids.price + 1 && $('#bid').val() !== '') {
+  sendItemBid(e) {
+    e.preventDefault();
+    if (this.state.bids === undefined || $('#bid').val() >= this.state.bids.price + 1 && $('#bid').val() !== '') {
       var context = this;
       $.ajax({
         method: 'GET',
@@ -128,6 +129,8 @@ export default class AuctionItem extends Component {
   }
 
   render () {
+    console.log('render is being called');
+    console.log(this.state);
     var thisItem = this.state.item || {};
     var startDate = new Date(Date.parse(thisItem.startDate));
     var startDateFormatted = startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() + '  ' + startDate.getHours() % 12 + ':' + ((startDate.getMinutes() < 10) ? '0' + startDate.getMinutes() : startDate.getMinutes()) + (startDate.getHours() > 12 ? ' PM' : ' AM');
@@ -136,9 +139,9 @@ export default class AuctionItem extends Component {
     $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
     });
-    $('#bid-form').submit(function(e) { //why does this work? wouldn't there be no element to bind?
-      e.preventDefault();
-    });
+    // $('#bid-form').submit(function(e) { //why does this work? wouldn't there be no element to bind?
+    //   e.preventDefault();
+    // });
     return (
       <div className="container-flex">
         <h2>{thisItem.title}</h2>

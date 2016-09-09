@@ -114,11 +114,11 @@ module.exports = (db, Sequelize, User, Item) => {
             .then(() => {
               console.log('sending updated bid');
               res.send('updated bid');
-              return;
             });
+            cb = null;
           }
         });
-        cb();
+        cb && cb();
       });
     });
   };
