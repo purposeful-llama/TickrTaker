@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
+import {calcPrice, calcTime} from '../helpers.js';
 
 export default class AuctionItem extends Component {
   constructor (props) {
     super (props);
     this.state = {
-      item: {},
+      item: undefined,
       currentPrice: undefined,
       bids: [],
       timeRemaining: undefined
@@ -20,7 +21,7 @@ export default class AuctionItem extends Component {
     this.getItemBids();
     this.getItem();
     this.setState({
-      currentPrice: '$  ' + this.calcPrice().toFixed(2),
+      currentPrice: this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     });
   }
@@ -41,10 +42,35 @@ export default class AuctionItem extends Component {
   }
 
   calcPrice () {
+    var thisItem = this.state.item;
+    if (thisItem) {
+      //only run calculations when item is loaded
+      return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    } else {
+      return 0;
+    }
+    // var cal = ((this.state.item.startPrice - this.state.item.endPrice) /
+    // ((Date.parse(this.state.item.endDate)) - Date.parse(this.state.item.startDate))) * (Date.parse(this.state.item.endDate) - Date.now());
+    // return cal;
+  }
 
-    var cal = ((this.state.item.startPrice - this.state.item.endPrice) /
-    ((Date.parse(this.state.item.endDate)) - Date.parse(this.state.item.startDate))) * (Date.parse(this.state.item.endDate) - Date.now());
-    return cal;
+  calcTime () {
+    if (this.state.item) {
+      return calcTime(this.state.item.endDate);
+    } else {
+      return '...';
+    }
+    // var duration = Date.parse(this.state.item.endDate) - Date.now();
+    // var seconds = parseInt((duration / 1000) % 60);
+    // var minutes = parseInt((duration / (1000 * 60)) % 60);
+    // var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+    // var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
+
+    // days = (days < 10) ? '0' + days : days;
+    // hours = (hours < 10) ? '0' + hours : hours;
+    // minutes = (minutes < 10) ? '0' + minutes : minutes;
+    // seconds = (seconds < 10) ? '0' + seconds : seconds;
+    // return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
   }
 
   getItem () {
@@ -75,19 +101,6 @@ export default class AuctionItem extends Component {
 
   }
 
-  calcTime () {
-    var duration = Date.parse(this.state.item.endDate) - Date.now();
-    var seconds = parseInt((duration / 1000) % 60);
-    var minutes = parseInt((duration / (1000 * 60)) % 60);
-    var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-    var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
-
-    days = (days < 10) ? '0' + days : days;
-    hours = (hours < 10) ? '0' + hours : hours;
-    minutes = (minutes < 10) ? '0' + minutes : minutes;
-    seconds = (seconds < 10) ? '0' + seconds : seconds;
-    return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
-  }
 
   sendItemBid() {
     if (this.state.bids === undefined || $('#bid').val() > this.state.bids.price + 1 && $('#bid').val() !== '') {
@@ -114,11 +127,11 @@ export default class AuctionItem extends Component {
     }
   }
 
-
   render () {
-    var startDate = new Date(Date.parse(this.state.item.startDate));
+    var thisItem = this.state.item || {};
+    var startDate = new Date(Date.parse(thisItem.startDate));
     var startDateFormatted = startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() + '  ' + startDate.getHours() % 12 + ':' + ((startDate.getMinutes() < 10) ? '0' + startDate.getMinutes() : startDate.getMinutes()) + (startDate.getHours() > 12 ? ' PM' : ' AM');
-    var endDate = new Date(Date.parse(this.state.item.endDate));
+    var endDate = new Date(Date.parse(thisItem.endDate));
     var endDateFormatted = startDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + '  ' + endDate.getHours() % 12 + ':' + ((endDate.getMinutes() < 10) ? '0' + endDate.getMinutes() : endDate.getMinutes()) + (endDate.getHours() >= 12 ? ' PM' : ' AM');
     $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
@@ -128,9 +141,9 @@ export default class AuctionItem extends Component {
     });
     return (
       <div className="container-flex">
-        <h2>{this.state.item.title}</h2>
-        <div>Description: {this.state.item.description}</div>
-        <img src={this.state.item.picture}></img>
+        <h2>{thisItem.title}</h2>
+        <div>Description: {thisItem.description}</div>
+        <img src={thisItem.picture}></img>
         <div>Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</div>
         <div>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
         <div>Time Remaining: {this.state.timeRemaining}</div>

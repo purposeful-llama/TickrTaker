@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-
+import {calcPrice, calcTime} from '../helpers.js';
 export default class Mainitems extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = {
       currentPrice: undefined
     };
@@ -26,28 +25,34 @@ export default class Mainitems extends Component {
   }
 
   calcPrice () {
-
-    var cal = ((this.props.item.startPrice - this.props.item.endPrice) /
-    ((Date.parse(this.props.item.endDate) + 2.592e+9) - Date.parse(this.props.item.startDate))) * (Date.parse(this.props.item.endDate) + 2.592e+9 - Date.now());
+    // var cal = ((this.props.item.startPrice - this.props.item.endPrice) /
+    // ((Date.parse(this.props.item.endDate) + 2.592e+9) - Date.parse(this.props.item.startDate))) * (Date.parse(this.props.item.endDate) + 2.592e+9 - Date.now());
+    var thisItem = this.props.item;
     this.setState({
-      currentPrice: '$ ' + cal.toFixed(2)
+      currentPrice: '$ ' + 
+      calcPrice(
+        thisItem.startPrice, 
+        thisItem.endPrice, 
+        thisItem.startDate, 
+        thisItem.startDate
+      ).toFixed(2)
     });
   }
 
   calcTime () {
-    var duration = Date.parse(this.props.item.endDate) + 2.592e+9 - Date.now();
-    var seconds = parseInt((duration / 1000) % 60);
-    var minutes = parseInt((duration / (1000 * 60)) % 60);
-    var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-    var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
+    // var duration = Date.parse(this.props.item.endDate) + 2.592e+9 - Date.now();
+    // var seconds = parseInt((duration / 1000) % 60);
+    // var minutes = parseInt((duration / (1000 * 60)) % 60);
+    // var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
+    // var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
 
-    days = (days < 10) ? '0' + days : days;
-    hours = (hours < 10) ? '0' + hours : hours;
-    minutes = (minutes < 10) ? '0' + minutes : minutes;
-    seconds = (seconds < 10) ? '0' + seconds : seconds;
-    var resultTime = days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
+    // days = (days < 10) ? '0' + days : days;
+    // hours = (hours < 10) ? '0' + hours : hours;
+    // minutes = (minutes < 10) ? '0' + minutes : minutes;
+    // seconds = (seconds < 10) ? '0' + seconds : seconds;
+    // var resultTime = days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
     this.setState({
-      timeRemaining: resultTime
+      timeRemaining: calcTime(this.props.item.endDate)
     });
   }
   
