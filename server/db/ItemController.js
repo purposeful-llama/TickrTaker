@@ -8,6 +8,7 @@ module.exports = (db, Sequelize, User) => {
     picture: Sequelize.TEXT,
     startDate: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
     endDate: {type: Sequelize.DATE, allowNull: false, defaultValue: endDateDefault},
+
     startPrice: {type: Sequelize.FLOAT, allowNull: false},
     endPrice: {type: Sequelize.FLOAT, allowNull: false},
     minimumBidIncrement: {type: Sequelize.FLOAT, defaultValue: 1}
@@ -62,8 +63,9 @@ module.exports = (db, Sequelize, User) => {
             (item.startPrice > 0) &&
             (item.endPrice > 0) &&
             (item.minimumBidIncrement > 0) &&
-            (validateUrl(item.picture)));
-            // (typeof item.endDate) === Date);
+
+            (validateUrl(item.picture)) &&
+            (typeof item.endDate) === Date);
   };
 
   const putItemForSale = (req, res, next) => {

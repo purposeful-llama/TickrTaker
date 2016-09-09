@@ -74,9 +74,10 @@ module.exports = (db, Sequelize, User, Item) => {
     Item.findOne({where: {id: itemId}})
     .then(function(item) {
 
-      // if (Date.parse(item.dataValues.endDate) < Date.parse(Date())) {
-      //   valid = false;
-      // }
+
+      if (Date.parse(item.dataValues.endDate) < Date.parse(Date())) {
+        valid = false;
+      }
 
       item.getBids({raw: true})
       .then(function(bids) {
@@ -101,6 +102,7 @@ module.exports = (db, Sequelize, User, Item) => {
   };
   
   var updateBid = (req, res, user, bid, itemId, cb) => {
+
     console.log('bid value' + Number(bid));
     User.findOne({where: {id: user.id}})
     .then(function(user) {
@@ -125,6 +127,7 @@ module.exports = (db, Sequelize, User, Item) => {
     validateBid(req.body.bid, itemId, () => {
       console.log(req.body);
       updateBid(req, res, req.body.user.user, req.body.bid, itemId, () => {
+
         User.findOne({where: {id: req.body.user.user.id}})
         .then(function(bidder) {
           Item.findOne({where: {id: itemId}})

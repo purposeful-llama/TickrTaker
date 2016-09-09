@@ -80,8 +80,6 @@ db.sync({force: true})
     });
   });
 });
-
-
 module.exports = {
   db: db,
   UserController: UserController,
