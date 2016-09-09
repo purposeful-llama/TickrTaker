@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {calcPrice, calcTime} from '../helpers.js';
 
 export default class WinningBid extends Component {
   constructor (props) {
@@ -33,15 +34,24 @@ export default class WinningBid extends Component {
 
 
   calcPrice () {
-    var thisItem = this.props.item;
-    return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    var thisItem = this.props.item.item; //it's passed in differently..
+    if (thisItem) {
+      //only run calculations when item is loaded
+      return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    } else {
+      return 0;
+    }
     // var cal = ((this.props.item.item.startPrice - this.props.item.item.endPrice) /
     // ((Date.parse(this.props.item.item.endDate)) - Date.parse(this.props.item.item.startDate))) * (Date.parse(this.props.item.item.endDate) - Date.now());
     // return cal;
   }
 
   calcTime () {
-    return calcTime(this.state.item.endDate);
+    if (this.props.item.item) {
+      return calcTime(this.props.item.item.endDate);
+    } else {
+      return '...';
+    }
     // var duration = Date.parse(this.props.item.item.endDate) - Date.now();
     // var seconds = parseInt((duration / 1000) % 60);
     // var minutes = parseInt((duration / (1000 * 60)) % 60);
@@ -59,7 +69,7 @@ export default class WinningBid extends Component {
     var button;
     var id = '/item/' + this.props.item.item.id;
     return (
-      <div style={{margin: '20px', width: '400px', textAlign: 'center'}}className='auction-entry-container col-md'>
+      <div style={{margin: '20px', width: '400px', textAlign: 'center'}} className='auction-entry-container col-md'>
         <h3>{this.props.item.item.title || 'Sample Title'}</h3>
         <div>
           <img src={this.props.item.item.picture}></img>
@@ -67,7 +77,7 @@ export default class WinningBid extends Component {
         <table style= {{width: '100%', textAlign: 'center', marginBottom: '20px'}}>
           <tbody>
           <tr>
-            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaing}</small></td>
+            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>
           </tr>
           <tr>
             <td>Current Price: </td><td>{this.state.currentPrice}</td>

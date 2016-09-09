@@ -75,9 +75,9 @@ export default class AddAuctionItem extends Component {
       }});
 
       var context = this;
-      $.ajax({
-        method: 'GET',
-        url: 'api/user_data',
+      $.ajax({                //TODO: we should not have to do this
+        method: 'GET',        //once authenticated, we don't have to send 'user'
+        url: 'api/user_data', //it should be available as req.user on the server-side
         success: function(user) {
           console.log(user.user);
           $.ajax({

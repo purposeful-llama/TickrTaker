@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 
-// import WinningBid from './WinningBid.jsx';
-// import LosingBid from './LosingBid.jsx';
-// import SaleItem from './saleitem.jsx';
+import WinningBid from './winningBid.jsx';
+import LosingBid from './losingBid.jsx';
+// import AuctionEntry from './auctionentry.jsx';
+import SaleItem from './saleItem.jsx';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -27,10 +28,14 @@ export default class Dashboard extends Component {
           headers: {'Content-Type': 'application/json'},
           data: JSON.stringify(user),
           success: function(items) {
-            console.log(items);
+            console.log('items are', items);
             context.setState({'itemsForSale': items});
+          },
+          error: function(err) {
+            console.log(err);
           }
         });
+
         $.ajax({
           method: 'POST',
           url: 'api/bids',
@@ -46,7 +51,8 @@ export default class Dashboard extends Component {
                 losingBids.push(item);
               }
             });
-            context.setState({
+            console.log('bids are', winningBids, losingBids);
+            context.setState({ //TODO winningBids can't be losingBids on the same item...
               'itemsWinningBidOn': winningBids, 
               'itemsLosingBidOn': losingBids
             });
@@ -67,19 +73,19 @@ export default class Dashboard extends Component {
 
         <div> <h2>Winning Bids </h2>
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
-            return (<WinningBid key = {index} item={winningBid}/>);
+            return (<WinningBid key={index} item={winningBid}/>);
           })}
         </div>
         <div> <h2> Losing Bids </h2>
           {
             this.state.itemsLosingBidOn.map((losingBid, index) => {
-              return (<LosingBid key= {index} item={losingBid}/>);
+              return (<LosingBid key={index} item={losingBid}/>);
             })
           }
         </div>
         <div> <h2> Items on Auction </h2>
         {this.state.itemsForSale.map((saleItem, index) => {
-          return (<SaleItem key = {index} item={saleItem}/>);
+          return (<SaleItem key={index} item={saleItem}/>);
         }) }
         </div>
       </div>

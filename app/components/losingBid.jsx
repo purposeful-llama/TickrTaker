@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {calcPrice, calcTime} from '../helpers.js';
+
 export default class LosingBid extends Component {
   constructor (props) {
     super(props);
@@ -32,15 +34,24 @@ export default class LosingBid extends Component {
   }
 
   calcPrice () {
-    var thisItem = this.props.item;
-    return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    var thisItem = this.props.item.item; //it's passed in differently..
+    if (thisItem) {
+      //only run calculations when item is loaded
+      return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    } else {
+      return 0;
+    }
     // var cal = ((this.props.item.item.startPrice - this.props.item.item.endPrice) /
     // ((Date.parse(this.props.item.item.endDate)) - Date.parse(this.props.item.item.startDate))) * (Date.parse(this.props.item.item.endDate) - Date.now());
     // return cal;
   }
 
   calcTime () {
-    return calcTime(this.state.item.endDate);
+    if (this.props.item.item) {
+      return calcTime(this.props.item.item.endDate);
+    } else {
+      return '...';
+    }
     // var duration = Date.parse(this.props.item.item.endDate) - Date.now();
     // var seconds = parseInt((duration / 1000) % 60);
     // var minutes = parseInt((duration / (1000 * 60)) % 60);

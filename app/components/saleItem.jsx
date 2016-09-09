@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {calcPrice, calcTime} from '../helpers.js';
 
 
 export default class SaleItem extends Component {
@@ -57,6 +58,7 @@ export default class SaleItem extends Component {
 
   render () {
     var button;
+    console.log(this.props.item);
     var id = '/item/' + this.props.item.id;
     return (
       <div style={{margin: '20px', width: '400px', textAlign: 'center'}}className='auction-entry-container col-md'>
