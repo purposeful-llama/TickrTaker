@@ -16,7 +16,6 @@ export default class UserSetting extends Component {
   }
 
   handleSubmit(setSomething, e) {
-    console.log('HEREEE', e, setSomething);
     e.preventDefault();
     var valid = true;
     var filter = function validateURL(textval) {
@@ -76,7 +75,7 @@ export default class UserSetting extends Component {
         stateObj[setSomething] = $('#user-phone').val();
       }
 
-      this.setState({ user:stateObj });
+      this.setState({user: stateObj});
 
       var context = this;
       $.ajax({
