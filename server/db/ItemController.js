@@ -27,12 +27,20 @@ module.exports = (db, Sequelize, User) => {
   //   });
   // };
   const getAllItems = (req, res, next) => {
-    Item.findAll({raw: true})
+    var searchQuery = req.query.search || '';
+    Item.findAll(
+      {where: {
+        $or: [
+          {'title' : {like: '%' + searchQuery + '%'}},
+          { 'description' : {like: '%' + searchQuery + '%'}}
+        ]
+      }, raw: true})
     .then(function(items) {
       console.log(items);
       res.send(items);
     });
   };
+
 
   const getOneItem = (req, res, next, itemId) => {
     Item.findOne({where: {id: itemId}, raw: true})
