@@ -4,13 +4,13 @@ module.exports = (app, db) => {
 
   //USERS ENDPOINT
 
-  app.post('/signup', (req, res) => {
-    db.UserController.addUser(req, res, req.body);
-  });
+  // app.post('/signup', (req, res) => {
+  //   db.UserController.addUser(req, res, req.body);
+  // });
 
-  app.post('/signin', (req, res) => {
-    db.UserController.logIn(req, res, req.body);
-  });
+  // app.post('/signin', (req, res) => {
+  //   db.UserController.logIn(req, res, req.body);
+  // });
 
   app.put('/users', (req, res) => {
     db.UserController.updateUser(req, res, req.body);
