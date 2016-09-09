@@ -18,10 +18,10 @@ export default class Navbar2 extends Component {
           <li className="nav-item">
             <Link className="nav-link" to="/makeauction">Post Item</Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/usersetting">Settings</Link>
+          </li>
           {
-          //   <li className="nav-item">
-          //   <Link className="nav-link" to="/login">Login</Link>
-          // </li>
           // <li className="nav-item">
           //   <Link className="nav-link" to="/signup">Sign Up</Link>
           // </li>
