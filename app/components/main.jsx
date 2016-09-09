@@ -64,8 +64,8 @@ export default class Main extends Component {
         </div>
         <div>
           {
-            this.state.items.map((element, index) => {
-              return (<Mainitems key={index} item={element} />);
+            this.state.items.map((element, i) => {
+              return (<Mainitems key={i} item={element} />);
             })
           }
         </div>

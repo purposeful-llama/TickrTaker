@@ -19,6 +19,7 @@ export default class Auction extends Component {
     this.setState({
       entrys: entryArray
     });
+    console.log(this.state);
   }
 
   grabAuctions () {
@@ -28,6 +29,7 @@ export default class Auction extends Component {
       url: '/api/allitems',
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
+        console.log(res);
         context.updateEntrys(res);
       }
     });
@@ -36,12 +38,13 @@ export default class Auction extends Component {
   render () {
     return (
       <div>
-        <h1>Current Auctions</h1>
-        <div>
-          <div>
+        <h1 className="text-center">Current Auctions</h1>
+        <div className="container" style={{display: 'flex', 'flexWrap': 'wrap'}}>
+          <div className="row">
           {
-            this.state.entrys.map((entry, index) => {
-              return (<AuctionEntry key={index} item={entry} auth={this.props.auth} />);
+            this.state.entrys.map((entry, i) => {
+              console.log(entry);
+              return (<AuctionEntry key={i} item={entry} auth={this.props.auth} />);
             })
           }
           </div>

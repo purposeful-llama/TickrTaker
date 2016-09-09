@@ -139,6 +139,7 @@ export default class AuctionItem extends Component {
         <form id="bid-form" onSubmit={this.sendItemBid}>
           <div>Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
           <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
+
         </form>
         <div className="alert alert-danger fade in" role="alert" id="bid-error" style={{display: 'none'}}>
             <button type="button" className="close">×</button>
