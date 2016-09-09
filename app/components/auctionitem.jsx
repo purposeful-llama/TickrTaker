@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
+import {calcPrice, calcTime} from '../helpers.js';
 
 export default class AuctionItem extends Component {
   constructor (props) {
@@ -20,7 +21,7 @@ export default class AuctionItem extends Component {
     this.getItemBids();
     this.getItem();
     this.setState({
-      currentPrice: '$  ' + this.calcPrice().toFixed(2),
+      currentPrice: this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     });
   }
@@ -133,8 +134,8 @@ export default class AuctionItem extends Component {
         <img src={this.state.item.picture}></img>
         <div>Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</div>
         <div>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
-        <div>Time Remaining: {this.state.timeRemaining}</div>
-        <div> Current Price: {this.state.currentPrice} </div>
+        <div>Time Remaining: {isNaN(this.state.timeRemaining) ? '...' : this.state.timeRemaining}</div>
+        <div> Current Price: $ {isNaN(this.state.currentPrice) ? '...' : this.state.currentPrice} </div>
         <div> Highest Bid:{this.state.bids !== undefined ? '$ ' + this.state.bids.price : ' No Bids' }</div>
         <form id="bid-form" onSubmit={this.sendItemBid}>
           <div>Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
