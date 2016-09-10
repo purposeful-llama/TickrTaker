@@ -1,0 +1,74 @@
+/*body {
+  background-color: black;
+}*/
+
+/************************************************************/
+
+#item-title {
+  width: 500px;
+}
+
+#item-desc {
+  width: 500px;
+}
+
+#end-date {
+  width: 400px;
+}
+
+#add-auction-prices {
+  margin-left: -15px;
+}
+
+.alert{
+  display: none;
+}
+
+#winning-container {
+  margin: 20px;
+  width: 400px;
+  text-align: center;
+  background: rgba(199,238,196, 0.5);
+}
+
+#sale-container {
+  margin: 20px;
+  width: 400px;
+  text-align: center;
+
+}
+
+#losing-container {
+  margin: 20px;
+  width: 400px;
+  text-align: center;
+
+}
+
+.setting-btn {
+  margin-left: 15px;
+}
+
+.auction-listings {
+  justify-content: space-around;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#losing-table {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#sale-tabele {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#winning-table {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
