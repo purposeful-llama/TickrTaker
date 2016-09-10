@@ -55,7 +55,7 @@ export default class AddAuctionItem extends Component {
       $('#item-edate-null-error').show();
       valid = false;
     }
-    if ($('#current-value').val() < $('#end-value').val()) {
+    if (Number($('#current-value').val()) < Number($('#end-value').val())) {
       $('#item-cval-over-error').show();
       $('#item-eval-over-error').show();
       valid = false;
@@ -73,8 +73,8 @@ export default class AddAuctionItem extends Component {
       this.setState({item: {
         title: $('#item-title').val(),
         description: $('#item-desc').val(),
-        endPrice: $('#end-value').val(),
-        startPrice: $('#current-value').val(),
+        endPrice: Number($('#end-value').val()),
+        startPrice: Number($('#current-value').val()),
         endDate: $('#end-date').val(),
         picture: $('#image-url').val(),
       }});

@@ -48,7 +48,7 @@ export default class Auction extends Component {
     return (
       <div>
         <h1 className="text-center">Current Auctions</h1>
-        <div className="container">
+        <div className="container col-xs-12">
           <div className="row">
             <form onSubmit={this.grabAuctions.bind(this)}>
               <div className="col-xs-2">Search: </div>
