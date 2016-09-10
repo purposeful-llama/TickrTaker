@@ -195,6 +195,7 @@ export default class AddAuctionItem extends Component {
                               <strong>Woah! </strong>Current value price must be higher than the end value price. <small>Tip: Set a start price above the end price!</small>
                           </div>
                       </div>
+                      
                       <div className="control-group">
                           <label className="control-label">Sale Price at End of Auction</label>
                           <div id="add-auction-prices" className="controls">
