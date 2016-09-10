@@ -99,21 +99,27 @@ module.exports = (db, Sequelize, User) => {
 
   const removeItemFromSale = (req, res, next) => {
     console.log('removing item');
-    if (validateItem(req.body.item)) {
-      User.findOne({where: {id: req.body.user.id}})
-      .then(function(user) {
-        Item.destroy({where: req.body.item})
-          .then(function(item) {
-            console.log(item);
-            res.send('removed the item');
-          })
-          .catch(function(error) {
-            res.send('failed to remove item due to error ' + error);
-          });
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
+      user.getItems().then(function(items) {
+        items.forEach(function(item) {
+          if (item.id === req.body.item.id) {
+            item.destroy().then(function(item) {
+              var deleted = true;
+              res.send(item);
+            });
+          }
+        });
       });
-    } else {
-      res.send('not a valid item to delete');
-    }
+      // Item.destroy({where: {id: req.body.item.id} })
+      //   .then(function(item) {
+      //     console.log(item);
+      //     res.send('removed the item' + item);
+      //   })
+      //   .catch(function(error) {
+      //     res.send('failed to remove item due to error ' + error);
+      //   });
+    });
   };
 
   return {

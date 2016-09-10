@@ -80,7 +80,7 @@ export default class AddAuctionItem extends Component {
       valid = false;
     }
     if (valid === true) {
-
+      var date = new Date($('#end-date').val());
       this.setState({item: {
         title: $('#item-title').val(),
         description: $('#item-desc').val(),
@@ -88,6 +88,7 @@ export default class AddAuctionItem extends Component {
         startPrice: Number($('#current-value').val()),
         endDate: $('#end-date').val(),
         picture: this.state.item.picture,
+
 
       }});
       console.log(this.state.item);
