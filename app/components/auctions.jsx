@@ -55,7 +55,7 @@ export default class Auction extends Component {
               <input id="search" className="col-xs-8" />
             </form>
           </div>
-          <div className="row" style={{ 'justifyContent': 'space-around', 'display': 'flex', 'flexWrap': 'wrap'}}>
+          <div className="auction-listings row">
           {
             this.state.entrys.map((entry, i) => {
               console.log(entry);
