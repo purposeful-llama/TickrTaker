@@ -46,16 +46,20 @@ export default class Auction extends Component {
 
   render () {
     return (
-      <div>
-        <h1 className="text-center">Current Auctions</h1>
-        <div className="container col-xs-12">
-          <div className="row">
-            <form onSubmit={this.grabAuctions.bind(this)}>
-              <div className="col-xs-2">Search: </div>
-              <input id="search" className="col-xs-8" />
-            </form>
+      <div className="row">
+        <div className="col-xs-12">
+          <div className="col-xs-12">
+            <div className="auction-header col-xs-12">
+              <h3 className="col-xs-4 pull-xs-left">Current Auctions</h3>
+              <div className="col-xs-8 pull-xs-right">
+                <form onSubmit={this.grabAuctions.bind(this)}>
+                  <input id="search" className="col-xs-6 pull-xs-right" />
+                  <div className="col-xs-2 pull-xs-right">Search: </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <div className="auction-listings row">
+        <div className="auction-listings col-xs-12">
           {
             this.state.entrys.map((entry, i) => {
               console.log(entry);
