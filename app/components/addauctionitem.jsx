@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {browserHistory} from 'react-router';
 
-
 export default class AddAuctionItem extends Component {
+
 
   constructor(props) {
     super(props);
@@ -14,12 +14,23 @@ export default class AddAuctionItem extends Component {
   }
 
   componentDidMount() {
+    var context = this;
     if ( !this.props.auth() ) {
       browserHistory.push('/');
     }
     $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
     });
+    
+    $('#upload_widget_opener').cloudinary_upload_widget(
+        { cloud_name: 'dijpyi6ze', upload_preset: 'emhtsrjh', theme: 'minimal', folder: 'item_photos' },
+        function(error, result) { 
+          console.log(error, result); 
+          context.setState({item: {
+            picture: result[0].secure_url
+          }});
+          console.log(context.state.item.picture);
+        });
   }
 
   submitForm(e) {
@@ -40,13 +51,13 @@ export default class AddAuctionItem extends Component {
       $('#item-name-error').show();
       valid = false;
     }
-    if ($('#image-url').val() === '') {
-      $('#item-img-null-error').show();
-      valid = false;
-    } else if (!filter($('#image-url').val())) {
-      $('#item-img-valid-error').show();
-      valid = false;
-    }
+    // if ($('#image-url').val() === '') {
+    //   $('#item-img-null-error').show();
+    //   valid = false;
+    // } else if (!filter($('#image-url').val())) {
+    //   $('#item-img-valid-error').show();
+    //   valid = false;
+    // }
     if ($('#item-desc').val() === '') {
       $('#item-desc-error').show();
       valid = false;
@@ -76,9 +87,9 @@ export default class AddAuctionItem extends Component {
         endPrice: Number($('#end-value').val()),
         startPrice: Number($('#current-value').val()),
         endDate: $('#end-date').val(),
-        picture: $('#image-url').val(),
+        picture: this.state.item.picture,
       }});
-
+      console.log(this.state.item);
       var context = this;
       $.ajax({                //TODO: we should not have to do this
         method: 'GET',        //once authenticated, we don't have to send 'user'
@@ -113,7 +124,6 @@ export default class AddAuctionItem extends Component {
   }
 
   render() {
-    
     return (
     <div id="add-auction-item">
         <form id='item-form' className="form-horizontal" onSubmit={this.submitForm}>
@@ -133,7 +143,7 @@ export default class AddAuctionItem extends Component {
                       <div className="control-group">
                           <label className="control-label">Provide an image</label>
                           <div className="controls">
-                              <input id="image-url" name="img" type="url" placeholder="Enter an image link for the product" className="input-xlarge" />
+                              <button id="upload_widget_opener" className="btn btn-primary">Upload multiple images</button>
                               <p className="help-block"></p>
                           </div>
                           <div className="alert alert-danger fade in" role="alert" id="item-img-null-error">
@@ -203,6 +213,7 @@ export default class AddAuctionItem extends Component {
                   <button type='submit' id='post-item-submit' className="btn btn-primary" >Post Item</button> <button onClick={this.cancelForm} type='button' className="btn btn-primary" >Cancel</button>
               </form>
     </div>
+
     );
   }
 }
