@@ -45,6 +45,10 @@
 
 }
 
+.item-image {
+  width: 100%;
+}
+
 .setting-btn {
   margin-left: 15px;
 }
