@@ -2,7 +2,7 @@ export const calcPrice = function(startPrice, endPrice, startDate, endDate) {
   console.log(startPrice, endPrice, startDate, endDate);
   return Math.max(( (startPrice - endPrice) / 
     ((Date.parse(endDate)) - Date.parse(startDate))
-  * (Date.parse(endDate) - Date.now())), endPrice);
+  * (Date.parse(endDate) - Date.now())) + endPrice, endPrice);
 };
 
 export const calcTime = function(endDate) {

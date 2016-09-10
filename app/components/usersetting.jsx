@@ -16,12 +16,12 @@ export default class UserSetting extends Component {
   }
 
   handleSubmit(setSomething, e) {
-    console.log('HEREEE', e, setSomething);
     e.preventDefault();
     var valid = true;
     var filter = function validateURL(textval) {
-      var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
-      return urlregex.test(textval);
+      // var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+      var emailregex = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/;
+      return emailregex.test(textval);
     };
 
     if ($('#user-password').val() === '' && setSomething === 'passWord') {
@@ -31,7 +31,7 @@ export default class UserSetting extends Component {
       $('.phoneError').hide();
       valid = false;
     }
-    if ($('#user-email').val() === '' && setSomething === 'email'){    
+    if ($('#user-email').val() === '' && setSomething === 'email') {    
       $('.emailError').show();      
       $('.addressError').hide();
       $('.phoneError').hide();
@@ -39,7 +39,7 @@ export default class UserSetting extends Component {
       valid = false;
     }
 
-    if ($('#user-address').val() === '' && setSomething === 'address'){
+    if ($('#user-address').val() === '' && setSomething === 'address') {
       $('.addressError').show();
       $('.emailError').hide();      
       $('.phoneError').hide();
@@ -47,7 +47,7 @@ export default class UserSetting extends Component {
       valid = false;
     }
 
-    if ( $('#user-phone').val() === '' && $('#user-phone').val().length <= 6 && setSomething === 'phone'){
+    if ($('#user-phone').val() === '' && $('#user-phone').val().length <= 6 && setSomething === 'phone') {
       $('.phoneError').show();
       $('.emailError').hide();      
       $('.addressError').hide();
@@ -56,27 +56,27 @@ export default class UserSetting extends Component {
     }
 
 
-    if(valid === true) {
+    if (valid === true) {
       var stateObj = {};
       $('.phoneError').hide();
       $('.emailError').hide();      
       $('.addressError').hide();
       $('.passwordError').hide();
 
-      if(setSomething === 'passWord'){
+      if (setSomething === 'passWord') {
         stateObj[setSomething] = $('#user-password').val();
       }
-      if(setSomething === 'email') {
+      if (setSomething === 'email') {
         stateObj[setSomething] = $('#user-email').val();  
       }
-      if(setSomething === 'address') {
+      if (setSomething === 'address') {
         stateObj[setSomething] = $('#user-address').val();
       }
-      if(setSomething === 'phone') {
+      if (setSomething === 'phone') {
         stateObj[setSomething] = $('#user-phone').val();
       }
 
-      this.setState({ user:stateObj });
+      this.setState({user: stateObj});
 
       var context = this;
       $.ajax({
@@ -114,24 +114,24 @@ export default class UserSetting extends Component {
   }
   
   render() {
-    var passCheck = this.state.passWord ? <div><form onSubmit={this.handleSubmit.bind(this, 'passWord')}><input id='user-password' type='text' placeholder='Type new password' className="input-xlarge"></input>
-                                            <button style={{marginLeft:15}} type='button' className="passwordBtn btn btn-primary">Submit</button></form>
-                                            <div className="passwordError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
+    var passCheck = this.state.passWord ? <div><form onSubmit={this.handleSubmit.bind(this, 'passWord')}><input id='user-password' type='password' placeholder='Type new password' className="input-xlarge"></input>
+                                            <button type='submit' className="setting-btn passwordBtn btn btn-primary">Submit</button></form>
+                                            <div className="passwordError alert alert-danger fade in" role="alert">
                                             <strong>Woah! Invalid Password </strong><small>Please enter a valid password</small></div>
                                           </div> : '';
-    var mailCheck = this.state.email ?  <div><form onSubmit={this.handleSubmit.bind(this, 'email')}><input  id='user-email' type='text' placeholder='Type new email' className="input-xlarge"></input>
-                                          <button style={{marginLeft:15}} type='button' className="emailBtn btn btn-primary">Submit</button></form>
-                                          <div className="emailError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
+    var mailCheck = this.state.email ? <div><form onSubmit={this.handleSubmit.bind(this, 'email')}><input id='user-email' type="email" placeholder='Type new email' className="input-xlarge"></input>
+                                          <button type='submit' className="setting-btn emailBtn btn btn-primary">Submit</button></form>
+                                          <div className="emailError alert alert-danger fade in" role="alert">
                                           <strong>Woah! Invalied email </strong><small>Please enter a valid email address</small></div>
                                        </div> : '';
     var addressCheck = this.state.address ? <div><form onSubmit={this.handleSubmit.bind(this, 'address')}><input id='user-address' type='text' placeholder='Type new address' className="input-xlarge"></input>
-                                              <button style={{marginLeft:15}} type='button' className="addressBtn btn btn-primary">Submit</button></form>
-                                              <div className="addressError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
+                                              <button type='submit' className="setting-btn addressBtn btn btn-primary">Submit</button></form>
+                                              <div className="addressError alert alert-danger fade in" role="alert">
                                               <strong>Woah! Invalid address </strong><small>Please enter a valid address</small></div>
                                             </div> : '';
-    var phoneCheck = this.state.phone ? <div><form onSubmit={this.handleSubmit.bind(this, 'phone')}><input id='user-phone' type='text' placeholder='Type new phone number' className="input-xlarge"></input>
-                                          <button style={{marginLeft:15}} type='button' className="phoneBtn btn btn-primary">Submit</button></form>
-                                          <div className="phoneError alert alert-danger fade in" role="alert" style={{display: 'none'}}>
+    var phoneCheck = this.state.phone ? <div><form onSubmit={this.handleSubmit.bind(this, 'phone')}><input id='user-phone' type='number' placeholder='Type new phone number' className="input-xlarge"></input>
+                                          <button type='submit' className="setting-btn phoneBtn btn btn-primary">Submit</button></form>
+                                          <div className="phoneError alert alert-danger fade in" role="alert">
                                           <strong>Woah! Invalid Phone number </strong><small>Please enter a valid phone number</small></div>
                                         </div> : '';
     return (
@@ -146,7 +146,7 @@ export default class UserSetting extends Component {
           {mailCheck}
         </div>
         <div>
-          <Link to='/usersetting' onClick={this.handleToggle.bind(this,'address')}><h3>Change Address</h3></Link>
+          <Link to='/usersetting' onClick={this.handleToggle.bind(this, 'address')}><h3>Change Address</h3></Link>
           {addressCheck}
         </div>
         <div>

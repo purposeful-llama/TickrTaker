@@ -69,13 +69,13 @@ export default class LosingBid extends Component {
     var button;
     var id = '/item/' + this.props.item.item.id;
     return (
-      <div style = {{margin: '20px', width: '400px', textAlign: 'center'}} className='auction-entry-container col-md'>
+      <div id="losing-container" className='auction-entry-container col-md'>
         <h4>{this.props.item.item.title || 'Sample Title'}</h4>
 
         <div>
           <img src={this.props.item.item.picture}></img>
         </div>
-        <table style= {{width: '100%', textAlign: 'center', marginBottom: '20px'}}>
+        <table id="losing-table">
           <tbody>
           <tr>
             <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>

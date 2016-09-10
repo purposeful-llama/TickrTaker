@@ -157,7 +157,7 @@ export default class AuctionItem extends Component {
           <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
 
         </form>
-        <div className="alert alert-danger fade in" role="alert" id="bid-error" style={{display: 'none'}}>
+        <div className="alert alert-danger fade in" role="alert" id="bid-error">
             <button type="button" className="close">×</button>
             <strong>Woah! </strong>Please place a valid bid. <small>Tip: Try value higher than the current highest bid!</small>
         </div>

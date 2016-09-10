@@ -48,14 +48,14 @@ export default class Auction extends Component {
     return (
       <div>
         <h1 className="text-center">Current Auctions</h1>
-        <div className="container">
+        <div className="container col-xs-12">
           <div className="row">
             <form onSubmit={this.grabAuctions.bind(this)}>
               <div className="col-xs-2">Search: </div>
               <input id="search" className="col-xs-8" />
             </form>
           </div>
-          <div className="row" style={{ 'justifyContent': 'space-around', 'display': 'flex', 'flexWrap': 'wrap'}}>
+          <div className="auction-listings row">
           {
             this.state.entrys.map((entry, i) => {
               console.log(entry);

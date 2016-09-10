@@ -102,14 +102,16 @@ app.get('/logout', function(req, res) {
 
 // app.use()
 
-app.use('/compiled', express.static('../app/compiled'));
+
 if (process.env.NODE_ENV === 'production') {
+  app.use('/compiled', express.static('../app/compiled'));
   app.get('*', function (request, response) {
     response.sendFile(path.resolve(__dirname, '../app/compiled', 'index.html'));
   });
   // app.get('/*', express.static('../app/compiled'));
 } else { //if (process.env.NODE_ENV === 'development') {
   // app.get('/*', express.static('../app'));
+  app.use('/static', express.static('../app'));
   app.get('*', function (request, response) {
     response.sendFile(path.resolve(__dirname, '../app', 'index.html'));
   });

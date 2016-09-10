@@ -70,12 +70,12 @@ export default class SaleItem extends Component {
     console.log(this.props.item);
     var id = '/item/' + this.props.item.id;
     return (
-      <div style={{margin: '20px', width: '400px', textAlign: 'center'}}className='auction-entry-container col-md'>
+      <div id="sale-container" className='auction-entry-container col-md'>
         <h3>{this.props.item.title || 'Sample Title'}</h3>
         <div>
           <img src={this.props.item.picture}></img>
         </div>
-        <table style= {{width: '100%', textAlign: 'center', marginBottom: '20px'}}>
+        <table id="sale-table">
           <tbody>
           <tr>
             <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>
