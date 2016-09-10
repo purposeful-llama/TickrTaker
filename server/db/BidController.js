@@ -60,16 +60,19 @@ module.exports = (db, Sequelize, User, Item) => {
 
     Item.findOne({where: {id: itemId}})
     .then(function(item) {
-
-
-      if (Date.parse(item.dataValues.endDate) < Date.parse(Date())) {
+      if (item.dataValues.valid === false) {
         valid = false;
       }
+
+      if (Date.parse(new Date(item.dataValues.endDate)) < Date.parse(Date())) {
+        valid = false;
+      }
+
 
       item.getBids({raw: true})
       .then(function(bids) {
         bids.forEach(function(itemBid) {
-          if (itemBid.price > bid) {
+          if (itemBid.price + item.minimumBidIncrement > bid) {
             valid = false;
           }
         });
@@ -99,6 +102,7 @@ module.exports = (db, Sequelize, User, Item) => {
           if (userBid.dataValues.itemId === Number(itemId)) {
             userBid.update({price: Number(bid)})
             .then(() => {
+              updateItemEndDate(itemId, Number(bid));
               console.log('sending updated bid');
               res.send('updated bid');
             });
@@ -138,9 +142,10 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var removeBidFromItem = (req, res, next, itemId) => {
+
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
-      Item.findOne({where: {id: itemId}, raw: true})
+      Item.findOne({where: {id: itemId, valid: true}, raw: true})
       .then(function(item) {
         Bid.destroy({where: {itemId: item.id, userId: user.id}})
         .then(function(bid) {

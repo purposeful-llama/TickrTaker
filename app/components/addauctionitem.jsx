@@ -62,7 +62,7 @@ export default class AddAuctionItem extends Component {
       $('#item-desc-error').show();
       valid = false;
     }
-    if ($('#end-date').val() === '') {
+    if ($('#end-date').val() === '' || Date.parse($('#end-date').val()) < Date.now()) {
       $('#item-edate-null-error').show();
       valid = false;
     }
@@ -88,6 +88,7 @@ export default class AddAuctionItem extends Component {
         startPrice: Number($('#current-value').val()),
         endDate: $('#end-date').val(),
         picture: this.state.item.picture,
+
       }});
       console.log(this.state.item);
       var context = this;
