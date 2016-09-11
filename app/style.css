@@ -6259,8 +6259,12 @@ a.text-danger:focus, a.text-danger:hover {
 
 /*********************************************************/
 
-body {
+/* body {
   background-color: #E6F3F6;
+}*/
+
+body {
+  background-color: black;
 }
 
 .auction-listings div {
@@ -6440,7 +6444,6 @@ body {
   margin-right: 0px;
 }
 
-
 .cloudinary-button {
   color: #FFFFFF;
   background: #0275d8;
@@ -6457,5 +6460,72 @@ body {
   font-size: 1rem;
   border-radius: 0.25rem;
 }
+
+.landing-video {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: transparent;
+}
+
+.landing-video-text {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.landing-video-description {
+  color: white;
+  font-size: 1.5rem;
+}
+
+.landing-video-title {
+  color: white;
+  font-weight: bold;
+  font-size: 5rem;
+}
+
+.what-is-tickr {
+  color: black;
+}
+
+.what-is-tickr-container {
+  height: 100vh;
+  background-color: #000000;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.landing-page {
+  padding-left: 0px;
+  padding-right: 0px;
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+}
+
+video { 
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+@media screen and (max-width: 500px) { 
+  div{width:70%;} 
+}
+@media screen and (max-device-width: 800px) {
+  #bgvid { display: none; }
+}
+
+
+
 
 

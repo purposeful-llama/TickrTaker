@@ -111,7 +111,7 @@ if (process.env.NODE_ENV === 'production') {
   // app.get('/*', express.static('../app/compiled'));
 } else { //if (process.env.NODE_ENV === 'development') {
   // app.get('/*', express.static('../app'));
-  app.use('/static', express.static('../app'));
+  app.use('/compiled', express.static('../app'));
   app.get('*', function (request, response) {
     response.sendFile(path.resolve(__dirname, '../app', 'index.html'));
   });
