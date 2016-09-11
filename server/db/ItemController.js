@@ -12,6 +12,7 @@ module.exports = (db, Sequelize, User) => {
     startPrice: {type: Sequelize.FLOAT, allowNull: false},
     endPrice: {type: Sequelize.FLOAT, allowNull: false},
     minimumBidIncrement: {type: Sequelize.FLOAT, defaultValue: 1},
+    auctionEndDateByHighestBid: {type: Sequelize.DATE, allowNull: false, defaultValue: endDateDefault},
     valid: {type: Sequelize.BOOLEAN, defaultValue: true}
   });
 
@@ -35,8 +36,8 @@ module.exports = (db, Sequelize, User) => {
       {where: {
         valid: true,
         $or: [
-          { 'title' : {like: '%' + searchQuery + '%'}},
-          { 'description' : {like: '%' + searchQuery + '%'}}
+          {'title': {like: '%' + searchQuery + '%'}},
+          {'description': {like: '%' + searchQuery + '%'}}
         ]
       }, raw: true})
     .then(function(items) {
@@ -83,9 +84,11 @@ module.exports = (db, Sequelize, User) => {
     console.log(req.body);
     // console.log('this is the body of the request', req.body);
     if (validateItem(req.body.item)) {
+      console.log('item date', req.body.item.endDate);
       console.log('a valid item has been passed');
       User.findOne({where: {id: req.body.user.id}})
       .then(function(user) {
+        req.body.item.auctionEndDateByHighestBid = req.body.item.endDate;
         Item.create(req.body.item)
           .then(function(item) {
             user.addItem(item);
@@ -99,21 +102,27 @@ module.exports = (db, Sequelize, User) => {
 
   const removeItemFromSale = (req, res, next) => {
     console.log('removing item');
-    if (validateItem(req.body.item)) {
-      User.findOne({where: {id: req.body.user.id}})
-      .then(function(user) {
-        Item.destroy({where: req.body.item})
-          .then(function(item) {
-            console.log(item);
-            res.send('removed the item');
-          })
-          .catch(function(error) {
-            res.send('failed to remove item due to error ' + error);
-          });
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
+      user.getItems().then(function(items) {
+        items.forEach(function(item) {
+          if (item.id === req.body.item.id) {
+            item.destroy().then(function(item) {
+              var deleted = true;
+              res.send(item);
+            });
+          }
+        });
       });
-    } else {
-      res.send('not a valid item to delete');
-    }
+      // Item.destroy({where: {id: req.body.item.id} })
+      //   .then(function(item) {
+      //     console.log(item);
+      //     res.send('removed the item' + item);
+      //   })
+      //   .catch(function(error) {
+      //     res.send('failed to remove item due to error ' + error);
+      //   });
+    });
   };
 
   return {

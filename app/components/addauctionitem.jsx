@@ -62,7 +62,7 @@ export default class AddAuctionItem extends Component {
       $('#item-desc-error').show();
       valid = false;
     }
-    if ($('#end-date').val() === '') {
+    if ($('#end-date').val() === '' || Date.parse($('#end-date').val()) < Date.now()) {
       $('#item-edate-null-error').show();
       valid = false;
     }
@@ -86,8 +86,10 @@ export default class AddAuctionItem extends Component {
         description: $('#item-desc').val(),
         endPrice: Number($('#end-value').val()),
         startPrice: Number($('#current-value').val()),
-        endDate: $('#end-date').val(),
+        endDate: $('#end-date').val() + ' PST',
         picture: this.state.item.picture,
+
+
       }});
       console.log(this.state.item);
       var context = this;
@@ -193,6 +195,7 @@ export default class AddAuctionItem extends Component {
                               <strong>Woah! </strong>Current value price must be higher than the end value price. <small>Tip: Set a start price above the end price!</small>
                           </div>
                       </div>
+
                       <div className="control-group">
                           <label className="control-label">Sale Price at End of Auction</label>
                           <div id="add-auction-prices" className="controls">

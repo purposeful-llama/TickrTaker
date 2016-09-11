@@ -50,7 +50,7 @@ module.exports = (db, Sequelize, User, Item) => {
     });
   };
 
-  var validateBid = (bid, itemId, cb) => {
+  var validateBid = (req, res, bid, itemId, user, cb) => {
     console.log('this is the bid', bid);
     valid = true;
     
@@ -60,16 +60,21 @@ module.exports = (db, Sequelize, User, Item) => {
 
     Item.findOne({where: {id: itemId}})
     .then(function(item) {
-
-
-      if (Date.parse(item.dataValues.endDate) < Date.parse(Date())) {
+      if (item.dataValues.valid === false) {
         valid = false;
       }
+      if (item.userId === user.id) {
+        valid = false;
+      }
+      if (Date.parse(new Date(item.dataValues.endDate)) < Date.parse(Date())) {
+        valid = false;
+      }
+
 
       item.getBids({raw: true})
       .then(function(bids) {
         bids.forEach(function(itemBid) {
-          if (itemBid.price > bid) {
+          if ((itemBid.price + item.minimumBidIncrement > bid)) {
             valid = false;
           }
         });
@@ -78,6 +83,7 @@ module.exports = (db, Sequelize, User, Item) => {
         if (valid) {
           cb();
         } else {
+          res.send('not a valid bid');
           return;
         }
       })
@@ -87,7 +93,18 @@ module.exports = (db, Sequelize, User, Item) => {
       });
     });
   };
-  
+  var updateItemEndDate = (itemId, bidValue) => {
+    Item.find({where: {id: itemId}})
+    .then(function(item) {
+      console.log(new Date( Date.parse(item.endDate) - ((Date.parse(item.endDate) - Date.parse(item.startDate)) / (item.endPrice - item.startPrice)) * (item.endPrice - bidValue)));
+      console.log(item.dataValues);
+      item.update({auctionEndDateByHighestBid: new Date( Date.parse(item.endDate) - ((Date.parse(item.endDate) - Date.parse(item.startDate)) / (item.endPrice - item.startPrice)) * (item.endPrice - bidValue))})
+      .then(function(item) {
+        console.log(item.dataValues);
+      });
+    });
+  };
+
   var updateBid = (req, res, user, bid, itemId, cb) => {
 
     console.log('bid value' + Number(bid));
@@ -99,6 +116,7 @@ module.exports = (db, Sequelize, User, Item) => {
           if (userBid.dataValues.itemId === Number(itemId)) {
             userBid.update({price: Number(bid)})
             .then(() => {
+              updateItemEndDate(itemId, Number(bid));
               console.log('sending updated bid');
               res.send('updated bid');
             });
@@ -111,7 +129,7 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var putBidOnItem = (req, res, next, itemId) => {
-    validateBid(req.body.bid, itemId, () => {
+    validateBid(req, res, req.body.bid, itemId, req.body.user.user, () => {
       console.log(req.body);
       updateBid(req, res, req.body.user.user, req.body.bid, itemId, () => {
 
@@ -119,14 +137,12 @@ module.exports = (db, Sequelize, User, Item) => {
         .then(function(bidder) {
           Item.findOne({where: {id: itemId}})
           .then(function(item) {
+            updateItemEndDate(itemId, req.body.bid);
             Bid.create({price: Number(req.body.bid)})
             .then(function(bid) {
-              item.addBid(bid).then(function() {
-                item.getBids({raw: true}).then(function(bids) {
-                  // console.log('BIDS ARE HERE >>>>>>>>>>', bids);
-                });
+              item.addBid(bid)
+              .then(function() {
                 res.send(item.dataValues);
-                
               });
               bidder.addBid(bid);
               // console.log(item);
@@ -138,9 +154,10 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   var removeBidFromItem = (req, res, next, itemId) => {
+
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
-      Item.findOne({where: {id: itemId}, raw: true})
+      Item.findOne({where: {id: itemId, valid: true}, raw: true})
       .then(function(item) {
         Bid.destroy({where: {itemId: item.id, userId: user.id}})
         .then(function(bid) {
