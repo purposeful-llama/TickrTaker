@@ -6,11 +6,14 @@ export default class Navbar2 extends Component {
     return (
       <nav id="navbar2" className="navbar navbar-dark bg-inverse">
         <ul className="nav navbar-nav">
-          <li className="nav-item ">
+          <li className="nav-item">
             <Link className="nav-link" to="/auctions">Auctions </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link " to="/dashboard">Dashboard <span className="sr-only">(current)</span></Link>
+            <Link className="nav-link" to="/history">History</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link " to="/dashboard">Dashboard<span className="sr-only">(current)</span></Link>
           </li>
           <li className="navbar-brand">
             <Link className="nav-link" id="brand-name" to="/"> Tickr </Link>

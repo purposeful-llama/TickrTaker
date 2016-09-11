@@ -63,7 +63,7 @@ export default class Auction extends Component {
           {
             this.state.entrys.map((entry, i) => {
               console.log(entry);
-              return (<AuctionEntry key={i} item={entry} auth={this.props.auth} />);
+              return (<AuctionEntry key={i} parity={i % 2} item={entry} auth={this.props.auth} />);
             })
           }
           </div>

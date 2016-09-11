@@ -6260,15 +6260,52 @@ a.text-danger:focus, a.text-danger:hover {
 /*********************************************************/
 
 body {
+  background-color: #E6F3F6;
+}
+
+div img {
+  height: 200px;
+  width: auto;
+}
+
+.auction-entry-odd {
   background-color: #FEFEFE;
+}
+
+.auction-entry-even {
+  background-color: #F8F8F8;
 }
 
 .search-text {
   text-align: right;
 }
 
+.current-price {
+  margin-top: 10px;
+}
+
+.time-remaining {
+  margin-top: 10px;
+}
+
+.item-ticker {
+  display: flex;
+  flex-direction: column;
+}
+
+.bid-button-container {
+  height: 50px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+
 .nav-item {
   vertical-align: middle;
+}
+
+.item-description {
+  word-wrap: break-word;
 }
 
 .auction-header {
