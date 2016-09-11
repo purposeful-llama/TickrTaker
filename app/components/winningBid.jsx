@@ -48,7 +48,7 @@ export default class WinningBid extends Component {
 
   calcTime () {
     if (this.props.item.item) {
-      return calcTime(this.props.item.item.endDate);
+      return calcTime(this.props.item.item.auctionEndDateByHighestBid);
     } else {
       return '...';
     }

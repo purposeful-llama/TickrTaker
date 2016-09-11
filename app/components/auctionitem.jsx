@@ -56,7 +56,7 @@ export default class AuctionItem extends Component {
 
   calcTime () {
     if (this.state.item) {
-      return calcTime(this.state.item.endDate);
+      return calcTime(this.state.item.auctionEndDateByHighestBid);
     } else {
       return '...';
     }
@@ -118,6 +118,8 @@ export default class AuctionItem extends Component {
               bid: $('#bid').val()}),
             success: function (res) {
               $('#bid').val('');
+              console.log(res);
+              context.getItem();
               context.getItemBids();
             }
           });
@@ -129,13 +131,12 @@ export default class AuctionItem extends Component {
   }
 
   render () {
-    console.log('render is being called');
-    console.log(this.state);
+    
     var thisItem = this.state.item || {};
     var startDate = new Date(Date.parse(thisItem.startDate));
     var startDateFormatted = startDate.getMonth() + '/' + startDate.getDate() + '/' + startDate.getFullYear() + '  ' + startDate.getHours() % 12 + ':' + ((startDate.getMinutes() < 10) ? '0' + startDate.getMinutes() : startDate.getMinutes()) + (startDate.getHours() > 12 ? ' PM' : ' AM');
-    var endDate = new Date(Date.parse(thisItem.endDate));
-    var endDateFormatted = startDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + '  ' + endDate.getHours() % 12 + ':' + ((endDate.getMinutes() < 10) ? '0' + endDate.getMinutes() : endDate.getMinutes()) + (endDate.getHours() >= 12 ? ' PM' : ' AM');
+    var endDate = new Date(Date.parse(thisItem.auctionEndDateByHighestBid));
+    var endDateFormatted = endDate.getMonth() + '/' + endDate.getDate() + '/' + endDate.getFullYear() + '  ' + endDate.getHours() % 12 + ':' + ((endDate.getMinutes() < 10) ? '0' + endDate.getMinutes() : endDate.getMinutes()) + (endDate.getHours() >= 12 ? ' PM' : ' AM');
     $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
     });

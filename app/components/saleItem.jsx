@@ -48,7 +48,7 @@ export default class SaleItem extends Component {
 
   calcTime () {
     if (this.props.item) {
-      return calcTime(this.props.item.endDate);
+      return calcTime(this.props.item.auctionEndDateByHighestBid);
     } else {
       return '...';
     }
