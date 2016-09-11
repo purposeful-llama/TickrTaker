@@ -52,9 +52,9 @@ export default class Auction extends Component {
             <div className="auction-header col-xs-12">
               <h3 className="col-xs-4 pull-xs-left">Current Auctions</h3>
               <div className="col-xs-8 pull-xs-right">
-                <form onSubmit={this.grabAuctions.bind(this)}>
-                  <input id="search" className="col-xs-6 pull-xs-right" />
-                  <div className="col-xs-2 pull-xs-right">Search: </div>
+                <form className="search-form" onSubmit={this.grabAuctions.bind(this)}>
+                  <input id="search" className="col-xs-6" />
+                  <div className="col-xs-2 search-text">Search:</div>
                 </form>
               </div>
             </div>
