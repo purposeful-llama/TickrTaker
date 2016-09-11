@@ -6263,17 +6263,24 @@ body {
   background-color: #E6F3F6;
 }
 
-div img {
-  height: 200px;
-  width: auto;
+.auction-listings div {
+  padding-left: 0px;
+  padding-right: 0px;
 }
-
 .auction-entry-odd {
   background-color: #FEFEFE;
 }
 
+.auction-entry-odd div {
+  padding: 5px 5px 5px 5px;
+}
+
 .auction-entry-even {
   background-color: #F8F8F8;
+}
+
+.auction-entry-even div {
+  padding: 5px 5px 5px 5px;
 }
 
 .search-text {
@@ -6291,6 +6298,7 @@ div img {
 .item-ticker {
   display: flex;
   flex-direction: column;
+  padding: 5px 5px 5px 5px;
 }
 
 .bid-button-container {
@@ -6306,6 +6314,7 @@ div img {
 
 .item-description {
   word-wrap: break-word;
+  padding: 5px 5px 5px 5px;
 }
 
 .auction-header {
@@ -6424,4 +6433,9 @@ div img {
   width: 100%;
   text-align: center;
   margin-bottom: 20px;
+}
+
+.auction-listings .row {
+  margin-left: 0px;
+  margin-right: 0px;
 }
