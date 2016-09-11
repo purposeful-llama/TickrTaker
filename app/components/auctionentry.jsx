@@ -41,7 +41,7 @@ export default class AuctionEntry extends Component {
   }
 
   calcTime () {
-    return calcTime(this.props.item.endDate);
+    return calcTime(this.props.item.auctionEndDateByHighestBid);
     // var duration = Date.parse(this.props.item.endDate) - Date.now();
     // var seconds = parseInt((duration / 1000) % 60);
     // var minutes = parseInt((duration / (1000 * 60)) % 60);
@@ -69,7 +69,7 @@ export default class AuctionEntry extends Component {
             <h3>{this.props.item.title || 'Sample Title'}</h3>
           </div>
           <div className="row item-description">
-            {this.props.item.description.length > 100 ? this.props.item.description.slice(0, 100) + '...' : this.props.item.description}
+            {this.props.item.description.length > 90 ? this.props.item.description.slice(0, 90) + '...' : this.props.item.description}
           </div>
         </div>
         <div className="col-xs-5 item-ticker">

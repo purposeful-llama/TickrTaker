@@ -22,6 +22,9 @@ module.exports = function(grunt) {
       },
       eslint: {
         command: 'eslint "**/*.js" "**/*.jsx"'
+      },
+      copy: {
+        command: 'cp smallwatch_sepia.mp4 compiled/smallwatch_sepia.mp4'
       }
     },
 
@@ -51,7 +54,8 @@ module.exports = function(grunt) {
     'clean',
     'shell:compile',
     'processhtml',
-    'cssmin'
+    'cssmin',
+    'shell:copy'
   ]);
 
   grunt.registerTask('eslint', ['shell:eslint']);

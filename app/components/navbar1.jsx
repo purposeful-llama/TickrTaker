@@ -10,11 +10,11 @@ export default class Navbar1 extends Component {
     return (
       <nav id="navbar1" className="navbar navbar-dark bg-inverse">
         <ul className="nav navbar-nav">
-          <li className="navbar-brand">
-            <Link className="nav-link" id="brand-name" to="/"> Tickr </Link>
-          </li>
           <li className="nav-item ">
             <Link className="nav-link" to="/auctions">Auctions </Link>
+          </li>
+          <li className="navbar-brand">
+            <Link className="nav-link" id="brand-name" to="/"> Tickr </Link>
           </li>
           {
           // <li className="nav-item">
