@@ -69,7 +69,11 @@ module.exports = (db, Sequelize, User, Item) => {
       if (Date.parse(new Date(item.dataValues.endDate)) < Date.parse(Date())) {
         valid = false;
       }
-
+      if (((item.dataValues.startPrice - item.dataValues.endPrice) / 
+    ((Date.parse(item.dataValues.endDate)) - Date.parse(item.dataValues.startDate))
+    * (Date.parse(item.dataValues.endDate) - Date.now())) + item.dataValues.endPrice < bid) {
+        valid = false;
+      }
 
       item.getBids({raw: true})
       .then(function(bids) {
