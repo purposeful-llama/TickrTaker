@@ -6468,7 +6468,7 @@ video {
 .video-container {
   min-width: 100%; 
   min-height: 100%; 
-  overflow: hidden;
+  
   /* Setting width & height to auto prevents the browser from stretching or squishing the video */
   width: auto;
   height: auto;
