@@ -53,7 +53,7 @@ export default class Main extends Component {
       <div className="landing-page col-xs-12">
         <div className="landing-video col-xs-12">
         <video id="bgvid" autoPlay muted loop>
-          <source src="compiled/smallwatch_bw.mp4" type="video/mp4"/>
+          <source src="compiled/smallwatch_sepia.mp4" type="video/mp4"/>
         </video>
           <div className="landing-video-text">
           <div className="landing-video-title">Tickr</div>

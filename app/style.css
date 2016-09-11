@@ -6259,12 +6259,8 @@ a.text-danger:focus, a.text-danger:hover {
 
 /*********************************************************/
 
-/* body {
-  background-color: #E6F3F6;
-}*/
-
 body {
-  background-color: black;
+  background-color: #E6F3F6;
 }
 
 .auction-listings div {
@@ -6472,6 +6468,32 @@ body {
   background-color: transparent;
 }
 
+video { 
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+}
+
+.video-container {
+  min-width: 100%; 
+  min-height: 100%; 
+  
+  /* Setting width & height to auto prevents the browser from stretching or squishing the video */
+  width: auto;
+  height: auto;
+  
+  /* Center the video */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+
 .landing-video-text {
   position: absolute;
   transform: translateY(-20%);
@@ -6495,17 +6517,16 @@ body {
 }
 
 .what-is-tickr {
-  color: black;
 }
 
 .what-is-tickr-container {
   height: 100vh;
-  background-color: #000000;
   color: black;
   display: flex;
   flex-direction: row;
   align-content: center;
   justify-content: center;
+  background-color: white;
 }
 
 .landing-page {
@@ -6513,20 +6534,6 @@ body {
   padding-right: 0px;
   display: flex;
   flex-direction: column;
-  background-color: #000000;
-}
-
-video { 
-  top: 2rem;
-  height: 100%;
-  align-self: flex-start;
-}
-
-@media screen and (max-width: 500px) { 
-  div{width:70%;} 
-}
-@media screen and (max-device-width: 800px) {
-  #bgvid { display: none; }
 }
 
 
