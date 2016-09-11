@@ -6291,14 +6291,23 @@ body {
   margin-top: 10px;
 }
 
+.current-highest-bid {
+  margin-top: 10px;
+}
+.current-bid {
+  margin-top: 10px;
+}
 .time-remaining {
   margin-top: 10px;
 }
-
 .item-ticker {
   display: flex;
   flex-direction: column;
   padding: 5px 5px 5px 5px;
+}
+
+.rows-8-vh {
+	height: 12.5vh;
 }
 
 .bid-button-container {
@@ -6364,12 +6373,6 @@ body {
   display: none;
 }
 
-#winning-container {
-  margin: 20px;
-  width: 400px;
-  text-align: center;
-  background: rgba(199,238,196, 0.5);
-}
 
 #sale-container {
   margin: 20px;
@@ -6378,11 +6381,25 @@ body {
 
 }
 
-#losing-container {
-  margin: 20px;
-  width: 400px;
+.bid-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
   text-align: center;
+  background: rgba(211, 211, 211, 0.5);
 
+}
+
+.winning-bid-entry-even {
+
+}
+
+.losing-bid-entry-even {
+
+}
+
+.bid-entry-odd {
+	
 }
 
 #navbar2 ul {
@@ -6417,23 +6434,6 @@ body {
   flex-wrap: wrap;
 }
 
-#losing-table {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#sale-tabele {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#winning-table {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
-}
 
 .auction-listings .row {
   margin-left: 0px;

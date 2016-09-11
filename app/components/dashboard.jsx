@@ -73,23 +73,23 @@ export default class Dashboard extends Component {
         </div>
 
         <div> <h2>Winning Bids </h2> </div>
-        <div style ={{background: 'rgba(211, 211, 211, 0.5)', padding: '30px', margin: '15px', borderRadius:'10px'}}>
+        <div className="bid-listings col-xs-12 bid-container">
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
-            return (<WinningBid key={index} item={winningBid}/>);
+            return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
           })}
         </div>
         <div> <h2> Losing Bids </h2> </div>
-        <div style ={{background: 'rgba(211, 211, 211, 0.5)', padding: '15px', margin: '15px', borderRadius:'10px'}}>
+        <div className="bid-listings col-xs-12 bid-container" >
           {
             this.state.itemsLosingBidOn.map((losingBid, index) => {
-              return (<LosingBid key={index} item={losingBid}/>);
+              return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
             })
           }
         </div>
         <div> <h2> Items on Auction </h2> </div>
-        <div style ={{background: 'rgba(211, 211, 211, 0.5)', padding: '30px', margin: '15px', borderRadius:'10px'}}>
+        <div className="bid-listings col-xs-12 bid-container">
         {this.state.itemsForSale.map((saleItem, index) => {
-          return (<SaleItem key={index} item={saleItem}/>);
+          return (<SaleItem key={index} parity={index % 2} item={saleItem}/>);
         }) }
         </div>
       </div>
