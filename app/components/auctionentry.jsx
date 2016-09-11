@@ -41,7 +41,7 @@ export default class AuctionEntry extends Component {
   }
 
   calcTime () {
-    return calcTime(this.props.item.endDate);
+    return calcTime(this.props.item.auctionEndDateByHighestBid);
     // var duration = Date.parse(this.props.item.endDate) - Date.now();
     // var seconds = parseInt((duration / 1000) % 60);
     // var minutes = parseInt((duration / (1000 * 60)) % 60);

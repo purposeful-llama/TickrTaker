@@ -6439,3 +6439,23 @@ body {
   margin-left: 0px;
   margin-right: 0px;
 }
+
+
+.cloudinary-button {
+  color: #FFFFFF;
+  background: #0275d8;
+  border-color: #0275d8;
+  display: inline-block;
+  font-weight: normal;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+}
+
+

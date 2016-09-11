@@ -95,7 +95,7 @@ export default class AuctionItem extends Component {
         var sorted = res.sort(function (a, b) {
           return a.price < b.price;
         });
-        context.setState({bids: sorted[0]});
+        context.setState({bids: sorted});
       }
     });
 
@@ -104,7 +104,7 @@ export default class AuctionItem extends Component {
 
   sendItemBid(e) {
     e.preventDefault();
-    if (this.state.bids === undefined || $('#bid').val() >= this.state.bids.price + 1 && $('#bid').val() !== '') {
+    if (this.state.bids[0] === undefined || $('#bid').val() >= this.state.bids[0].price + 1 && $('#bid').val() !== '') {
       var context = this;
       $.ajax({
         method: 'GET',
@@ -152,7 +152,7 @@ export default class AuctionItem extends Component {
         <div>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
         <div>Time Remaining: {this.state.timeRemaining}</div>
         <div> Current Price: {this.state.currentPrice} </div>
-        <div> Highest Bid: {this.state.bids !== undefined ? '$ ' + this.state.bids.price : ' No Bids' }</div>
+        <div> Highest Bid: {this.state.bids[0] !== undefined ? '$ ' + this.state.bids[0].price.toFixed(2) : ' No Bids' }</div>
         <form id="bid-form" onSubmit={this.sendItemBid}>
           <div>Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
           <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
