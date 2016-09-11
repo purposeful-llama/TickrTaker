@@ -50,7 +50,7 @@ export default class Main extends Component {
     var introHow = this.state.howWorks ? howWorksText : '';
 
     return (
-      <div style = {{ margin : 50 }}>
+      <div>
         <div>
           <Link to='/' onClick={this.showTickrIntro.bind(this)}><h3>What is Tickr?</h3></Link>
           <p>{introTickr}</p>
