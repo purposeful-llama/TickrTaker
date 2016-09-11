@@ -6462,6 +6462,8 @@ body {
 }
 
 .landing-video {
+  padding-left: 0px;
+  padding-right: 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6472,6 +6474,7 @@ body {
 
 .landing-video-text {
   position: absolute;
+  transform: translateY(-20%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6480,13 +6483,15 @@ body {
 
 .landing-video-description {
   color: white;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
+  font-family: "Helvetica";
 }
 
 .landing-video-title {
+  font-family: "Avenir";
   color: white;
   font-weight: bold;
-  font-size: 5rem;
+  font-size: 9rem;
 }
 
 .what-is-tickr {
@@ -6512,10 +6517,9 @@ body {
 }
 
 video { 
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
+  top: 2rem;
+  height: 100%;
+  align-self: flex-start;
 }
 
 @media screen and (max-width: 500px) { 
