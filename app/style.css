@@ -6506,26 +6506,48 @@ video {
 .landing-video-description {
   color: white;
   font-size: 1.6rem;
-  font-family: "Helvetica";
+  font-family: "Palatino";
 }
 
 .landing-video-title {
-  font-family: "Avenir";
+  font-family: "Helvetica";
   color: white;
   font-weight: bold;
   font-size: 9rem;
 }
 
-.what-is-tickr {
+.intro-tickr-header {
+  text-align: center;
+  font-size: 3rem;
+  color: black;
+}
+
+hr {
+  margin-top: 0px;
+  height: 2px;
+  width: 50vh;
+}
+
+.intro-tickr-text {
+  font-family: "Palatino";
+  text-align: center;
+  color: black;
+}
+
+.img-circle {
+    background-color: gray;
+    border-radius: 50%;
+    height: 13vh;
+    width: 13vh;
 }
 
 .what-is-tickr-container {
   height: 100vh;
   color: black;
   display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
   background-color: white;
 }
 
