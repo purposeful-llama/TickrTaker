@@ -43,31 +43,36 @@ export default class Main extends Component {
   }
 
   render () {
-    var tickrText = 'Tickr is a reverse bidding website that purchase prices for items goes down instead of up.' +
-                    ' Reverse selling method provides fast profit for seller and reasonable prices for buyer';
-    var howWorksText = 'So easy, create you account, choose the item and booom! ';
-    var introTickr = this.state.tickr ? tickrText : '';
-    var introHow = this.state.howWorks ? howWorksText : '';
+    var introHow = 'So easy, create you account, choose the item and booom! ';
 
     return (
       <div className="landing-page col-xs-12">
         <div className="landing-video col-xs-12">
-        <video id="bgvid" autoPlay muted loop>
-          <source src="compiled/smallwatch_sepia.mp4" type="video/mp4"/>
-        </video>
+        <div className="video-container">
+          <video id="bgvid" autoPlay muted loop>
+            <source src="compiled/smallwatch_sepia.mp4" type="video/mp4"/>
+          </video>
+        </div>
           <div className="landing-video-text">
           <div className="landing-video-title">Tickr</div>
           <div className="landing-video-description">time-sensitive auctions</div>
           </div>
         </div>
         <div className="what-is-tickr-container col-xs-12">
-          <div className="col-xs-8">
-            {introTickr}
+          <div className="intro-tickr-header col-xs-12">
+            What Is Tickr?
+            <hr/>
           </div>
-          <div className="what-is-tickr col-xs-4"> 
-            <Link to='/'>
-              What is Tickr?
-            </Link>
+          <div className="space col-xs-12">
+          </div>
+          <div className="intro-tickr-text col-xs-7">
+            Not everything has a fixed price tag. If you are selling a short-lived item, like a ticket or voucher, each passing second reduces its value to you.
+            <br/>
+            <br/>
+            If time is money, we believe that prices should reflect that.
+          </div>
+          <div className="intro-tickr-examples col-xs-12">
+            <img className="img-fluid img-circle" src="compiled/tickets.png" />
           </div>
         </div>
         <div>
