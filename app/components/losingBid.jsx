@@ -11,7 +11,6 @@ export default class LosingBid extends Component {
     };
     this.calcPrice = this.calcPrice.bind(this);
     console.log(this.props.item);
-    this.goToLink = this.goToLink.bind(this);
   }
 
   componentDidMount () {    //  set and update state properties every 1000 seconds
