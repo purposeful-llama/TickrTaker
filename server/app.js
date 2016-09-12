@@ -12,7 +12,11 @@ var session = require('express-session');
 
 //  database stuff and direct reference to users.
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr', {sync: {force: true}});
+var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr', {
+  sync: {force: true},
+  logging: false //  process.env.NODE_ENV === 'production'
+  //  do not log if it's in production
+});
 var controllers = require('./db/index.js');
 var UserController = require('./db/UserController')(db, Sequelize);
 
@@ -143,4 +147,5 @@ app.listen(3000, function() {
   console.log('listening on port 3000');
 });
 // }
+
 

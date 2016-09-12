@@ -52,20 +52,19 @@ module.exports = (db, Sequelize, User) => {
                 }
               });
               //  Send emails out.
-              User.find({where: {id: highestBid.userId}, raw:true})
+              User.find({where: {id: highestBid.userId}, raw: true})
               .then(function(highestBidder) {
               
                 var sellerText;
-                var buyerText;
                 
                 if (highestBidder === null) {
                   sellerText = 'Sorry, no one bid on your item. Better luck next time.';
                 } else {
-                  sellerText = `Your auction has been completed! ${highestBidder.name} is willing to pay $${highestBid.pricetoFixed(2)}. Contact them at ${highestBidder.email}.`;
+                  sellerText = `Your auction has been completed! ${highestBidder.name} is willing to pay $${highestBid.price.toFixed(2)}. Contact them at ${highestBidder.email}.`;
                   var buyerMailOptions = {
                     from: 'automated.tickrtaker@gmail.com',
                     to: highestBidder.email,
-                    subject: `You won "${aCurrentItem.dataValues.title}`,
+                    subject: `You won "${aCurrentItem.dataValues.title}"`,
                     text: `Your bid on ${aCurrentItem.dataValues.title} for $${highestBid.price.toFixed(2)} has won! Contact the seller at ${seller.dataValues.email}.`
                   };
                   transporter.sendMail(buyerMailOptions, function(error, info) {
