@@ -29,7 +29,7 @@ export default class App extends Component {
     return this.state.isAuth;
   }
 
-  render() {   // Depending on authentication, serves different nav-bar
+  render() {   //  Depending on authentication, serves different nav-bar
     var checkAuthState = this.checkAuthState;
     var navbar = this.state.isAuth ? <Navbar2 /> : <Navbar1 />;
     var children = React.Children.map(this.props.children, function(child) {
