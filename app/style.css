@@ -6269,20 +6269,14 @@ body {
   padding-right: 0px;
 }
 .auction-entry-odd {
-  display: flex;
-  align-items: center;
   background-color: #FEFEFE;
 }
 
 .auction-entry-odd div {
-
-
   padding: 5px 5px 5px 5px;
 }
 
 .auction-entry-even {
-  display: flex;
-  align-items: center;
   background-color: #F8F8F8;
 }
 
@@ -6556,10 +6550,6 @@ hr {
   padding-right: 0px;
   display: flex;
   flex-direction: column;
-}
-.auction-button-container {
-  display: flex;
-
 }
 .no-margin {
   margin: 0;

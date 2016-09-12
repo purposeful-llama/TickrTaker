@@ -46,10 +46,10 @@ export default class AuctionEntry extends Component {
     var id = '/item/' + this.props.item.id;
     return (
       <div className={this.props.parity ? 'col-xs-12 auction-entry-odd ' : 'col-xs-12 auction-entry-even '}>
-        <div className="col-xs-3">
-          <img className="img-fluid" src={this.props.item.picture}></img>
+        <div className="col-md-3 col-sm-12">
+          <img className="img-fluid m-x-auto" src={this.props.item.picture}></img>
         </div>
-        <div className="col-xs-4">
+        <div className="col-md-3 col-sm-12">
           <div className="row">
             <h3>{this.props.item.title || 'Sample Title'}</h3>
           </div>
@@ -57,21 +57,11 @@ export default class AuctionEntry extends Component {
             {this.props.item.description.length > 90 ? this.props.item.description.slice(0, 90) + '...' : this.props.item.description}
           </div>
         </div>
-        <div className="col-xs-3 item-ticker">
+        <div className="col-md-4 col-sm-12 item-ticker">
           <div className="row current-price auction-price"> Current Price: <br/><span>{this.state.currentPrice}</span> </div>
           <div className="row time-remaining auction-time"> Time remaining: <br/><span>{this.state.timeRemaining}</span> </div>
         </div>
-        <div className = "col-xs-2">
-          {
-            button = this.props.auth() ? (
-                    <div className="bid-button-container">
-                      <div className="bid-button">
-                        <Link className='btn btn-primary' to={id}> Make A Bid </Link>
-                      </div>
-                    </div>
-
-              ) : <div className="bid-button-container"></div>
-          }
+        <div className = "col-md-2 col-sm-12">
         {
           button = this.props.auth() ? (                       // Show Bid button if user is authorized
                   <div className="bid-button-container">
