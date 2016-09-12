@@ -1,18 +1,25 @@
 var express = require('express');
+
+//  facebook OAuth
 var apiKeys = require('./api_keys.js');
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
+
+//  parsing for session handling and json bodies
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
+
+//  database stuff and direct reference to users.
 var Sequelize = require('sequelize');
 var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr', {sync: {force: true}});
+var controllers = require('./db/index.js');
 var UserController = require('./db/UserController')(db, Sequelize);
+
 var path = require('path');
 
-var controllers = require('./db/index.js');
-
 var app = express();
+
 
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -21,8 +28,12 @@ app.use(session({
   resave: true, 
   saveUninitialized: true 
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+//  Facebook Oauth Strategy. Takes email, displayname, gender info.
+//  finds or creates the associated user for our users table and generates session.
 
 passport.use(new FacebookStrategy({
   clientID: apiKeys.Facebook_App_ID,
@@ -44,9 +55,9 @@ passport.use(new FacebookStrategy({
       }
     })
     .then(function(user) {
-      // console.log('user created:', user);
+      //  console.log('user created:', user);
       done(null, user);
-      // accessToken, refreshToken, profile //TODO: will it es6? yes.
+      //  accessToken, refreshToken, profile //TODO: will it es6? yes.
     })
     .catch(function(err) {
       done(err);
@@ -54,10 +65,14 @@ passport.use(new FacebookStrategy({
   }
 ));
 
+//  serializes user into session
+
 passport.serializeUser(function(user, done) {
   console.log('serializeUser:', user);
   done(null, user[0].dataValues.id);
 });
+
+//  deserializes user from sesssion.
 
 passport.deserializeUser(function(id, done) {
   UserController.User.findById(id).then(function(user) {
@@ -87,6 +102,8 @@ app.get('/auth/facebook/callback',
   })
 );
 
+//  Checks if logged in.
+
 app.get('/checkLogin', function(req, res) {
   if (req.user) {
     res.send('authenticated');
@@ -101,7 +118,7 @@ app.get('/logout', function(req, res) {
 });
 
 // app.use()
-
+//  if in production, then use the compiled folder. Else, use the webpack bundle.
 
 if (process.env.NODE_ENV === 'production') {
   app.use('/compiled', express.static('../app/compiled'));

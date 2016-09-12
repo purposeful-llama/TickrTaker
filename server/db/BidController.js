@@ -1,20 +1,26 @@
 // var async = require('async');
 module.exports = (db, Sequelize, User, Item) => {
+  //defines a bid table that relates the bidder to the item they are bidding on.
   var Bid = db.define('bid', {
     price: {type: Sequelize.FLOAT, allowNull: false}
   });
 
+  //Will return all bids made by a user
   var getBidsForSeller = (req, res, next) => {
-    console.log('GETTING BIDS FOR SELLER');
+    //Find the user in postgres associated with the user sent in req.body
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
+      //Get the individual bids made by that user
       user.getBids({raw: true})
       .then(function(bids) {
-        console.log('BIDS ******************', bids);
         var itemArr = [];
         var asyncBids = bids.map(function(bid) {
-          return Item.find({where: {id: bid.itemId}})
+          //Get all items associated with those individual bids, only active items
+          return Item.find({where: {id: bid.itemId, valid: true}})
           .then(function(item) {
+            //check those items for their max bids and send back:
+            //{item, myBid, highestBid } where myBid and highestBid are values associated with
+            //the highest bid and your bid on that item.
             return item.getBids({raw: true})
             .then(function(itemBids) {
               var maxBid = 0;
@@ -24,66 +30,76 @@ module.exports = (db, Sequelize, User, Item) => {
                 }
               });
               itemArr.push({item: item.dataValues, myBid: bid, highestBid: maxBid});
-              // console.log(itemArr);
             });
-            // itemArr.push({item : item, bid: bid});
           });
         });
+        //Use promise.all to wait for all bids to resolve before sending.
         Promise.all(asyncBids)
         .then(function() {
-          console.log('sending item array', itemArr);
           res.send(itemArr);
         });
       });
     });
   };
 
+  //Sends back all bids for a single item
+
   var getBidsForItem = (req, res, next, itemId) => {
-    console.log('ITEM ID', itemId);
+    //Find the item based on itemId
     Item.find({where: {id: itemId}})
     .then(function(item) {
+      //get the bids of the item
       item.getBids({raw: true})
       .then(function(bids) {
-        console.log(bids);
+        //send the bids back in array form. {[bid, bid, bid]}.
         res.send(bids);
       });
     });
   };
 
+  //CHECK IF BID IS VALID. several validation checks on the bid itself.
   var validateBid = (req, res, bid, itemId, user, cb) => {
-    console.log('this is the bid', bid);
+
     valid = true;
-    
+    //invalid if bid is less than one cent.    
     if (bid < 0.01) {
       valid = false;
     }
-
+    
+    if(itemId === undefined || user === undefined) {
+      res.send('not enough information to bid. Sorry');
+      return;
+    }
     Item.findOne({where: {id: itemId}})
     .then(function(item) {
+      //invalid if the item is no longer on auction
       if (item.dataValues.valid === false) {
         valid = false;
       }
+      //invalid if its your own item
       if (item.userId === user.id) {
         valid = false;
       }
+      //invalid if the end date is before current. Additional check for "no longer on auction"
       if (Date.parse(new Date(item.dataValues.endDate)) < Date.parse(Date())) {
         valid = false;
       }
+      //invalid if less than current value
       if (((item.dataValues.startPrice - item.dataValues.endPrice) / 
-    ((Date.parse(item.dataValues.endDate)) - Date.parse(item.dataValues.startDate))
-    * (Date.parse(item.dataValues.endDate) - Date.now())) + item.dataValues.endPrice < bid) {
+          ((Date.parse(item.dataValues.endDate)) - Date.parse(item.dataValues.startDate))
+        * (Date.parse(item.dataValues.endDate) - Date.now())) + item.dataValues.endPrice < bid) {
         valid = false;
       }
 
       item.getBids({raw: true})
       .then(function(bids) {
         bids.forEach(function(itemBid) {
+          //invalid if the bid is less than the minimum increment value for the item (DEFAULT $1.00)
           if ((itemBid.price + item.minimumBidIncrement > bid)) {
             valid = false;
           }
         });
-        console.log('value of valid', valid);
-        
+        //if valid, continue. Else, exit.        
         if (valid) {
           cb();
         } else {
@@ -97,31 +113,34 @@ module.exports = (db, Sequelize, User, Item) => {
       });
     });
   };
+
+  //Update an item's end date based on highest bid.
+
   var updateItemEndDate = (itemId, bidValue) => {
     Item.find({where: {id: itemId}})
     .then(function(item) {
-      console.log(new Date( Date.parse(item.endDate) - ((Date.parse(item.endDate) - Date.parse(item.startDate)) / (item.endPrice - item.startPrice)) * (item.endPrice - bidValue)));
-      console.log(item.dataValues);
-      item.update({auctionEndDateByHighestBid: new Date( Date.parse(item.endDate) - ((Date.parse(item.endDate) - Date.parse(item.startDate)) / (item.endPrice - item.startPrice)) * (item.endPrice - bidValue))})
-      .then(function(item) {
-        console.log(item.dataValues);
-      });
+      item.update({auctionEndDateByHighestBid: new Date( Date.parse(item.endDate) - ((Date.parse(item.endDate) - Date.parse(item.startDate)) / (item.endPrice - item.startPrice)) * (item.endPrice - bidValue))});
     });
   };
 
-  var updateBid = (req, res, user, bid, itemId, cb) => {
+  //update a bidder's bid to a higher value.
 
-    console.log('bid value' + Number(bid));
+  var updateBid = (req, res, user, bid, itemId, cb) => {
+    //Find user
+
     User.findOne({where: {id: user.id}})
     .then(function(user) {
+      //get user's bids
       user.getBids()
       .then(function(bids) {
+        //for each bid, check if the item bidded on is the same as the item passed in
         bids.forEach(function(userBid) {
           if (userBid.dataValues.itemId === Number(itemId)) {
+            //if so, update the bid to the new bid price.
             userBid.update({price: Number(bid)})
             .then(() => {
+              //update the item's end date
               updateItemEndDate(itemId, Number(bid));
-              console.log('sending updated bid');
               res.send('updated bid');
             });
             cb = null;
@@ -132,17 +151,25 @@ module.exports = (db, Sequelize, User, Item) => {
     });
   };
 
+  //Place a bid on an item as defined by the id itemId.
+
   var putBidOnItem = (req, res, next, itemId) => {
+    //First, validate the bid.
     validateBid(req, res, req.body.bid, itemId, req.body.user.user, () => {
       console.log(req.body);
+      //if valid, then check if you need to update a bid instead of placing a new one.
       updateBid(req, res, req.body.user.user, req.body.bid, itemId, () => {
-
+        //if not updated, then we need to put a new bid.
+        //get user as found in req.body.user
         User.findOne({where: {id: req.body.user.user.id}})
         .then(function(bidder) {
+          //get item associated with the itemId
           Item.findOne({where: {id: itemId}})
           .then(function(item) {
+            //update the item end date by new bid value
             updateItemEndDate(itemId, req.body.bid);
             Bid.create({price: Number(req.body.bid)})
+            //add the bid to both the item and the bidder
             .then(function(bid) {
               item.addBid(bid)
               .then(function() {
@@ -156,6 +183,8 @@ module.exports = (db, Sequelize, User, Item) => {
       });
     }); 
   };
+
+  // NOT USED. Can delete a single bid and remove the bid from user and item.
 
   var removeBidFromItem = (req, res, next, itemId) => {
 
