@@ -7,7 +7,7 @@ module.exports = (db, Sequelize, User) => {
   //  Can change end date default for dummy data to test features, follows
   //  moment.js syntax.
 
-  endDateDefault = moment().add(60, 'seconds');
+  endDateDefault = moment().add(600, 'seconds');
   // console.log(endDateDefault);
   
   //  DEFINED ITEM MODEL. Currently, minimum bid increment defaults to $1.00
