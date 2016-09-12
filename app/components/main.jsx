@@ -75,20 +75,23 @@ export default class Main extends Component {
             <img className="img-fluid img-circle" src="compiled/tickets.png" />
           </div>
         </div>
-        <div>
-          <Link to='/'><h3>How it works?</h3></Link>
-          <p>{introHow}</p>
-        </div>
-        <div>
-          <Link to='/auctions'><h3>Get started.</h3></Link>
-        </div>
-        <div>
-          {
-            this.state.items.map((element, i) => {
-              return (<Mainitems key={i} item={element} />);
-            })
-          }
-        </div>
+{
+        // <div>
+        //   <Link to='/'><h3>How it works?</h3></Link>
+        //   <p>{introHow}</p>
+        // </div>
+        // <div>
+        //   <Link to='/auctions'><h3>Get started.</h3></Link>
+        // </div>
+        // <div>
+        //   {
+        //     this.state.items.map((element, i) => {
+        //       return (<Mainitems key={i} item={element} />);
+        //     })
+        //   }
+        // </div>
+
+}
       </div>
     );
   }
