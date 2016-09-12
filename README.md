@@ -29,18 +29,18 @@ Install Grunt CLI globally (npm install -g grunt-cli).
 
 - Development: 
   - In the /server folder:
-    - Run "grunt dev"
+    - Run `grunt dev`
   - In the /app folder:
-    - Run "grunt start"
-  - Browser should automatically navigate to http://localhost:3000
+    - Run `grunt start`
+  - Browser should automatically navigate to `http://localhost:3000`
 
 - Production:
   - In the /server folder:
-    - Run "grunt prod"
+    - Run `grunt prod`
   - In the /app folder:
-    - Run "grunt build"
+    - Run `grunt build`
       - This compiles the necessary files into the /compiled folder
-  - Open a new browser window and navigate to http://localhost:3000
+  - Open a new browser window and navigate to `http://localhost:3000`
 
 The development setup should be used on your local machine.
 
