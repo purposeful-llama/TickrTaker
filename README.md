@@ -16,8 +16,8 @@ Tickr: time-sensitive auctions
 
 Clone the repo to your local machine.
 Use a current version of node (v6.5.0).
-Run npm install in the /app folder.
-Run npm install in the /server folder.
+Run `npm install` in the `/app` folder.
+Run `npm install` in the `/server` folder.
 Install Postgres on your computer. 
 - Enter Postgres terminal and run the following commands:
 
@@ -25,7 +25,7 @@ Install Postgres on your computer.
   - `ALTER USER ubuntu WITH SUPERUSER;`
   - `CREATE DATABASE tickr;`
 
-Install Grunt CLI globally (npm install -g grunt-cli).
+Install Grunt CLI globally using: `npm install -g grunt-cli`.
 
 - Development: 
   - In the /server folder:
@@ -35,9 +35,9 @@ Install Grunt CLI globally (npm install -g grunt-cli).
   - Browser should automatically navigate to `http://localhost:3000`
 
 - Production:
-  - In the /server folder:
+  - In the `/server` folder:
     - Run `grunt prod`
-  - In the /app folder:
+  - In the `/app` folder:
     - Run `grunt build`
       - This compiles the necessary files into the /compiled folder
   - Open a new browser window and navigate to `http://localhost:3000`
@@ -63,7 +63,7 @@ Getting Started:
 - App
   - Start the development server and familiarize yourself with the flow of data throughout the app using React Devtools to view the state of each component.
 - Server
-  - Key routes are stored in /server/app.js and /server/routes.js
+  - Key routes are stored in `/server/app.js` and `/server/routes.js`
 
 ## Deployment
 
