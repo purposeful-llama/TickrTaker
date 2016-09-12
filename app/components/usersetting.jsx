@@ -111,7 +111,7 @@ export default class UserSetting extends Component {
     this.setState(s);
   }
   
-  render() {  // On click, shows input field 
+  render() {  //  On click, shows input field 
     var passCheck = this.state.passWord ? <div><form onSubmit={this.handleSubmit.bind(this, 'passWord')}><input id='user-password' type='password' placeholder='Type new password' className="input-xlarge"></input>
                                             <button type='submit' className="setting-btn passwordBtn btn btn-primary">Submit</button></form>
                                             <div className="passwordError alert alert-danger fade in" role="alert">
