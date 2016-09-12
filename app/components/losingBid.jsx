@@ -56,10 +56,10 @@ export default class LosingBid extends Component {
     var id = '/item/' + this.props.item.item.id;
     return (
       <div className={this.props.parity ? 'col-xs-12 auction-entry-odd ' : 'col-xs-12 auction-entry-even'}>
-        <div className="col-xs-3">
+        <div className="col-md-3 col-sm-12">
           <img className="img-fluid" src={this.props.item.item.picture}></img>
         </div>
-        <div className="col-xs-4">
+        <div className="col-md-4 col-sm-12">
           <div>
             <h3>{this.props.item.item.title || 'Sample Title'}</h3>
           </div>
@@ -67,7 +67,7 @@ export default class LosingBid extends Component {
             {this.props.item.item.description.length > 90 ? this.props.item.item.description.slice(0, 90) + '...' : this.props.item.item.description}
           </div>
         </div>
-        <div className="col-xs-3 item-ticker">
+        <div className="col-md-3 col-sm-12 item-ticker">
           {
             this.props.old ? ( ''
             ) : <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
@@ -84,7 +84,7 @@ export default class LosingBid extends Component {
             ) : <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div>
           }        
         </div>
-        <div className = "col-xs-2">
+        <div className = "col-md-2 col-sm-12">
 
           <div className="bid-button-container">
             <div className="bid-button">

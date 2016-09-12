@@ -60,10 +60,10 @@ export default class WinningBid extends Component {
     return (
 
       <div className={this.props.parity ? 'bid-entry auction-entry-odd col-xs-12' : 'bid-entry auction-entry-even col-xs-12'}>
-        <div className="col-xs-3">
-          <img className="img-fluid" src={this.props.item.item.picture}></img>
+        <div className="col-md-3 col-sm-12">
+          <img className="img-fluid m-x-auto" src={this.props.item.item.picture}></img>
         </div>
-        <div className="col-xs-4">
+        <div className="col-md-4 col-sm-12">
           <div className="row">
             <h3>{this.props.item.item.title || 'Sample Title'}</h3>
           </div>
@@ -71,7 +71,7 @@ export default class WinningBid extends Component {
             {this.props.item.item.description.length > 90 ? this.props.item.item.description.slice(0, 90) + '...' : this.props.item.item.description}
           </div>
         </div>
-        <div className="col-xs-3 item-ticker">
+        <div className="col-md-3 col-sm-12 item-ticker">
           {
             this.props.old ? ( ''
             ) : <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
@@ -87,7 +87,7 @@ export default class WinningBid extends Component {
             ) : <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div>
           }        
         </div>
-        <div className = "col-xs-2">
+        <div className = "col-md-2 col-sm-12">
 
           <div className="bid-button-container">
             <div className="bid-button">

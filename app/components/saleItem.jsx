@@ -81,7 +81,7 @@ export default class SaleItem extends Component {   //  This components displays
 
           <div className="bid-button-container">
             <div className="bid-button">
-              <Link className='btn btn-info' to={id}>Additional information</Link></div>
+              <Link className='btn btn-info' to={id}>Details</Link></div>
             </div>
         </div>
       </div>
