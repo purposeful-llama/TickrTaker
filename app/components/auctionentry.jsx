@@ -63,18 +63,16 @@ export default class AuctionEntry extends Component {
           <div className="row time-remaining auction-time"> Time remaining: <br/><span>{this.state.timeRemaining}</span> </div>
         </div>
         <div className = "col-xs-2">
+          {
+            button = this.props.auth() ? (
+                    <div className="bid-button-container">
+                      <div className="bid-button">
+                        <Link className='btn btn-primary' to={id}> Make A Bid </Link>
+                      </div>
+                    </div>
 
-{
-  button = this.props.auth() ? (
-          <div className="bid-button-container">
-            <div className="bid-button">
-              <Link className='btn btn-primary' to={id}> Make A Bid </Link>
-            </div>
-          </div>
-
-    ) : <div className="bid-button-container"></div>
-
-}
+              ) : <div className="bid-button-container"></div>
+          }
         </div>
       </div>
     );
