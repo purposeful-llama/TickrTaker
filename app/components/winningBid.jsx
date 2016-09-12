@@ -10,7 +10,6 @@ export default class WinningBid extends Component {
       currentPrice: undefined
     };
     this.calcPrice = this.calcPrice.bind(this);
-    this.goToLink = this.goToLink.bind(this);
   }
 
   componentDidMount () {
@@ -53,9 +52,6 @@ export default class WinningBid extends Component {
     } else {
       return '...';
     }
-  }
-  goToLink() {
-    window.location = '/item/' + this.props.item.item.id;
   }
   
   render () {
