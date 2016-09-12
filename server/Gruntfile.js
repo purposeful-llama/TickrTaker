@@ -8,7 +8,7 @@ module.exports = function(grunt) {
         command: 'export NODE_ENV=development && nodemon app.js'
       },
       prod: {
-        command: 'export NODE_ENV=production && nodemon app.js'
+        command: 'export NODE_ENV=production && nodemon -q app.js > .logs'
       }
     }
   });

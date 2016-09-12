@@ -125,25 +125,29 @@ export default class AuctionItem extends Component {
     });
 
     return (
-      <div className="col-xs-12">
-        <div className="col-xs-3">
+      <div className="col-xs-12 auction-item-container">
+        <div className="col-md-6 col-xs-12">
           <img className="img-fluid" src={thisItem.picture}></img>
         </div>
-        <h2>{thisItem.title}</h2>
-        <div>Description: {thisItem.description}</div>
-        <div>Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</div>
-        <div>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
-        <div>Time Remaining: {this.state.timeRemaining}</div>
-        <div> Current Price: {this.state.currentPrice} </div>
-        <div> Highest Bid: {this.state.bids[0] !== undefined ? '$ ' + this.state.bids[0].price.toFixed(2) : ' No Bids' }</div>
-        <form id="bid-form" onSubmit={this.sendItemBid}>
-          <div>Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
-          <button type="button" className="btn btn-primary" onClick={this.sendItemBid}> Submit Bid</button>
+        <div className="auction-item-details col-md-6 col-xs-12">
+          <br />
+          <h2>{thisItem.title}</h2>
+          <hr className="auction-item-title-hr"/>
+          <div className="col-xs-12">Description: {thisItem.description}</div>
+          <div className="col-xs-12">Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</div>
+          <div className="col-xs-12">End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
+          <div className="col-xs-12">Time Remaining: {this.state.timeRemaining}</div>
+          <div className="col-xs-12"> Current Price: {this.state.currentPrice} </div>
+            <div className="col-xs-12"> Highest Bid: {this.state.bids[0] !== undefined ? '$ ' + this.state.bids[0].price.toFixed(2) : ' No Bids' }</div>
+          <form id="bid-form" onSubmit={this.sendItemBid}>
+            <div className="col-xs-12">Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
+            <button type="button" className="btn btn-primary pull-xs-right" onClick={this.sendItemBid}> Submit Bid</button>
 
-        </form>
-        <div className="alert alert-danger fade in" role="alert" id="bid-error">
-            <button type="button" className="close">×</button>
-            <strong>Woah! </strong>Please place a valid bid. <small>Tip: Try value higher than the current highest bid!</small>
+          </form>
+          <div className="alert alert-danger fade in" role="alert" id="bid-error">
+              <button type="button" className="close">×</button>
+              <strong>Woah! </strong>Please place a valid bid. <small>Tip: Try value higher than the current highest bid!</small>
+          </div>
         </div>
       </div>
     );
