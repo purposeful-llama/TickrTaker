@@ -65,7 +65,7 @@ export default class Main extends Component {
           </div>
           <div className="space col-xs-12">
           </div>
-          <div className="intro-tickr-text col-xs-5">
+          <div className="intro-tickr-text col-md-5 col-xs-8">
             Not everything has a fixed price tag. If you are selling a short-lived item, like a ticket or voucher, each passing second reduces its value to you.
             <br/>
             <br/>
