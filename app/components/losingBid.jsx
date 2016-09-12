@@ -71,28 +71,34 @@ export default class LosingBid extends Component {
   }
 
   render () {
-    var button;
     var id = '/item/' + this.props.item.item.id;
     return (
-      <div onClick = {this.goToLink} className={this.props.parity ? 'bid-entry-odd col-xs-12' : 'losing-bid-entry-even col-xs-12'}>
+      <div className={this.props.parity ? 'col-xs-12 auction-entry-odd ' : 'col-xs-12 auction-entry-even'}>
         <div className="col-xs-3">
           <img className="img-fluid" src={this.props.item.item.picture}></img>
         </div>
         <div className="col-xs-4">
-          <div className="row">
+          <div>
             <h3>{this.props.item.item.title || 'Sample Title'}</h3>
           </div>
-          <div className="row item-description">
+          <div className="item-description">
             {this.props.item.item.description.length > 90 ? this.props.item.item.description.slice(0, 90) + '...' : this.props.item.item.description}
           </div>
         </div>
-        <div className="col-xs-5 item-ticker rows-8-vh">
+        <div className="col-xs-3 item-ticker">
           <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
           <div className="row current-highest-bid">Highest Bid: <span>{this.state.currentHighestBid}</span> </div>
           <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
           <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
         </div>
-        <div className="col-xs-2 bid-button-container"><Link className='btn btn-primary' to={id}> Make Another Bid </Link></div>
+        <div className = "col-xs-2">
+
+          <div className="bid-button-container">
+            <div className="bid-button">
+              <Link className='btn btn-danger' to={id}> Make Another Bid </Link>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

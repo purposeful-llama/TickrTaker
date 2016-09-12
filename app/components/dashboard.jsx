@@ -67,27 +67,22 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div>
-          Welcome to the dashboard!!!
-
-        </div>
-
-        <div> <h2>Winning Bids </h2> </div>
-        <div className="bid-listings col-xs-12 bid-container">
+        <div className="dashboard-header col-xs-12"> <h2>Winning Bids </h2> </div>
+        <div className="col-xs-12 bid-container">
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
             return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
           })}
         </div>
-        <div> <h2> Losing Bids </h2> </div>
-        <div className="bid-listings col-xs-12 bid-container" >
+        <div className = "dashboard-header col-xs-12"> <h2> Losing Bids </h2> </div>
+        <div className="col-xs-12 bid-container" >
           {
             this.state.itemsLosingBidOn.map((losingBid, index) => {
               return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
             })
           }
         </div>
-        <div> <h2> Items on Auction </h2> </div>
-        <div className="bid-listings col-xs-12 bid-container">
+        <div className="dashboard-header col-xs-12"> <h2> Items on Auction </h2> </div>
+        <div className="col-xs-12 bid-container">
         {this.state.itemsForSale.map((saleItem, index) => {
           return (<SaleItem key={index} parity={index % 2} item={saleItem}/>);
         }) }

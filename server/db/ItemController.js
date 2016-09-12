@@ -2,7 +2,7 @@ var moment = require('moment');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport('smtps://automated.tickrtaker%40gmail.com:ticktock@smtp.gmail.com');
 module.exports = (db, Sequelize, User) => {
-  endDateDefault = moment().add(50, 'seconds');
+  endDateDefault = moment().add(100, 'minutes');
   // console.log(endDateDefault);
   
   var Item = db.define('item', {

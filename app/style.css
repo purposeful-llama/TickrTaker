@@ -6268,14 +6268,20 @@ body {
   padding-right: 0px;
 }
 .auction-entry-odd {
+  display: flex;
+  align-items: center;
   background-color: #FEFEFE;
 }
 
 .auction-entry-odd div {
+
+
   padding: 5px 5px 5px 5px;
 }
 
 .auction-entry-even {
+  display: flex;
+  align-items: center;
   background-color: #F8F8F8;
 }
 
@@ -6311,12 +6317,16 @@ body {
 }
 
 .bid-button-container {
-  height: 50px;
+  /*height: 50px;*/
   display: flex;
-  flex-direction: row-reverse;
-  align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
+.bid-button {
+  align-self: center;
+}
 .nav-item {
   vertical-align: middle;
 }
@@ -6379,24 +6389,20 @@ body {
 
 
 .bid-container {
-  padding-top: 10px;
-  padding-bottom: 10px;
   border-radius: 10px;
+  padding: 10px;
   text-align: center;
   background: rgba(211, 211, 211, 0.5);
 
 }
 
-.winning-bid-entry-even {
-
+.bid-entry {
+  border-radius: 10px;
 }
 
-.losing-bid-entry-even {
-
-}
-
-.bid-entry-odd {
-	
+.dashboard-header {
+  text-align: center;
+  padding: 15px;
 }
 
 #navbar2 ul {
