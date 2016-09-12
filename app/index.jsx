@@ -11,6 +11,7 @@ import AuctionItem from './components/auctionitem.jsx';
 import UserSetting from './components/usersetting.jsx';
 import History from './components/history.jsx';
 
+
 ReactDOM.render((                             //  Set up routes to navigate between different pages
   <Router history={browserHistory}>     
     <Route path='/' component={App} >

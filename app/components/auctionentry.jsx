@@ -41,7 +41,6 @@ export default class AuctionEntry extends Component {
     return calcTime(this.props.item.auctionEndDateByHighestBid);
   }
 
-
   render () {
     var button;
     var id = '/item/' + this.props.item.id;

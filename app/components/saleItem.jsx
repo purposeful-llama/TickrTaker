@@ -75,7 +75,6 @@ export default class SaleItem extends Component {   // This components dasplat i
             this.props.old ? (
               <div className="row time-remaining"> Completed On: <span>{this.props.item.endDate}</span> </div> 
             ) : <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
-
           }
         </div>
         <div className = "col-xs-2">

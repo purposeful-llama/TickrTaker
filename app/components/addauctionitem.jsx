@@ -3,7 +3,6 @@ import {browserHistory} from 'react-router';
 
 export default class AddAuctionItem extends Component {
 
-
   constructor(props) {
     super(props);
     this.submitForm = this.submitForm.bind(this);
