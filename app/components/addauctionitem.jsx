@@ -194,7 +194,7 @@ export default class AddAuctionItem extends Component {
               </div>
             </div>
             <div className="control-group">
-              <label className="control-label">Sale Price at End of Auction</label>
+              <label className="control-label">Minimum Value</label>
               <div id="add-auction-prices" className="controls">
                 $&nbsp;
                 <input id="end-value" name="end-val" type="number" step="0.01" placeholder="End Value" className="input-xlarge" />

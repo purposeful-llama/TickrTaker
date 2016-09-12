@@ -6364,15 +6364,15 @@ body {
 }
 
 #item-title {
-  width: 500px;
+  width: 90%;
 }
 
 #item-desc {
-  width: 500px;
+  width: 90%;
 }
 
 #end-date {
-  width: 400px;
+  width: 50%;
 }
 
 #add-auction-prices {
