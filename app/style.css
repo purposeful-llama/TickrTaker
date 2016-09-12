@@ -3876,7 +3876,8 @@ input[type="button"].btn-block {
 
 @media (max-width: 991px) {
   .navbar-toggleable-md .navbar-nav .nav-item {
-    float: none;
+    text-align: right;
+    width: 100%;
     margin-left: 0;
   }
 }
@@ -6342,7 +6343,13 @@ body {
   margin-bottom: 0px;
 }
 
+#nav-content {
+  padding-right: 0px;
+}
+
 #navbar2 .nav-item {
+  text-align: right;
+  font-size: 0.95rem;
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -6352,6 +6359,7 @@ body {
 }
 
 #brand-name {
+  padding-right: 50px;
   font-size: 1.8rem;
   font-weight: bold;
   padding-top: 0px;
@@ -6406,7 +6414,7 @@ body {
   padding: 15px;
 }
 
-#navbar2 ul {
+/*#navbar2 ul {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -6416,7 +6424,7 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
+}*/
 
 .setting-btn {
   margin-left: 15px;
@@ -6590,6 +6598,10 @@ hr {
 .time-remaining {
   margin-top: 10px;
   font-size: 1.5rem;
+}
+
+#nav-content ul li .col-xs-12 {
+  text-align: right;
 }*/
 
 .col-centered{
@@ -6606,4 +6618,12 @@ hr {
 
 .navbar-break {
   height: 60px;
+}
+
+.navbar-nav {
+  padding-top: 3px;
+}
+
+.navbar-toggler {
+  float: right;
 }
