@@ -144,10 +144,12 @@ export default class AuctionItem extends Component {
     //   e.preventDefault();
     // });
     return (
-      <div>
+      <div className="col-xs-12">
+        <div className="col-xs-3">
+          <img className="img-fluid" src={thisItem.picture}></img>
+        </div>
         <h2>{thisItem.title}</h2>
         <div>Description: {thisItem.description}</div>
-        <img src={thisItem.picture}></img>
         <div>Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</div>
         <div>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
         <div>Time Remaining: {this.state.timeRemaining}</div>

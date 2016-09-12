@@ -6293,19 +6293,14 @@ body {
   text-align: right;
 }
 
-.current-price {
-  margin-top: 10px;
-}
-
 .current-highest-bid {
   margin-top: 10px;
 }
+
 .current-bid {
   margin-top: 10px;
 }
-.time-remaining {
-  margin-top: 10px;
-}
+
 .item-ticker {
   display: flex;
   flex-direction: column;
@@ -6533,7 +6528,7 @@ hr {
   color: black;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-color: white;
 }
@@ -6556,5 +6551,29 @@ hr {
   margin: 0;
 }
 
+.auction-price {
+  font-size: 1.5rem;
+}
 
+.auction-time {
+  font-size: 1.5rem;
+}
+
+.auction-price span {
+  font-size: 2rem;
+}
+
+.auction-time span {
+  font-size: 2rem;
+}
+
+/*.current-price {
+  margin-top: 10px;
+  font-size: 1.5rem;
+}
+
+.time-remaining {
+  margin-top: 10px;
+  font-size: 1.5rem;
+}*/
 

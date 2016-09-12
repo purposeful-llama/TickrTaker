@@ -73,8 +73,8 @@ export default class AuctionEntry extends Component {
           </div>
         </div>
         <div className="col-xs-3 item-ticker">
-          <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
-          <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div>
+          <div className="row current-price auction-price"> Current Price: <br/><span>{this.state.currentPrice}</span> </div>
+          <div className="row time-remaining auction-time"> Time remaining: <br/><span>{this.state.timeRemaining}</span> </div>
         </div>
         <div className = "col-xs-2">
 
