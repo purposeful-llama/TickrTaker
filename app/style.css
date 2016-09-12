@@ -6291,14 +6291,23 @@ body {
   margin-top: 10px;
 }
 
+.current-highest-bid {
+  margin-top: 10px;
+}
+.current-bid {
+  margin-top: 10px;
+}
 .time-remaining {
   margin-top: 10px;
 }
-
 .item-ticker {
   display: flex;
   flex-direction: column;
   padding: 5px 5px 5px 5px;
+}
+
+.rows-8-vh {
+	height: 12.5vh;
 }
 
 .bid-button-container {
@@ -6359,30 +6368,35 @@ body {
 #add-auction-prices {
   margin-left: -15px;
 }
-
+#add-auction-item {
+  padding: 50px;
+  border-radius: 20px;
+  background-color: rgba(102,175,233, .5);
+}
 .alert{
   display: none;
 }
 
-#winning-container {
-  margin: 20px;
-  width: 400px;
-  text-align: center;
-  background: rgba(199,238,196, 0.5);
-}
 
-#sale-container {
-  margin: 20px;
-  width: 400px;
+.bid-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
   text-align: center;
+  background: rgba(211, 211, 211, 0.5);
 
 }
 
-#losing-container {
-  margin: 20px;
-  width: 400px;
-  text-align: center;
+.winning-bid-entry-even {
 
+}
+
+.losing-bid-entry-even {
+
+}
+
+.bid-entry-odd {
+	
 }
 
 #navbar2 ul {
@@ -6417,44 +6431,10 @@ body {
   flex-wrap: wrap;
 }
 
-#losing-table {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#sale-tabele {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#winning-table {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 20px;
-}
 
 .auction-listings .row {
   margin-left: 0px;
   margin-right: 0px;
-}
-
-.cloudinary-button {
-  color: #FFFFFF;
-  background: #0275d8;
-  border-color: #0275d8;
-  display: inline-block;
-  font-weight: normal;
-  line-height: 1.25;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  cursor: pointer;
-  border: 1px solid transparent;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border-radius: 0.25rem;
 }
 
 .landing-video {
@@ -6550,6 +6530,10 @@ hr {
   align-items: center;
   background-color: white;
 }
+.auction-item-container {
+  margin: 20px;
+  padding: 20px;
+}
 
 .landing-page {
   padding-left: 0px;
@@ -6557,8 +6541,13 @@ hr {
   display: flex;
   flex-direction: column;
 }
+.auction-button-container {
+  display: flex;
 
-
+}
+.no-margin {
+  margin: 0;
+}
 
 
 

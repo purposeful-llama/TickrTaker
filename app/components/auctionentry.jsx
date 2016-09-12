@@ -55,10 +55,10 @@ export default class AuctionEntry extends Component {
     // return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
   }
 
+
   render () {
     var button;
     var id = '/item/' + this.props.item.id;
-
     return (
       <div className={this.props.parity ? 'auction-entry-odd col-xs-12' : 'auction-entry-even col-xs-12'}>
         <div className="col-xs-3">

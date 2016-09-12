@@ -144,7 +144,7 @@ export default class AuctionItem extends Component {
     //   e.preventDefault();
     // });
     return (
-      <div className="container-flex">
+      <div>
         <h2>{thisItem.title}</h2>
         <div>Description: {thisItem.description}</div>
         <img src={thisItem.picture}></img>

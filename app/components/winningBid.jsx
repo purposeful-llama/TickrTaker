@@ -76,11 +76,21 @@ export default class WinningBid extends Component {
     var id = '/item/' + this.props.item.item.id;
     return (
 
-      <div id="winning-container" onMouseOver = {this.hover} className='auction-entry-container col-md'>
+      <div id="winning-container" onMouseOver = {this.hover} className={this.props.parity ? 'bid-entry-odd col-xs-12' : 'winning-bid-entry-even col-xs-12'}>
         <h3>{this.props.item.item.title || 'Sample Title'}</h3>
         <div>
           <img src={this.props.item.item.picture}></img>
         </div>
+        <div className="col-xs-4">
+          <div className="row">
+            <h3>{this.props.item.item.title || 'Sample Title'}</h3>
+          </div>
+          <div className="row item-description">
+            {this.props.item.item.description.length > 90 ? this.props.item.item.description.slice(0, 90) + '...' : this.props.item.item.description}
+          </div>
+        </div>
+
+
         <table id="winning-table">
           <tbody>
           <tr>

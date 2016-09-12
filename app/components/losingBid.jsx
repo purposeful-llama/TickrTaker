@@ -11,6 +11,7 @@ export default class LosingBid extends Component {
     };
     this.calcPrice = this.calcPrice.bind(this);
     console.log(this.props.item);
+    this.goToLink = this.goToLink.bind(this);
   }
 
   componentDidMount () {
@@ -65,33 +66,33 @@ export default class LosingBid extends Component {
     // return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
   }
 
+  goToLink() {
+    window.location = '/item/' + this.props.item.item.id;
+  }
+
   render () {
     var button;
     var id = '/item/' + this.props.item.item.id;
     return (
-      <div id="losing-container" className='auction-entry-container col-md'>
-        <h4>{this.props.item.item.title || 'Sample Title'}</h4>
-
-        <div>
-          <img src={this.props.item.item.picture}></img>
+      <div onClick = {this.goToLink} className={this.props.parity ? 'bid-entry-odd col-xs-12' : 'losing-bid-entry-even col-xs-12'}>
+        <div className="col-xs-3">
+          <img className="img-fluid" src={this.props.item.item.picture}></img>
         </div>
-        <table id="losing-table">
-          <tbody>
-          <tr>
-            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>
-          </tr>
-          <tr>
-            <td>Current Price: </td><td>{this.state.currentPrice}</td>
-          </tr>
-          <tr>
-            <td>Highest Bid: </td><td>{this.state.currentHighestBid}</td>
-          </tr>
-          <tr>
-            <td>Current Bid: </td><td>{this.state.currentBid}</td>
-          </tr>
-          </tbody>
-        </table>
-        <Link className='btn btn-primary' to={id}> Make Another Bid </Link>       
+        <div className="col-xs-4">
+          <div className="row">
+            <h3>{this.props.item.item.title || 'Sample Title'}</h3>
+          </div>
+          <div className="row item-description">
+            {this.props.item.item.description.length > 90 ? this.props.item.item.description.slice(0, 90) + '...' : this.props.item.item.description}
+          </div>
+        </div>
+        <div className="col-xs-5 item-ticker rows-8-vh">
+          <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
+          <div className="row current-highest-bid">Highest Bid: <span>{this.state.currentHighestBid}</span> </div>
+          <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
+          <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
+          <div className="row bid-button-container"><Link className='btn btn-primary' to={id}> Make Another Bid </Link></div>
+        </div>
       </div>
     );
   }

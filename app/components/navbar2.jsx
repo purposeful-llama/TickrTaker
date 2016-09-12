@@ -24,11 +24,6 @@ export default class Navbar2 extends Component {
           <li className="nav-item">
             <Link className="nav-link" to="/usersetting">Settings</Link>
           </li>
-          {
-          // <li className="nav-item">
-          //   <Link className="nav-link" to="/signup">Sign Up</Link>
-          // </li>
-          }
           <li className="nav-item">
             <a className="nav-link" href="/logout">Logout</a>
           </li>
