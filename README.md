@@ -18,22 +18,29 @@ Clone the repo to your local machine.
 Use a current version of node (v6.5.0).
 Run npm install in the /app folder.
 Run npm install in the /server folder.
+Install Postgres on your computer. 
+- Enter Postgres terminal and run the following commands:
+
+  - `CREATE USER ubuntu WTIH PASSWORD 'password';`
+  - `ALTER USER ubuntu WITH SUPERUSER;`
+  - `CREATE DATABASE tickr;`
+
 Install Grunt CLI globally (npm install -g grunt-cli).
 
 - Development: 
   - In the /server folder:
-    - Run "grunt dev"
+    - Run `grunt dev`
   - In the /app folder:
-    - Run "grunt start"
-  - Browser should automatically navigate to http://localhost:3000
+    - Run `grunt start`
+  - Browser should automatically navigate to `http://localhost:3000`
 
 - Production:
   - In the /server folder:
-    - Run "grunt prod"
+    - Run `grunt prod`
   - In the /app folder:
-    - Run "grunt build"
+    - Run `grunt build`
       - This compiles the necessary files into the /compiled folder
-  - Open a new browser window and navigate to http://localhost:3000
+  - Open a new browser window and navigate to `http://localhost:3000`
 
 The development setup should be used on your local machine.
 
