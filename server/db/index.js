@@ -41,7 +41,7 @@ db.sync({force: true})
       ItemController.Item.create({
         title: 'a thing',
         description: 'i dont know what to write', 
-        picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
+        picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg',  
         startPrice: 10000.00,
         endPrice: 100.00
       }).then(function (item) {
@@ -50,7 +50,7 @@ db.sync({force: true})
       ItemController.Item.create({
         title: 'Rocket',
         description: 'A rocket!', 
-        picture: 'http://www.officeshop.co.nz/shop/494-664-large/account-overdue-dixon-stamp.jpg',  
+        picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg',  
         startPrice: 1000330.00,
         endPrice: 10.00
       })
