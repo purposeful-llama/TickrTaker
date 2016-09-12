@@ -18,7 +18,7 @@ export default class UserSetting extends Component {
   handleSubmit(setSomething, e) {
     e.preventDefault();
     var valid = true;
-    var filter = function validateURL(textval) {     // Verify if entered email is valid
+    var filter = function validateURL(textval) {     //  Verify if entered email is valid
       var emailregex = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/;
       return emailregex.test(textval);
     };
@@ -77,7 +77,7 @@ export default class UserSetting extends Component {
       this.setState({user: stateObj});
 
       var context = this;          
-      $.ajax({                    // Ajax request to update user info
+      $.ajax({                    //  Ajax request to update user info
         method: 'GET',
         url: 'api/user_data',
         success: function(userData) {
@@ -98,14 +98,14 @@ export default class UserSetting extends Component {
         }
       });
 
-      $('#user-password').val('');   // Clean up input field after submit button is clicked
+      $('#user-password').val('');   //  Clean up input field after submit button is clicked
       $('#user-email').val('');
       $('#user-address').val('');
       $('#user-password').val('');
     }
   }
 
-  handleToggle(stateToChange) {    // Shows and hides input fields
+  handleToggle(stateToChange) {    //  Shows and hides input fields
     var s = {};
     s[stateToChange] = !this.state[stateToChange];
     this.setState(s);
