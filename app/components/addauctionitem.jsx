@@ -129,7 +129,7 @@ export default class AddAuctionItem extends Component {
     return (
     <div className="auction-item-container flex-items-xs-center">
       <div className="col-xs-3"></div>
-      <div id="add-auction-item" className="col-xs-6">
+      <div id="add-auction-item" className="col-md-6 col-xs-12">
         <form id='item-form' className="form-horizontal" onSubmit={this.submitForm}>
           <fieldset>
             <h2>What do you want to sell?</h2>
