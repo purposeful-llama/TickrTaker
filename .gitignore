@@ -30,6 +30,7 @@ node_modules/
 bower_components/
 
 # misc
+Documentation
 .DS_Store
 npm-debug.log
 .tern-project
