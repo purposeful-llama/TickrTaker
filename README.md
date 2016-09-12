@@ -14,16 +14,27 @@ Tickr: time-sensitive auctions
 
 ## Usage 
 
+Go to [Facebook's developer page](https://developers.facebook.com)
+
+Create an app that enables 'Facebook Login'
+
+Allow the following OAuth redirect URIS: 
+  -(http://localhost:3000), (http://localhost:3000/signin-facebook), (http://localhost:3000/auth/facebook/callback), (http://localhost:3000/auth/facebook)
+  
+  -You will need to allow redirects to the URIS in production for deployment as well.
+
 Clone the repo to your local machine.
+
 Use a current version of node (v6.5.0).
+
 Run `npm install` in the `/app` folder.
 Run `npm install` in the `/server` folder.
-Install Postgres on your computer. 
-- Enter Postgres terminal and run the following commands:
 
-  - `CREATE USER ubuntu WTIH PASSWORD 'password';`
-  - `ALTER USER ubuntu WITH SUPERUSER;`
-  - `CREATE DATABASE tickr;`
+- Install Postgres on your computer. 
+  - Enter Postgres terminal and run the following commands:
+    - `CREATE USER ubuntu WTIH PASSWORD 'password';`
+    - `ALTER USER ubuntu WITH SUPERUSER;`
+    - `CREATE DATABASE tickr;`
 
 Install Grunt CLI globally using: `npm install -g grunt-cli`.
 
