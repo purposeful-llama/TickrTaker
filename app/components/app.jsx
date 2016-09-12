@@ -40,6 +40,7 @@ export default class App extends Component {
     return (
       <div>
         {navbar}
+        <div className="col-xs-12 navbar-break"></div>
         {children}
       </div>
     );
