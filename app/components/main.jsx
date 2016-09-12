@@ -1,49 +1,12 @@
 import React, {Component} from 'react';
-import Auction from './auctions.jsx';
 import {Link} from 'react-router';
-import Mainitems from './mainitems.jsx';
 
 export default class Main extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      tickr: false,
-      howWorks: false,
-      items: []
-    };
   }
 
-  // showTickrIntro() {
-  //   this.setState({
-  //     tickr: !this.state.tickr
-  //   });
-  // }
-
-  // showHowItWorks() {
-  //   this.setState({
-  //     howWorks: !this.state.howWorks
-  //   });
-  // }
-
-  componentWillMount () {
-    $.ajax({
-      method: 'GET',
-      url: '/api/allitems',
-      headers: {'Content-Type': 'application/json'},
-      success: function (res) {
-        this.setState({
-          items: res
-        });
-      }.bind(this),
-      error: function(err) {
-        console.log('Error', err);
-      }.bind(this)
-    });
-  }
-
-  render () {
-    var introHow = 'So easy, create you account, choose the item and booom! ';
+  render () {      // Render main page
 
     return (
       <div className="landing-page col-xs-12">
@@ -73,27 +36,7 @@ export default class Main extends Component {
           </div>
           <div className="space col-xs-12">
           </div>
-          {/*<div className="intro-tickr-examples col-xs-12">
-            <img className="img-fluid img-circle" src="compiled/tickets.png" />
-          </div>*/}
         </div>
-{
-        // <div>
-        //   <Link to='/'><h3>How it works?</h3></Link>
-        //   <p>{introHow}</p>
-        // </div>
-        // <div>
-        //   <Link to='/auctions'><h3>Get started.</h3></Link>
-        // </div>
-        // <div>
-        //   {
-        //     this.state.items.map((element, i) => {
-        //       return (<Mainitems key={i} item={element} />);
-        //     })
-        //   }
-        // </div>
-
-}
       </div>
     );
   }

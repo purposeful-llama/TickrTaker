@@ -11,18 +11,18 @@ export default class Auction extends Component {
     this.grabAuctions = this.grabAuctions.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount () {   //  Have list of auctions before rendering the page
     this.grabAuctions();
   }
 
-  updateEntrys (entryArray) {
+  updateEntrys (entryArray) {    //  Show filtered results
     this.setState({
       entrys: entryArray
     });
     console.log(this.state);
   }
 
-  grabAuctions (e) {
+  grabAuctions (e) {         // Ajax request for auction searching by using search-bar
     e && e.preventDefault();
     var context = this;
     var filter = '';

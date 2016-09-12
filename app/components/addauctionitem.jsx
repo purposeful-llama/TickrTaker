@@ -29,57 +29,51 @@ export default class AddAuctionItem extends Component {
           context.setState({item: {
             picture: result[0].secure_url
           }});
-          console.log(context.state.item.picture);
+          //console.log(context.state.item.picture);
         });
   }
 
-  submitForm(e) {
+  submitForm(e) {                  //  Regex code to check if url is valid or not
     e.preventDefault();
     var valid = true;
     var filter = function validateURL(textval) {
       var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
       return urlregex.test(textval);
     };
-    $('#item-name-error').hide();
+    $('#item-name-error').hide();                //  After each submit, hide error messages
     $('#item-img-null-error').hide();
     $('#item-img-valid-error').hide();
     $('#item-desc-error').hide();
     $('#item-edate-null-error').hide();
     $('#item-cval-over-error').hide();
     $('#item-eval-over-error').hide();
-    if ($('#item-title').val() === '') {
+
+    if ($('#item-title').val() === '') {        //  Show error message in case of invalid item name
       $('#item-name-error').show();
       valid = false;
     }
-    // if ($('#image-url').val() === '') {
-    //   $('#item-img-null-error').show();
-    //   valid = false;
-    // } else if (!filter($('#image-url').val())) {
-    //   $('#item-img-valid-error').show();
-    //   valid = false;
-    // }
-    if ($('#item-desc').val() === '') {
+    if ($('#item-desc').val() === '') {         //  Show error message in case of invalid item description
       $('#item-desc-error').show();
       valid = false;
     }
-    if ($('#end-date').val() === '' || Date.parse($('#end-date').val()) < Date.now()) {
+    if ($('#end-date').val() === '' || Date.parse($('#end-date').val()) < Date.now()) {       //  Show error message if end date is not valid
       $('#item-edate-null-error').show();
       valid = false;
     }
-    if (Number($('#current-value').val()) < Number($('#end-value').val())) {
+    if (Number($('#current-value').val()) < Number($('#end-value').val())) {    //  Compare current and end value and show error message if it is not valid
       $('#item-cval-over-error').show();
       $('#item-eval-over-error').show();
       valid = false;
     }
-    if ($('#current-value').val() === '') {
+    if ($('#current-value').val() === '') {     //  Show error message in case of invalid current value
       $('#item-cval-null-error').show();
       valid = false;
     }
-    if ($('#end-value').val() === '') {
+    if ($('#end-value').val() === '') {        //  Show error message in case of invalid end value
       $('#item-eval-null-error').show();
       valid = false;
     }
-    if (valid === true) {
+    if (valid === true) {          // If all inputs are valid, retrive the values from input field ans set state
 
       this.setState({item: {
         title: $('#item-title').val(),
@@ -91,11 +85,11 @@ export default class AddAuctionItem extends Component {
 
 
       }});
-      console.log(this.state.item);
+      //console.log(this.state.item);
       var context = this;
-      $.ajax({                //TODO: we should not have to do this
-        method: 'GET',        //once authenticated, we don't have to send 'user'
-        url: 'api/user_data', //it should be available as req.user on the server-side
+      $.ajax({           
+        method: 'GET',        
+        url: 'api/user_data', 
         success: function(user) {
           console.log(user.user);
           $.ajax({
@@ -117,7 +111,7 @@ export default class AddAuctionItem extends Component {
     }
   }
 
-  _onFocus(e) {
+  _onFocus(e) {                             
     e.currentTarget.type = 'date';
   }
 

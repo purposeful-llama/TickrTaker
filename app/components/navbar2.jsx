@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 
 export default class Navbar2 extends Component {
-  render() {
+  render() {                                      //Render  Navbar after login
     return (
       <nav id="navbar2" className="navbar navbar-dark bg-inverse">
         <ul className="nav navbar-nav">

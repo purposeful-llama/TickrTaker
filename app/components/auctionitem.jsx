@@ -17,7 +17,8 @@ export default class AuctionItem extends Component {
     this.calcTime = this.calcTime.bind(this);
     this.sendItemBid = this.sendItemBid.bind(this);
   }
-  componentWillMount () {
+  componentWillMount () {      // Set state properties with updated values that were calculated with calcTime and calcPrice
+
     this.getItemBids();
     this.getItem();
     this.setState({
@@ -26,10 +27,7 @@ export default class AuctionItem extends Component {
     });
   }
   
-  componentDidMount () {
-    // if ( !this.props.auth() ) {
-    //   browserHistory.push('/');
-    // }
+  componentDidMount () {       //  Set state properties with calculated values
     
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
@@ -37,7 +35,7 @@ export default class AuctionItem extends Component {
     }), 1000);
   }
 
-  componentWillUnmount () {
+  componentWillUnmount () {    // Clears up DOM elements that were created in ComponentDidMount method
     clearInterval(this.interval);
   }
 
@@ -49,9 +47,6 @@ export default class AuctionItem extends Component {
     } else {
       return 0;
     }
-    // var cal = ((this.state.item.startPrice - this.state.item.endPrice) /
-    // ((Date.parse(this.state.item.endDate)) - Date.parse(this.state.item.startDate))) * (Date.parse(this.state.item.endDate) - Date.now());
-    // return cal;
   }
 
   calcTime () {
@@ -60,20 +55,9 @@ export default class AuctionItem extends Component {
     } else {
       return '...';
     }
-    // var duration = Date.parse(this.state.item.endDate) - Date.now();
-    // var seconds = parseInt((duration / 1000) % 60);
-    // var minutes = parseInt((duration / (1000 * 60)) % 60);
-    // var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-    // var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
-
-    // days = (days < 10) ? '0' + days : days;
-    // hours = (hours < 10) ? '0' + hours : hours;
-    // minutes = (minutes < 10) ? '0' + minutes : minutes;
-    // seconds = (seconds < 10) ? '0' + seconds : seconds;
-    // return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
   }
 
-  getItem () {
+  getItem () {          // Ajax request to retrieve items from database
     var context = this;
     $.ajax({
       method: 'GET',
@@ -85,7 +69,7 @@ export default class AuctionItem extends Component {
     });
   }
 
-  getItemBids () {
+  getItemBids () {     // Ajax request to retrieve bid values from database
     var context = this;
     $.ajax({
       method: 'GET',
@@ -101,8 +85,7 @@ export default class AuctionItem extends Component {
 
   }
 
-
-  sendItemBid(e) {
+  sendItemBid(e) {     // Ajax request to bid on an item
     e.preventDefault();
     if (this.state.bids[0] === undefined || $('#bid').val() >= this.state.bids[0].price + 1 && $('#bid').val() !== '') {
       var context = this;
@@ -140,9 +123,7 @@ export default class AuctionItem extends Component {
     $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
     });
-    // $('#bid-form').submit(function(e) { //why does this work? wouldn't there be no element to bind?
-    //   e.preventDefault();
-    // });
+
     return (
       <div className="col-xs-12">
         <div className="col-xs-3">

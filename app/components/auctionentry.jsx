@@ -11,14 +11,14 @@ export default class AuctionEntry extends Component {
     this.calcPrice = this.calcPrice.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount() {    // Set state properties with updated values 
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     });
   }
   
-  componentDidMount () {
+  componentDidMount () {    //  Set state properties with calculated values
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
@@ -27,32 +27,18 @@ export default class AuctionEntry extends Component {
     this.calcTime = this.calcTime.bind(this);
 
   }
-  componentWillUnmount () {
+  componentWillUnmount () {    // Clears up DOM elements that were created in ComponentDidMount method
     this.interval && clearInterval(this.interval);
     this.interval = false;
   }
 
-  calcPrice () {
+  calcPrice () {     // Price calculation check helper.js 
     var thisItem = this.props.item;
     return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
-    // var cal = ((this.props.item.startPrice - this.props.item.endPrice) /
-    // ((Date.parse(this.props.item.endDate)) - Date.parse(this.props.item.startDate))) * (Date.parse(this.props.item.endDate) - Date.now());
-    // return cal;
   }
 
-  calcTime () {
+  calcTime () {      //  Time calculation check helper.js
     return calcTime(this.props.item.auctionEndDateByHighestBid);
-    // var duration = Date.parse(this.props.item.endDate) - Date.now();
-    // var seconds = parseInt((duration / 1000) % 60);
-    // var minutes = parseInt((duration / (1000 * 60)) % 60);
-    // var hours = parseInt((duration / (1000 * 60 * 60)) % 24);
-    // var days = parseInt(((duration) / (1000 * 60 * 60 * 24)) % 365);
-
-    // days = (days < 10) ? '0' + days : days;
-    // hours = (hours < 10) ? '0' + hours : hours;
-    // minutes = (minutes < 10) ? '0' + minutes : minutes;
-    // seconds = (seconds < 10) ? '0' + seconds : seconds;
-    // return days + ' days  ' + hours + ':' + minutes + ':' + seconds + ' hours';
   }
 
 
@@ -77,18 +63,25 @@ export default class AuctionEntry extends Component {
           <div className="row time-remaining auction-time"> Time remaining: <br/><span>{this.state.timeRemaining}</span> </div>
         </div>
         <div className = "col-xs-2">
+          {
+            button = this.props.auth() ? (
+                    <div className="bid-button-container">
+                      <div className="bid-button">
+                        <Link className='btn btn-primary' to={id}> Make A Bid </Link>
+                      </div>
+                    </div>
 
-{
-  button = this.props.auth() ? (
-          <div className="bid-button-container">
-            <div className="bid-button">
-              <Link className='btn btn-primary' to={id}> Make A Bid </Link>
-            </div>
-          </div>
-
-    ) : <div className="bid-button-container"></div>
-
-}
+              ) : <div className="bid-button-container"></div>
+          }
+        {
+          button = this.props.auth() ? (                       // Show Bid button if user is authorized
+                  <div className="bid-button-container">
+                    <div className="bid-button">
+                      <Link className='btn btn-primary' to={id}> Make A Bid </Link>
+                    </div>
+                  </div>
+            ) : <div className="bid-button-container"></div>
+        }
         </div>
       </div>
     );
