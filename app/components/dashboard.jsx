@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
-
 import WinningBid from './winningBid.jsx';
 import LosingBid from './losingBid.jsx';
-// import AuctionEntry from './auctionentry.jsx';
 import SaleItem from './saleItem.jsx';
 
 
@@ -16,7 +14,7 @@ export default class Dashboard extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount() {    //   Retrieve user data form, show items seller items on dashboard page
     var context = this;
     $.ajax({
       method: 'GET',
@@ -29,15 +27,15 @@ export default class Dashboard extends Component {
           headers: {'Content-Type': 'application/json'},
           data: JSON.stringify(user),
           success: function(items) {
-            console.log('items are', items);
+            //console.log('items are', items);
             context.setState({'itemsForSale': items});
           },
           error: function(err) {
             console.log(err);
           }
         });
-
-        $.ajax({
+ 
+        $.ajax({          // Retrieve data to show user's winnig and losingg bid on dashboard page
           method: 'POST',
           url: 'api/bids',
           headers: {'Content-Type': 'application/json'},
@@ -52,8 +50,8 @@ export default class Dashboard extends Component {
                 losingBids.push(item);
               }
             });
-            console.log('bids are', winningBids, losingBids);
-            context.setState({ //TODO winningBids can't be losingBids on the same item...
+            //console.log('bids are', winningBids, losingBids);
+            context.setState({ 
               'itemsWinningBidOn': winningBids, 
               'itemsLosingBidOn': losingBids
             });

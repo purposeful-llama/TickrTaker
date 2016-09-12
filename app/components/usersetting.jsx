@@ -19,13 +19,12 @@ export default class UserSetting extends Component {
   handleSubmit(setSomething, e) {
     e.preventDefault();
     var valid = true;
-    var filter = function validateURL(textval) {
-      // var urlregex = /^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+    var filter = function validateURL(textval) {     // Verify if entered email is valid
       var emailregex = /\A[^@]+@([^@\.]+\.)+[^@\.]+\z/;
       return emailregex.test(textval);
     };
-
-    if ($('#user-password').val() === '' && setSomething === 'passWord') {
+    //  Handle error messages for each clicked button seperately
+    if ($('#user-password').val() === '' && setSomething === 'passWord') {  
       $('.passwordError').show();
       $('.emailError').hide();
       $('.addressError').hide();
@@ -55,8 +54,7 @@ export default class UserSetting extends Component {
       $('.passwordError').hide();
       valid = false;
     }
-
-
+    // If entered value is valid, set state with entered value
     if (valid === true) {
       var stateObj = {};
       $('.phoneError').hide();
@@ -79,8 +77,8 @@ export default class UserSetting extends Component {
 
       this.setState({user: stateObj});
 
-      var context = this;
-      $.ajax({
+      var context = this;          
+      $.ajax({                    // Ajax request to update user info
         method: 'GET',
         url: 'api/user_data',
         success: function(userData) {
@@ -101,14 +99,14 @@ export default class UserSetting extends Component {
         }
       });
 
-      $('#user-password').val('');
+      $('#user-password').val('');   // Clean up input field after submit button is clicked
       $('#user-email').val('');
       $('#user-address').val('');
       $('#user-password').val('');
     }
   }
 
-  handleToggle(stateToChange) {
+  handleToggle(stateToChange) {    // Shows and hides input fields
     var s = {};
     s[stateToChange] = !this.state[stateToChange];
     this.setState(s);

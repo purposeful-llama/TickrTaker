@@ -11,14 +11,14 @@ export default class AuctionEntry extends Component {
     this.calcPrice = this.calcPrice.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount() {    // Set state properties with updated values 
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     });
   }
   
-  componentDidMount () {
+  componentDidMount () {    //  Set state properties with calculated values
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
@@ -27,17 +27,17 @@ export default class AuctionEntry extends Component {
     this.calcTime = this.calcTime.bind(this);
 
   }
-  componentWillUnmount () {
+  componentWillUnmount () {    // Clears up DOM elements that were created in ComponentDidMount method
     this.interval && clearInterval(this.interval);
     this.interval = false;
   }
 
-  calcPrice () {
+  calcPrice () {     // Price calculation check helper.js 
     var thisItem = this.props.item;
     return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
   }
 
-  calcTime () {
+  calcTime () {      //  Time calculation check helper.js
     return calcTime(this.props.item.auctionEndDateByHighestBid);
   }
 
