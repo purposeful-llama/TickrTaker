@@ -6373,15 +6373,21 @@ body {
 #add-auction-prices {
   margin-left: -15px;
 }
+
 #add-auction-item {
   padding: 50px;
   border-radius: 20px;
   background-color: rgba(102,175,233, .5);
 }
+
+.auction-item-title-hr {
+  width: 25vw;
+  float: left;
+}
+
 .alert{
   display: none;
 }
-
 
 .bid-container {
   border-radius: 10px;
@@ -6507,7 +6513,7 @@ video {
 hr {
   margin-top: 0px;
   height: 2px;
-  width: 50vh;
+  width: 50vw;
 }
 
 .intro-tickr-text {
@@ -6559,8 +6565,17 @@ hr {
   font-size: 1.5rem;
 }
 
+#bid-form button {
+  margin-top: 10px;
+}
+
 .auction-price span {
   font-size: 2rem;
+}
+
+.auction-item-details div {
+  margin-top: 10px;
+  float: left;
 }
 
 .auction-time span {
@@ -6577,3 +6592,14 @@ hr {
   font-size: 1.5rem;
 }*/
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.auction-item-container {
+  padding: 50px;
+  border-radius: 20px;
+  width: 90vw;
+  background-color: rgba(102,175,233, .5);
+}
