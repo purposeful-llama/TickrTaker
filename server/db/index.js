@@ -1,9 +1,17 @@
 var Sequelize = require('sequelize');
 var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr');
 
+//  Get controllers for users, items, bids.
+
 var UserController = require('./UserController')(db, Sequelize);
 var ItemController = require('./ItemController')(db, Sequelize, UserController.User);
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
+
+//  Assign many-to-one relationships between items-seller, bids-item, and bids-bidder.
+
+//  NOT IMPLEMENTED: Join tables to make querying for multiple items substantially easier.
+
+//  Ideally we would have a user-item-highestBid join table that would allow for cleaner queries.
 
 UserController.User.hasMany(ItemController.Item, {as: 'Items', onDelete: 'cascade'});
 ItemController.Item.belongsTo(UserController.User, {as: 'Seller'});
@@ -14,29 +22,22 @@ BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
 
+
+//DUMMY DATA. Drops tables every time server restarts.
+
 db.sync({force: true})
 .then(function() {
   UserController.User.create({
     name: 'Alexander Anastasios Pantelides',
     id: '10154095627189811',
-    // username: 'Lex',
-    // password: 'passwordtoo',
-    // address: '944 Market St.',
-    // phone_number: 6508689933,
     email: 'dark_dragoon10@hotmail.com',
   }).then(function(lex) {
     UserController.User.create({
       name: 'Kunal Rathi',
       id: '10206128224638462',
-      // username: 'Kunal',
-      // password: 'password',
-      // address: '6106 Countess Dr.',
-      // phone_number: 4083916950,
       email: 'volcanic.phoenix@gmail.com',
     })
     .then(function(seller) {
-      console.log('made one item *********');
-      console.log(seller.dataValues.username);
       ItemController.Item.create({
         title: 'a thing',
         description: 'i dont know what to write', 
@@ -69,9 +70,6 @@ db.sync({force: true})
           })
           .then(function(bid) {
             item.addBid(bid).then(function(item) {
-              item.getBids({raw: true}).then(function(bids) {
-                console.log(bids);
-              });
             });
             bidder.addBid(bid);
           });
@@ -80,6 +78,7 @@ db.sync({force: true})
     });
   });
 });
+
 module.exports = {
   db: db,
   UserController: UserController,

@@ -67,10 +67,7 @@ export default class WinningBid extends Component {
   goToLink() {
     window.location = '/item/' + this.props.item.item.id;
   }
-  hover(e) {
-    e.target.border = 'solid';
-  }
-
+  
   render () {
     var button;
     var id = '/item/' + this.props.item.item.id;
