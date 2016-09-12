@@ -19,6 +19,10 @@ export default class AuctionEntry extends Component {
   }
   
   componentDidMount () {    //  Set state properties with calculated values
+    $('img').on('error', function(){ //  Replace broken image links with the sample image
+        $(this).attr('src', 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg');
+    });
+    
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
@@ -44,6 +48,7 @@ export default class AuctionEntry extends Component {
   render () {
     var button;
     var id = '/item/' + this.props.item.id;
+
     return (
       <div className={this.props.parity ? 'col-xs-12 auction-entry-odd ' : 'col-xs-12 auction-entry-even '}>
         <div className="col-md-3 col-sm-12">

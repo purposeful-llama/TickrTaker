@@ -13,6 +13,7 @@ export default class App extends Component {
   }
 
   componentWillMount() {   //  Retrieve the data, check if user logged in 
+    
     var context = this;
     $.get('/checkLogin').then(function(data) {
       context.setState({
