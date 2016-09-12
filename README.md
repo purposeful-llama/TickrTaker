@@ -1,2 +1,72 @@
 # TickrTaker
-Tickr Bidding Website
+Tickr: time-sensitive auctions
+
+## Team
+
+  - __Development Team Members__: Alexander, Cihan, Kunal, Leonard
+
+## Table of Contents
+
+- [Usage](#Usage)
+- [Development](#Development)
+- [Deployment](#Deployment)
+
+
+## Usage 
+
+Clone the repo to your local machine.
+Use a current version of node (v6.5.0).
+Run npm install in the /app folder.
+Run npm install in the /server folder.
+Install Grunt CLI globally (npm install -g grunt-cli).
+
+- Development: 
+  - In the /server folder:
+    - Run "grunt dev"
+  - In the /app folder:
+    - Run "grunt start"
+  - Browser should automatically navigate to http://localhost:3000
+
+- Production:
+  - In the /server folder:
+    - Run "grunt prod"
+  - In the /app folder:
+    - Run "grunt build"
+      - This compiles the necessary files into the /compiled folder
+  - Open a new browser window and navigate to http://localhost:3000
+
+The development setup should be used on your local machine.
+
+The production setup should be used on your deployed server.
+
+## Development
+
+Dependencies:
+Node (and package.json node modules)
+Grunt-CLI
+React
+Webpack
+Postgresql
+Cloudinary
+Nodemailer
+Facebook Auth
+
+Getting Started: 
+
+- App
+  - Start the development server and familiarize yourself with the flow of data throughout the app using React Devtools to view the state of each component.
+- Server
+  - Key routes are stored in /server/app.js and /server/routes.js
+
+## Deployment
+
+Clone your deployed folder onto the server, and run the production setup to be served on the port of your choice.
+
+## Roadmap
+
+- Modularized tests
+- Use join tables for database tables
+- Query optimization
+- Search filtering
+- Product categories
+- Integrated payment system
