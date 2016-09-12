@@ -14,6 +14,10 @@ export default class WinningBid extends Component {
   }
 
   componentDidMount () {
+    $('img').on('error', function(){ //  Replace broken image links with the sample image
+        $(this).attr('src', 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg');
+    });
+    
     this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime(),
