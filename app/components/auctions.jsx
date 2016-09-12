@@ -54,7 +54,7 @@ export default class Auction extends Component {
               <div className="col-xs-8 pull-xs-right">
                 <form className="search-form" onSubmit={this.grabAuctions.bind(this)}>
                   <input id="search" className="col-xs-6" />
-                  <div className="col-xs-2 search-text">Search:</div>
+                  <div className="col-xs-6 search-text">Search:</div>
                 </form>
               </div>
             </div>
