@@ -3,8 +3,8 @@ import {Link} from 'react-router';
 import {calcPrice, calcTime} from '../helpers.js';
 
 
-export default class SaleItem extends Component {   // This components dasplat items on sale, pretty much same
-                                                    // structure is used for losingBid.jsx and winnigBid.jsx
+export default class SaleItem extends Component {   //  This components displays items on sale
+                                                    //  structure is used for losingBid.jsx and winnigBid.jsx
   constructor (props) {
     super(props);
     this.state = {
