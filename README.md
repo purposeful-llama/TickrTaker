@@ -19,7 +19,7 @@ Go to [Facebook's developer page](https://developers.facebook.com)
 Create an app that enables 'Facebook Login'
 
 Allow the following OAuth redirect URIS: 
-  -[http://localhost:3000], [http://localhost:3000/signin-facebook], [http://localhost:3000/auth/facebook/callback], [http://localhost:3000/auth/facebook] 
+  -<http://localhost:3000>, <http://localhost:3000/signin-facebook>, <http://localhost:3000/auth/facebook/callback>, <http://localhost:3000/auth/facebook>
   
   -You will need to allow redirects to the URIS in production for deployment as well.
 
