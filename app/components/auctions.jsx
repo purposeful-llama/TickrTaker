@@ -26,7 +26,7 @@ export default class Auction extends Component {
     e && e.preventDefault();
     var context = this;
     var filter = '';
-    console.log($('#search').val());
+    //console.log($('#search').val());
     if ($('#search').val() !== '') {
       filter = $('#search').val();
     }
@@ -38,7 +38,7 @@ export default class Auction extends Component {
       url: '/api/allitems',
       headers: {'Content-Type': 'application/json'},
       success: function (res) {
-        console.log(res);
+        //console.log(res);
         context.updateEntrys(res);
       }
     });
@@ -72,3 +72,4 @@ export default class Auction extends Component {
     );
   }
 }
+

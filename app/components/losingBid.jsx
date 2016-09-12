@@ -14,7 +14,7 @@ export default class LosingBid extends Component {
     this.goToLink = this.goToLink.bind(this);
   }
 
-  componentDidMount () {
+  componentDidMount () {    //  set and update state properties every 1000 seconds
     this.setState({
       currentPrice: '$ ' + this.calcPrice().toFixed(2),
       currentHighestBid: '$ ' + this.props.item.highestBid.toFixed(2),
@@ -35,9 +35,9 @@ export default class LosingBid extends Component {
   }
 
   calcPrice () {
-    var thisItem = this.props.item.item; //it's passed in differently..
+    var thisItem = this.props.item.item; //  it's passed in differently..
     if (thisItem) {
-      //only run calculations when item is loaded
+      //  only run calculations when item is loaded
       return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
     } else {
       return 0;
@@ -50,10 +50,6 @@ export default class LosingBid extends Component {
     } else {
       return '...';
     }
-  }
-
-  goToLink() {
-    window.location = '/item/' + this.props.item.item.id;
   }
 
   render () {

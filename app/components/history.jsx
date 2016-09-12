@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-
 import WinningBid from './winningBid.jsx';
 import LosingBid from './losingBid.jsx';
-// import AuctionEntry from './auctionentry.jsx';
 import SaleItem from './saleItem.jsx';
-
 
 export default class History extends Component {
   constructor(props) {

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Navbar1 from './navbar1.jsx';
 import Navbar2 from './navbar2.jsx';
 
+
 export default class App extends Component {
   constructor (props) {
     super (props);
@@ -11,7 +12,7 @@ export default class App extends Component {
     this.checkAuthState = this.checkAuthState.bind(this);
   }
 
-  componentWillMount() {
+  componentWillMount() {   //  Retrieve the data, check if user logged in 
     var context = this;
     $.get('/checkLogin').then(function(data) {
       context.setState({
@@ -28,7 +29,7 @@ export default class App extends Component {
     return this.state.isAuth;
   }
 
-  render() {
+  render() {   //  Depending on authentication, serves different nav-bar
     var checkAuthState = this.checkAuthState;
     var navbar = this.state.isAuth ? <Navbar2 /> : <Navbar1 />;
     var children = React.Children.map(this.props.children, function(child) {

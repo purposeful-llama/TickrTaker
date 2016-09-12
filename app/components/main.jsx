@@ -7,7 +7,6 @@ export default class Main extends Component {
   }
 
   render () {      // Render main page
-
     return (
       <div className="landing-page col-xs-12">
         <div className="landing-video col-xs-12">

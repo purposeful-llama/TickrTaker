@@ -82,7 +82,6 @@ export default class AuctionItem extends Component {
         context.setState({bids: sorted});
       }
     });
-
   }
 
   sendItemBid(e) {     // Ajax request to bid on an item
