@@ -93,7 +93,7 @@ export default class WinningBid extends Component {
             <div className="bid-button">
           {
             this.props.old ? (
-              <Link className='btn btn-success' to={id}> Additional Information </Link>
+              <Link className='btn btn-success' to={id}>Details</Link>
             ) : 
               <Link className='btn btn-success' to={id}> Review Item </Link>
           }   
