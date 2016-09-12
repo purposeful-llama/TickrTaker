@@ -1,12 +1,12 @@
 // var async = require('async');
 module.exports = (db, Sequelize, User, Item) => {
   //defines a bid table that relates the bidder to the item they are bidding on.
-  var Bid = db.define('bid', {
+  const Bid = db.define('bid', {
     price: {type: Sequelize.FLOAT, allowNull: false}
   });
 
   //Will return all bids made by a user
-  var getBidsForSeller = (req, res, next) => {
+  const getBidsForSeller = (req, res, next) => {
     //Find the user in postgres associated with the user sent in req.body
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
@@ -42,9 +42,46 @@ module.exports = (db, Sequelize, User, Item) => {
     });
   };
 
+  const getOldBidsForSeller = (req, res, next) => {
+    //Find the user in postgres associated with the user sent in req.body
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
+      //Get the individual bids made by that user
+      user.getBids({raw: true})
+      .then(function(bids) {
+        var itemArr = [];
+        var asyncBids = bids.map(function(bid) {
+          //Get all items associated with those individual bids, only inactive items
+          return Item.find({where: {id: bid.itemId, valid: false}})
+          .then(function(item) {
+            //check those items for their max bids and send back:
+            //{item, myBid, highestBid } where myBid and highestBid are values associated with
+            //the highest bid and your bid on that item.
+            return item.getBids({raw: true})
+            .then(function(itemBids) {
+              var maxBid = 0;
+              itemBids.forEach(function(bidsOnItem) {
+                if (bidsOnItem.price > maxBid) {
+                  maxBid = bidsOnItem.price;
+                }
+              });
+              itemArr.push({item: item.dataValues, myBid: bid, highestBid: maxBid});
+            });
+          });
+        });
+        //Use promise.all to wait for all bids to resolve before sending.
+        Promise.all(asyncBids)
+        .then(function() {
+          res.send(itemArr);
+        });
+      });
+    });
+  };
+
+
   //Sends back all bids for a single item
 
-  var getBidsForItem = (req, res, next, itemId) => {
+  const getBidsForItem = (req, res, next, itemId) => {
     //Find the item based on itemId
     Item.find({where: {id: itemId}})
     .then(function(item) {
@@ -58,7 +95,7 @@ module.exports = (db, Sequelize, User, Item) => {
   };
 
   //CHECK IF BID IS VALID. several validation checks on the bid itself.
-  var validateBid = (req, res, bid, itemId, user, cb) => {
+  const validateBid = (req, res, bid, itemId, user, cb) => {
 
     valid = true;
     //invalid if bid is less than one cent.    
@@ -66,7 +103,7 @@ module.exports = (db, Sequelize, User, Item) => {
       valid = false;
     }
     
-    if(itemId === undefined || user === undefined) {
+    if (itemId === undefined || user === undefined) {
       res.send('not enough information to bid. Sorry');
       return;
     }
@@ -116,7 +153,7 @@ module.exports = (db, Sequelize, User, Item) => {
 
   //Update an item's end date based on highest bid.
 
-  var updateItemEndDate = (itemId, bidValue) => {
+  const updateItemEndDate = (itemId, bidValue) => {
     Item.find({where: {id: itemId}})
     .then(function(item) {
       item.update({auctionEndDateByHighestBid: new Date( Date.parse(item.endDate) - ((Date.parse(item.endDate) - Date.parse(item.startDate)) / (item.endPrice - item.startPrice)) * (item.endPrice - bidValue))});
@@ -125,7 +162,7 @@ module.exports = (db, Sequelize, User, Item) => {
 
   //update a bidder's bid to a higher value.
 
-  var updateBid = (req, res, user, bid, itemId, cb) => {
+  const updateBid = (req, res, user, bid, itemId, cb) => {
     //Find user
 
     User.findOne({where: {id: user.id}})
@@ -153,7 +190,7 @@ module.exports = (db, Sequelize, User, Item) => {
 
   //Place a bid on an item as defined by the id itemId.
 
-  var putBidOnItem = (req, res, next, itemId) => {
+  const putBidOnItem = (req, res, next, itemId) => {
     //First, validate the bid.
     validateBid(req, res, req.body.bid, itemId, req.body.user.user, () => {
       console.log(req.body);
@@ -186,7 +223,7 @@ module.exports = (db, Sequelize, User, Item) => {
 
   // NOT USED. Can delete a single bid and remove the bid from user and item.
 
-  var removeBidFromItem = (req, res, next, itemId) => {
+  const removeBidFromItem = (req, res, next, itemId) => {
 
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
@@ -204,6 +241,7 @@ module.exports = (db, Sequelize, User, Item) => {
   return {
     Bid: Bid,
     getBidsForSeller: getBidsForSeller,
+    getOldBidsForSeller: getOldBidsForSeller,
     getBidsForItem: getBidsForItem,
     removeBidFromItem: removeBidFromItem,
     putBidOnItem: putBidOnItem

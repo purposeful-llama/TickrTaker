@@ -86,16 +86,32 @@ export default class LosingBid extends Component {
           </div>
         </div>
         <div className="col-xs-3 item-ticker">
-          <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
+          {
+            this.props.old ? ( ''
+            ) : <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
+          } 
           <div className="row current-highest-bid">Highest Bid: <span>{this.state.currentHighestBid}</span> </div>
-          <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
-          <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
+          {
+            this.props.old ? (
+            <div className="row current-bid"> My Bid: <span>{this.state.currentBid}</span> </div>
+            ) : <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
+          } 
+          {
+            this.props.old ? (
+              <div className="row time-remaining"> Completed On: <span>{this.props.item.item.endDate}</span> </div> 
+            ) : <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div>
+          }        
         </div>
         <div className = "col-xs-2">
 
           <div className="bid-button-container">
             <div className="bid-button">
+          {
+            this.props.old ? (
+              <Link className='btn btn-danger' to={id}> Additional Information </Link>
+            ) : 
               <Link className='btn btn-danger' to={id}> Make Another Bid </Link>
+          }   
             </div>
           </div>
         </div>
