@@ -86,16 +86,33 @@ export default class WinningBid extends Component {
           </div>
         </div>
         <div className="col-xs-3 item-ticker">
-          <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
-          <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
-          <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
+          {
+            this.props.old ? ( ''
+            ) : <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
+          } 
+          {
+            this.props.old ? (
+            <div className="row current-bid"> My Bid: <span>{this.state.currentBid}</span> </div>
+            ) : <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
+          } 
+          {
+            this.props.old ? (
+              <div className="row time-remaining"> Completed On: <span>{this.props.item.item.endDate}</span> </div> 
+            ) : <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div>
+          }        
         </div>
         <div className = "col-xs-2">
 
           <div className="bid-button-container">
             <div className="bid-button">
-              <Link className='btn btn-success' to={id}> Review Item </Link></div>
+          {
+            this.props.old ? (
+              <Link className='btn btn-success' to={id}> Additional Information </Link>
+            ) : 
+              <Link className='btn btn-success' to={id}> Review Item </Link>
+          }   
             </div>
+          </div>
         </div>
       </div>
     );

@@ -45,6 +45,10 @@ module.exports = (app, db) => {
     // res.send('GET /api/items');
   });
 
+  app.post('/api/oldselleritems', (req, res, next) => {
+    db.ItemController.getOldItemsForSale(req, res, next);
+  });
+
   app.post('/api/items', (req, res) => {
     db.ItemController.putItemForSale(req, res);
     // res.send('POST /api/items');
@@ -59,6 +63,10 @@ module.exports = (app, db) => {
   app.post('/api/bids', (req, res, next) => {
     console.log('***************', req.body);
     db.BidController.getBidsForSeller(req, res, next);
+  });
+
+  app.post('/api/oldbids', (req, res, next) => {
+    db.BidController.getOldBidsForSeller(req, res, next);
   });
 
   app.get('/api/user_data', function(req, res) {

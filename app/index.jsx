@@ -11,6 +11,7 @@ import Dashboard from './components/dashboard.jsx';
 import AddAuctionItem from './components/addauctionitem.jsx';
 import AuctionItem from './components/auctionitem.jsx';
 import UserSetting from './components/usersetting.jsx';
+import History from './components/history.jsx';
 // var requireAuth = function(nextState, replace) {
 
 //   // if (document.cookie) {
@@ -31,6 +32,7 @@ ReactDOM.render((
       <Route path='/dashboard' component= {Dashboard} />
       <Route path='/makeauction' component = {AddAuctionItem}/>
       <Route path='/usersetting' component={UserSetting} />
+      <Route path='/history' component={History} />
       <Route path='*' component={NotFound} />
       {
       // <Route path='/login' component={Login} />

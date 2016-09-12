@@ -6,7 +6,7 @@ import LosingBid from './losingBid.jsx';
 import SaleItem from './saleItem.jsx';
 
 
-export default class Dashboard extends Component {
+export default class History extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,7 +25,7 @@ export default class Dashboard extends Component {
         console.log(user);
         $.ajax({
           method: 'POST',
-          url: 'api/selleritems',
+          url: 'api/oldselleritems',
           headers: {'Content-Type': 'application/json'},
           data: JSON.stringify(user),
           success: function(items) {
@@ -39,10 +39,11 @@ export default class Dashboard extends Component {
 
         $.ajax({
           method: 'POST',
-          url: 'api/bids',
+          url: 'api/oldbids',
           headers: {'Content-Type': 'application/json'},
           data: JSON.stringify(user),
           success: function(items) {
+            console.log('these are old bid items', items);
             var winningBids = [];
             var losingBids = [];
             items.forEach(function(item) {
@@ -67,21 +68,21 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <div className="dashboard-header col-xs-12"> <h2>Winning Bids </h2> </div>
+        <div className="dashboard-header col-xs-12"> <h2>Items You Have Won </h2> </div>
         <div className="col-xs-12 bid-container">
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
-            return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
+            return (<WinningBid old={true} key={index} parity={index % 2} item={winningBid}/>);
           })}
         </div>
-        <div className = "dashboard-header col-xs-12"> <h2> Losing Bids </h2> </div>
+        <div className = "dashboard-header col-xs-12"> <h2>Items You Have Lost </h2> </div>
         <div className="col-xs-12 bid-container" >
           {
             this.state.itemsLosingBidOn.map((losingBid, index) => {
-              return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
+              return (<LosingBid old={true} key={index} parity={index % 2} item={losingBid}/>);
             })
           }
         </div>
-        <div className="dashboard-header col-xs-12"> <h2> Items on Auction </h2> </div>
+        <div className="dashboard-header col-xs-12"> <h2> Items You have Sold </h2> </div>
         <div className="col-xs-12 bid-container">
         {this.state.itemsForSale.map((saleItem, index) => {
           return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);

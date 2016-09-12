@@ -7,7 +7,7 @@ module.exports = (db, Sequelize, User) => {
   //  Can change end date default for dummy data to test features, follows
   //  moment.js syntax.
 
-  endDateDefault = moment().add(100, 'minutes');
+  endDateDefault = moment().add(30, 'seconds');
   // console.log(endDateDefault);
   
   //  DEFINED ITEM MODEL. Currently, minimum bid increment defaults to $1.00
@@ -61,7 +61,7 @@ module.exports = (db, Sequelize, User) => {
                 if (highestBidder === null) {
                   sellerText = 'Sorry, no one bid on your item. Better luck next time.';
                 } else {
-                  sellerText = `Your auction has been completed! ${highestBidder.name} is willing to pay $${highestBid.pricetoFixeD(2)}. Contact them at ${highestBidder.email}.`;
+                  sellerText = `Your auction has been completed! ${highestBidder.name} is willing to pay $${highestBid.pricetoFixed(2)}. Contact them at ${highestBidder.email}.`;
                   var buyerMailOptions = {
                     from: 'automated.tickrtaker@gmail.com',
                     to: highestBidder.email,
@@ -80,7 +80,7 @@ module.exports = (db, Sequelize, User) => {
                   from: 'automated.tickrtaker@gmail.com',
                   to: seller.dataValues.email,
                   subject: `Completed Auction of "${aCurrentItem.dataValues.title}"`,
-                  text: text
+                  text: sellerText
                 };
                 transporter.sendMail(sellerMailOptions, function(error, info) {
                   if (error) {
@@ -146,6 +146,16 @@ module.exports = (db, Sequelize, User) => {
     });
   };
 
+  const getOldItemsForSale = (req, res, next) => {
+    User.findOne({where: {id: req.body.user.id}})
+    .then(function(user) {
+      user.getItems({where: {valid: false}, raw: true})
+      .then(function(items) {
+        console.log(items);
+        res.send(items);
+      });  
+    });
+  };
   //  Validate the picture's url. Regex taken from Diego Perini.
 
   const validateUrl = (value) => {
@@ -208,6 +218,7 @@ module.exports = (db, Sequelize, User) => {
   return {
     Item: Item,
     getItemsForSale: getItemsForSale,
+    getOldItemsForSale: getOldItemsForSale,
     getAllItems: getAllItems,
     putItemForSale: putItemForSale,
     removeItemFromSale: removeItemFromSale,
