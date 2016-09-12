@@ -73,6 +73,15 @@ export default class AuctionEntry extends Component {
 
               ) : <div className="bid-button-container"></div>
           }
+        {
+          button = this.props.auth() ? (                       // Show Bid button if user is authorized
+                  <div className="bid-button-container">
+                    <div className="bid-button">
+                      <Link className='btn btn-primary' to={id}> Make A Bid </Link>
+                    </div>
+                  </div>
+            ) : <div className="bid-button-container"></div>
+        }
         </div>
       </div>
     );
