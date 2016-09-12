@@ -8,7 +8,7 @@ export default class Navbar1 extends Component {
 
   render() {
     return (
-      <nav id="navbar1" className="navbar navbar-dark bg-inverse">
+      <nav id="navbar1" className="navbar navbar-dark bg-inverse navbar-fixed-top">
         <ul className="nav navbar-nav">
           <li className="nav-item ">
             <Link className="nav-link" to="/auctions">Auctions </Link>

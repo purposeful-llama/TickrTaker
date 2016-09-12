@@ -4,7 +4,7 @@ import {Link} from 'react-router';
 export default class Navbar2 extends Component {
   render() {
     return (
-      <nav id="navbar2" className="navbar navbar-dark bg-inverse">
+      <nav id="navbar2" className="navbar navbar-dark bg-inverse navbar-fixed-top">
         <ul className="nav navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to="/auctions">Auctions </Link>
