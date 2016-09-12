@@ -70,25 +70,29 @@ export default class SaleItem extends Component {
     console.log(this.props.item);
     var id = '/item/' + this.props.item.id;
     return (
-      <div id="sale-container" className='auction-entry-container col-md'>
-        <h3>{this.props.item.title || 'Sample Title'}</h3>
-        <div>
-          <img src={this.props.item.picture}></img>
+      <div className={this.props.parity ? 'bid-entry auction-entry-odd col-xs-12' : 'bid-entry auction-entry-even col-xs-12'}>
+        <div className="col-xs-3">
+          <img className="img-fluid" src={this.props.item.picture}></img>
         </div>
-        <table id="sale-table">
-          <tbody>
-          <tr>
-            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>
-          </tr>
-          <tr>
-            <td>Current Price: </td><td>{this.state.currentPrice}</td>
-          </tr>
+        <div className="col-xs-4">
+          <div className="row">
+            <h3>{this.props.item.title || 'Sample Title'}</h3>
+          </div>
+          <div className="row item-description">
+            {this.props.item.description.length > 90 ? this.props.item.description.slice(0, 90) + '...' : this.props.item.description}
+          </div>
+        </div>
+        <div className="col-xs-3 item-ticker">
+          <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
+          <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
+        </div>
+        <div className = "col-xs-2">
 
-          </tbody>
-        </table>
-          <div>
-            <Link className='btn btn-primary' to={id}> Additional Item Info </Link>
-          </div>        
+          <div className="bid-button-container">
+            <div className="bid-button">
+              <Link className='btn btn-info' to={id}>Additional information</Link></div>
+            </div>
+        </div>
       </div>
     );
   }

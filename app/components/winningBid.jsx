@@ -76,10 +76,9 @@ export default class WinningBid extends Component {
     var id = '/item/' + this.props.item.item.id;
     return (
 
-      <div id="winning-container" onMouseOver = {this.hover} className={this.props.parity ? 'bid-entry-odd col-xs-12' : 'winning-bid-entry-even col-xs-12'}>
-        <h3>{this.props.item.item.title || 'Sample Title'}</h3>
-        <div>
-          <img src={this.props.item.item.picture}></img>
+      <div className={this.props.parity ? 'bid-entry auction-entry-odd col-xs-12' : 'bid-entry auction-entry-even col-xs-12'}>
+        <div className="col-xs-3">
+          <img className="img-fluid" src={this.props.item.item.picture}></img>
         </div>
         <div className="col-xs-4">
           <div className="row">
@@ -89,24 +88,18 @@ export default class WinningBid extends Component {
             {this.props.item.item.description.length > 90 ? this.props.item.item.description.slice(0, 90) + '...' : this.props.item.item.description}
           </div>
         </div>
+        <div className="col-xs-3 item-ticker">
+          <div className="row current-price"> Current Price: <span>{this.state.currentPrice}</span> </div>
+          <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
+          <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
+        </div>
+        <div className = "col-xs-2">
 
-
-        <table id="winning-table">
-          <tbody>
-          <tr>
-            <td><small>Time Left: </small></td><td><small>{this.state.timeRemaining}</small></td>
-          </tr>
-          <tr>
-            <td>Current Price: </td><td>{this.state.currentPrice}</td>
-          </tr>
-          <tr>
-            <td>Current Bid: </td><td>{this.state.currentBid}</td>
-          </tr>
-          </tbody>
-        </table>
-          <div>
-            <Link className='btn btn-primary' to={id}> Item Page </Link>
-          </div>        
+          <div className="bid-button-container">
+            <div className="bid-button">
+              <Link className='btn btn-success' to={id}> Review Item </Link></div>
+            </div>
+        </div>
       </div>
     );
   }

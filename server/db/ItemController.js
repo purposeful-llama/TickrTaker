@@ -2,7 +2,7 @@ var moment = require('moment');
 var nodemailer = require('nodemailer');
 var transporter = nodemailer.createTransport('smtps://automated.tickrtaker%40gmail.com:ticktock@smtp.gmail.com');
 module.exports = (db, Sequelize, User) => {
-  endDateDefault = moment().add(8, 'seconds');
+  endDateDefault = moment().add(100, 'minutes');
   // console.log(endDateDefault);
   
   var Item = db.define('item', {
@@ -24,40 +24,56 @@ module.exports = (db, Sequelize, User) => {
       currentItems.forEach((aCurrentItem) => {
         if (Date.parse(new Date(aCurrentItem.dataValues.endDate)) < Date.parse(Date())) {
           console.log('it is less than val');
-          // User.findOne({where: {id: aCurrentItem.userId}})
-          // .then(function(seller) {
-          //   aCurrentItem.getBids({raw: true}).then(function(bids) {
-          //     var highestBid = {price: 0};
-          //     bids.forEach(function(bid) {
-          //       if (bid.price > highestBid.price) {
-          //         highestBid = bid;
-          //       }
-          //     });
+          User.findOne({where: {id: aCurrentItem.userId}})
+          .then(function(seller) {
+            aCurrentItem.getBids({raw: true}).then(function(bids) {
+              var highestBid = {price: 0};
+              bids.forEach(function(bid) {
+                if (bid.price > highestBid.price) {
+                  highestBid = bid;
+                }
+              });
 
-          //     User.find({where: {id: highestBid.userId}, raw:true})
-          //     .then(function(highestBidder) {
-          //       var text;
-          //       if(highestBidder === null) {
-          //         text = 'Sorry, no one bid on your item. Better luck next time.';
-          //       } else {
-          //         text = `Your auction has been completed! ${highestBidder.name} is willing to pay $${highestBid.price}. Contact them at ${highestBidder.email}`;
-          //       }
-          //       var mailOptions = {
-          //         from: 'automated.tickrtaker@gmail.com',
-          //         to: seller.dataValues.email,
-          //         subject: `Completed Auction of "${aCurrentItem.dataValues.title}"`,
-          //         text: text
-          //       };
-          //       transporter.sendMail(mailOptions, function(error, info) {
-          //         if(error) {
-          //           console.log('could not send the email', error);
-          //         } else {
-          //           console.log(info);
-          //         }
-          //       });
-          //     });
-          //   });
-          // });
+              User.find({where: {id: highestBid.userId}, raw:true})
+              .then(function(highestBidder) {
+                
+                var sellerText;
+                var buyerText;
+                
+                if (highestBidder === null) {
+                  sellerText = 'Sorry, no one bid on your item. Better luck next time.';
+                } else {
+                  sellerText = `Your auction has been completed! ${highestBidder.name} is willing to pay $${highestBid.price}. Contact them at ${highestBidder.email}.`;
+                  var buyerMailOptions = {
+                    from: 'automated.tickrtaker@gmail.com',
+                    to: highestBidder.email,
+                    subject: `You won "${aCurrentItem.dataValues.title}`,
+                    text: `Your bid on ${aCurrentItem.dataValues.title} for $${highestBid.price.toFixed(2)} has won! Contact the seller at ${seller.dataValues.email}.`
+                  };
+                  transporter.sendMail(buyerMailOptions, function(error, info){
+                    if (error) {
+                      console.log('could not send the email', error);
+                    } else {
+                      console.log(info);
+                    }
+                  });
+                }
+                var sellerMailOptions = {
+                  from: 'automated.tickrtaker@gmail.com',
+                  to: seller.dataValues.email,
+                  subject: `Completed Auction of "${aCurrentItem.dataValues.title}"`,
+                  text: text
+                };
+                transporter.sendMail(sellerMailOptions, function(error, info) {
+                  if(error) {
+                    console.log('could not send the email', error);
+                  } else {
+                    console.log(info);
+                  }
+                });
+              });
+            });
+          });
           aCurrentItem.update({valid: false});
         }
       });
