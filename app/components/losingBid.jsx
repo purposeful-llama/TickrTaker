@@ -91,8 +91,8 @@ export default class LosingBid extends Component {
           <div className="row current-highest-bid">Highest Bid: <span>{this.state.currentHighestBid}</span> </div>
           <div className="row current-bid">Current Bid: <span>{this.state.currentBid}</span> </div>
           <div className="row time-remaining"> Time remaining: <span>{this.state.timeRemaining}</span> </div> 
-          <div className="row bid-button-container"><Link className='btn btn-primary' to={id}> Make Another Bid </Link></div>
         </div>
+        <div className="col-xs-2 bid-button-container"><Link className='btn btn-primary' to={id}> Make Another Bid </Link></div>
       </div>
     );
   }
