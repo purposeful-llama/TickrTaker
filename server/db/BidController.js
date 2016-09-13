@@ -43,10 +43,16 @@ module.exports = (db, Sequelize, User, Item) => {
           res.send(itemArr);
         });
       });
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
   const getOldBidsForSeller = (req, res, next) => {
+    if (req.body.user === undefined) { 
+      res.send('user undefined');
+      return;
+    }
     //Find the user in postgres associated with the user sent in req.body
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
@@ -79,6 +85,8 @@ module.exports = (db, Sequelize, User, Item) => {
           res.send(itemArr);
         });
       });
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
@@ -95,6 +103,8 @@ module.exports = (db, Sequelize, User, Item) => {
         //send the bids back in array form. {[bid, bid, bid]}.
         res.send(bids);
       });
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
@@ -152,6 +162,8 @@ module.exports = (db, Sequelize, User, Item) => {
         console.log('could not validate', error);
         return;
       });
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
@@ -161,6 +173,8 @@ module.exports = (db, Sequelize, User, Item) => {
     Item.find({where: {id: itemId}})
     .then(function(item) {
       item.update({auctionEndDateByHighestBid: new Date( Date.parse(item.endDate) - ((Date.parse(item.endDate) - Date.parse(item.startDate)) / (item.endPrice - item.startPrice)) * (item.endPrice - bidValue))});
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
@@ -168,7 +182,6 @@ module.exports = (db, Sequelize, User, Item) => {
 
   const updateBid = (req, res, user, bid, itemId, cb) => {
     //Find user
-
     User.findOne({where: {id: user.id}})
     .then(function(user) {
       //get user's bids
@@ -189,6 +202,8 @@ module.exports = (db, Sequelize, User, Item) => {
         });
         cb && cb();
       });
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
@@ -220,6 +235,8 @@ module.exports = (db, Sequelize, User, Item) => {
               // console.log(item);
             });
           });
+        }).catch(function(err) {
+          console.log(err);
         });
       });
     }); 
@@ -228,7 +245,6 @@ module.exports = (db, Sequelize, User, Item) => {
   // NOT USED. Can delete a single bid and remove the bid from user and item.
 
   const removeBidFromItem = (req, res, next, itemId) => {
-
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
       Item.findOne({where: {id: itemId, valid: true}, raw: true})
@@ -239,6 +255,8 @@ module.exports = (db, Sequelize, User, Item) => {
           res.send('deleted item');
         });
       });      
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 

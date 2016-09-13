@@ -13,6 +13,10 @@ module.exports = (db, Sequelize) => {
   //  Only email at the moment. Feel free to add/remove fields and change facebook information.
 
   var updateUser = (req, res, userObject) => {
+    if (req.user === undefined) { 
+      res.send('user undefined');
+      return;
+    }
     
     User.find({ where: { id: req.user.dataValues.id }})
     .then(function(user) {
@@ -27,6 +31,8 @@ module.exports = (db, Sequelize) => {
           res.send(newUserInfo.dataValues);
         });
       }
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 

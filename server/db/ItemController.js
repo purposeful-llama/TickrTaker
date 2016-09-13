@@ -95,6 +95,8 @@ module.exports = (db, Sequelize, User) => {
           aCurrentItem.update({valid: false});
         }
       });
+    }).catch(function(err) {
+      console.log(err);
     });
   };
   
@@ -120,6 +122,8 @@ module.exports = (db, Sequelize, User) => {
       //  Send valid items that meet search query back to client
       console.log(items);
       res.send(items);
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
@@ -129,12 +133,18 @@ module.exports = (db, Sequelize, User) => {
     Item.findOne({where: {id: itemId}, raw: true})
     .then(function(item) {
       res.send(item);
+    }).catch(function(err) {
+      console.log(err);
     });
   };
   
   //  get all items that user has for sale.
 
   const getItemsForSale = (req, res, next) => {
+    if (req.body.user === undefined) { 
+      res.send('user undefined');
+      return;
+    }
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
       user.getItems({where: {valid: true}, raw: true})
@@ -142,10 +152,16 @@ module.exports = (db, Sequelize, User) => {
         console.log(items);
         res.send(items);
       });  
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
   const getOldItemsForSale = (req, res, next) => {
+    if (req.body.user === undefined) { 
+      res.send('user undefined');
+      return;
+    }
     User.findOne({where: {id: req.body.user.id}})
     .then(function(user) {
       user.getItems({where: {valid: false}, raw: true})
@@ -153,6 +169,8 @@ module.exports = (db, Sequelize, User) => {
         console.log(items);
         res.send(items);
       });  
+    }).catch(function(err) {
+      console.log(err);
     });
   };
   //  Validate the picture's url. Regex taken from Diego Perini.
@@ -175,6 +193,10 @@ module.exports = (db, Sequelize, User) => {
   //  Place an item for sale.
 
   const putItemForSale = (req, res, next) => {
+    if (req.body.item === undefined) { 
+      res.send('item undefined');
+      return;
+    }
 
     //  Check if item is valid
     
@@ -189,6 +211,8 @@ module.exports = (db, Sequelize, User) => {
             user.addItem(item);
             res.send('created new item');
           }); 
+      }).catch(function(err) {
+        console.log(err);
       });
     } else {
       res.send('failed to create new item');
@@ -211,6 +235,8 @@ module.exports = (db, Sequelize, User) => {
           }
         });
       });
+    }).catch(function(err) {
+      console.log(err);
     });
   };
 
