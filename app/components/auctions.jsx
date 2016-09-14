@@ -10,6 +10,7 @@ export default class Auction extends Component {
     };
     this.updateEntrys = this.updateEntrys.bind(this);
     this.grabAuctions = this.grabAuctions.bind(this);
+    this.sortEntries = this.sortEntries.bind(this);
   }
 
   componentDidMount () {   //  Have list of auctions before rendering the page
@@ -45,26 +46,86 @@ export default class Auction extends Component {
     });
   }
 
+  filterEntries (e) {
+    this.state.entrys.filter(function (entry) {
+
+    });
+  }
+
+  sortEntries (e) {
+    e.preventDefault();
+    var sorter = e.target.value;
+    if (sorter !== "") {
+      if (sorter === "priceHigh") {
+        var x = this.state.entrys.sort(function (a, b) {
+          return a.price > b.price;
+        });
+        this.setState({
+          entrys: x
+        });
+      }
+      if (sorter === "priceLow") {
+        var x = this.state.entrys.sort(function (a, b) {
+          return a.price < b.price;
+        });
+        this.setState({
+          entrys: x
+        });
+      }
+      if (sorter === "oldest") {
+        var x = this.state.entrys.sort(function(a, b) {
+          return a.startDate > b.startDate;
+        });
+        this.setState({
+          entrys: x
+        });
+      }
+      if (sorter === "newest") {
+        var x = this.state.entrys.sort(function(a, b) {
+          return a.startDate < b.startDate;
+        });
+        this.setState({
+          entrys: x
+        });
+      }
+    }
+  }
+
   render () {
     return (
       <div className="row">
         <div className="col-xs-12">
           <div className="auction-header col-xs-12">
-            <h3 className="col-xs-4 pull-xs-left">Current Auctions</h3>
-            <div className="col-xs-8 pull-xs-right">
+            <h3 className="col-xs-3 pull-xs-left">Current Auctions</h3>
+            <div className="col-xs-5 pull-xs-right">
               <form className="search-form" onSubmit={this.grabAuctions.bind(this)}>
                 <input id="search" className="col-xs-6" />
-                <div className="col-xs-6 search-text">Search:</div>
+                <div className="col-xs-5 search-text">Search:</div>
+              </form>
+            </div>
+            <div className="col-xs-3">
+              <form>
+                <h3></h3>
+                <select onChange={this.sortEntries}>
+                  <option value="">All</option>
+                  <option value="priceHigh">Price: High to Low</option>
+                  <option value="priceLow">Price: Low to High</option>
+                  <option value="newest">Newer Items First</option>
+                  <option value="oldest">Older Items First</option>
+                </select>
               </form>
             </div>
           </div>
-          {/*this div is for filtering by categories e.g.: price, type, time left, color, etc.*/}
-          <div className="categories col-xs-2 pull-xs-left">
-            <div className="auction-listings col-xs-8 pull-xs-left">
-              <Filters data={'cool'}/>
+          {/*this div is for filtering by categories e.g.: price, type, time left, color, etc.
+               
+            */
+          }
+          <div className="sidebar col-md-2">
+            <div className="sidebar col-xs-2">
+              <Filters className="bid-container" />
             </div>
           </div> 
-          <div className="auction-listings col-xs-8 pull-xs-left">
+          <div className="auction-listings col-md-8 off-set-2">
             {
               this.state.entrys.map((entry, i) => {
                 console.log(entry);

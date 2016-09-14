@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import {calcPrice, calcTime} from '../helpers.js';
-import Filters from './filters.jsx';
 
 export default class AuctionEntry extends Component {
   constructor (props) {
