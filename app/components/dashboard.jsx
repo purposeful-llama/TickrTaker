@@ -94,6 +94,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
+
         <div className="col-md-2 sidebar">
           <h5>Your Account</h5>
             <ul className="no-bullets">
@@ -101,6 +102,7 @@ export default class Dashboard extends Component {
               <li onClick={this._toggleLosing}>Losing Bids</li>
               <li onClick={this._toggleOnAuction}>Items on Auction</li>
             </ul>
+
         </div>
         <div className="col-md-8 off-set-2">
         {this.state.toggleWinning ? 
@@ -133,24 +135,3 @@ export default class Dashboard extends Component {
   }
 }
 
-        // <div className="dashboard-header col-xs-12"> <h2>Winning Bids </h2> </div>
-        // <div className="col-xs-12 bid-container">
-        //   {this.state.itemsWinningBidOn.map((winningBid, index) => {
-        //     return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
-        //   })
-        // }
-        // </div>
-        // <div className = "dashboard-header col-xs-12"> <h2> Losing Bids </h2> </div>
-        // <div className="col-xs-12 bid-container" >
-        //   {
-        //     this.state.itemsLosingBidOn.map((losingBid, index) => {
-        //       return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
-        //     })
-        //   }
-        // </div>
-        // <div className="dashboard-header col-xs-12"> <h2> Items on Auction </h2> </div>
-        // <div className="col-xs-12 bid-container">
-        // {this.state.itemsForSale.map((saleItem, index) => {
-        //   return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);
-        // }) }
-        // </div>
