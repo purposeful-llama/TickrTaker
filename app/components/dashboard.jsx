@@ -9,8 +9,14 @@ export default class Dashboard extends Component {
     this.state = {
       itemsForSale: [],
       itemsWinningBidOn: [],
-      itemsLosingBidOn: []
+      itemsLosingBidOn: [],
+      toggleWinning: true,
+      toggleLosing: false,
+      toggleOnAuction: false
     };
+    this._toggleWinning = this._toggleWinning.bind(this);
+    this._toggleLosing = this._toggleLosing.bind(this);
+    this._toggleOnAuction = this._toggleOnAuction.bind(this);
   }
 
   componentDidMount() {    //   Retrieve user data form, show items seller items on dashboard page
@@ -61,57 +67,72 @@ export default class Dashboard extends Component {
     });
   }
 
+  _toggleWinning() {
+    this.setState({
+      toggleWinning: true,
+      toggleLosing: false,
+      toggleOnAuction: false
+    })
+  }
+
+  _toggleLosing() {
+    this.setState({
+      toggleWinning: false,
+      toggleLosing: true,
+      toggleOnAuction: false
+    })
+  }
+
+  _toggleOnAuction() {
+    this.setState({
+      toggleWinning: false,
+      toggleLosing: false,
+      toggleOnAuction: true
+    })
+  }
+
   render() {
     return (
       <div>
-        <div className="col-md-3">
-        <p>Winning Bids</p>
-        <p>Losing Bids</p>
-        <p>Items on Auction</p>       
+
+        <div className="col-md-2 sidebar">
+          <h5>Your Account</h5>
+            <ul className="no-bullets">
+              <li onClick={this._toggleWinning}>Winning Bids</li>
+              <li onClick={this._toggleLosing}>Losing Bids</li>
+              <li onClick={this._toggleOnAuction}>Items on Auction</li>
+            </ul>
+
         </div>
-        <div className="col-md-7 off-set-2">
-        {this.state.toggleWinningBid ?
-        <div className="bid-container">
-          {this.state.itemsWinningBidOn.map((winningBid, index) => {
-            return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
-          })}
-        </div> : null}
-        {this.state.toggleLosingBid ? 
-        <div className="bid-container" >
-          {
-            this.state.itemsLosingBidOn.map((losingBid, index) => {
-              return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
-            })
-          }
-        </div> : null}
-        {this.state.toggleItemsOnAuction ?
+        <div className="col-md-8 off-set-2">
+        {this.state.toggleWinning ? 
           <div className="bid-container">
-          {this.state.itemsForSale.map((saleItem, index) => {
-            return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);
-          }) }
+          <h3>Winning Bids</h3>
+            {this.state.itemsWinningBidOn.map((winningBid, index) => {
+              return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
+              })
+            }
           </div> : null}
-        </div>
-        <div className="dashboard-header col-xs-12"> <h2>Winning Bids </h2> </div>
-        <div className="col-xs-12 bid-container">
-          {this.state.itemsWinningBidOn.map((winningBid, index) => {
-            return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
-          })}
-        </div>
-        <div className = "dashboard-header col-xs-12"> <h2> Losing Bids </h2> </div>
-        <div className="col-xs-12 bid-container" >
-          {
-            this.state.itemsLosingBidOn.map((losingBid, index) => {
-              return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
-            })
-          }
-        </div>
-        <div className="dashboard-header col-xs-12"> <h2> Items on Auction </h2> </div>
-        <div className="col-xs-12 bid-container">
-        {this.state.itemsForSale.map((saleItem, index) => {
-          return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);
-        }) }
+        {this.state.toggleLosing ?
+          <div className="bid-container" >
+          <h3>Losing Bids</h3>
+            {this.state.itemsLosingBidOn.map((losingBid, index) => {
+                return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
+              })
+            }
+          </div> : null}
+        {this.state.toggleOnAuction ?
+          <div className="bid-container">
+          <h3>Items on Auction</h3>
+            {this.state.itemsForSale.map((saleItem, index) => {
+              return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);
+              }) 
+            }
+          </div> : null}
         </div>
       </div>
     );
   }
 }
+
+        
