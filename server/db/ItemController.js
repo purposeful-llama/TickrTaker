@@ -127,6 +127,13 @@ module.exports = (db, Sequelize, User) => {
     });
   };
 
+  const getAllTitles = (req, res, next) => {
+    Item.findAll({
+      attributes: ['title']
+    })
+    .then((titles) => res.send(titles));
+  };
+
   //  get a single item's information and send back.
 
   const getOneItem = (req, res, next, itemId) => {
@@ -247,6 +254,7 @@ module.exports = (db, Sequelize, User) => {
     getAllItems: getAllItems,
     putItemForSale: putItemForSale,
     removeItemFromSale: removeItemFromSale,
-    getOneItem: getOneItem
+    getOneItem: getOneItem,
+    getAllTitles: getAllTitles
   };
 };
