@@ -23,7 +23,8 @@ module.exports = (db, Sequelize, User) => {
     endPrice: {type: Sequelize.FLOAT, allowNull: false},
     minimumBidIncrement: {type: Sequelize.FLOAT, defaultValue: 1},
     auctionEndDateByHighestBid: {type: Sequelize.DATE, allowNull: false, defaultValue: endDateDefault},
-    valid: {type: Sequelize.BOOLEAN, defaultValue: true}
+    valid: {type: Sequelize.BOOLEAN, defaultValue: true},
+    category: {type: Sequelize.STRING, allowNull: false}
   });
 
   //  INTERVAL CHECK. Will flip valid from true to false if item has expired.
