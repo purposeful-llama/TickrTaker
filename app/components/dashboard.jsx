@@ -64,6 +64,33 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
+        <div className="col-md-3">
+        <p>Winning Bids</p>
+        <p>Losing Bids</p>
+        <p>Items on Auction</p>       
+        </div>
+        <div className="col-md-7 off-set-2">
+        {this.state.toggleWinningBid ?
+        <div className="bid-container">
+          {this.state.itemsWinningBidOn.map((winningBid, index) => {
+            return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
+          })}
+        </div> : null}
+        {this.state.toggleLosingBid ? 
+        <div className="bid-container" >
+          {
+            this.state.itemsLosingBidOn.map((losingBid, index) => {
+              return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
+            })
+          }
+        </div> : null}
+        {this.state.toggleItemsOnAuction ?
+          <div className="bid-container">
+          {this.state.itemsForSale.map((saleItem, index) => {
+            return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);
+          }) }
+          </div> : null}
+        </div>
         <div className="dashboard-header col-xs-12"> <h2>Winning Bids </h2> </div>
         <div className="col-xs-12 bid-container">
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
