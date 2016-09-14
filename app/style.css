@@ -6392,9 +6392,10 @@ body {
 }
 
 .bid-container {
+  margin-top: 10px;
   border-radius: 10px;
   padding: 10px;
-  text-align: center;
+  text-align: left;
   background: rgba(211, 211, 211, 0.5);
 
 }
@@ -6615,4 +6616,15 @@ hr {
 
 .navbar-toggler {
   float: right;
+}
+
+.sidebar {
+  margin-top: 10px;
+  border-right: 2px solid gray;
+  height: 88vh;
+}
+
+.no-bullets {
+    list-style-type: none;
+    margin-left: 0px;
 }
