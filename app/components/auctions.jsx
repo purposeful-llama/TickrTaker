@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import AuctionEntry from './auctionentry.jsx';
+import Filters from './filters.jsx';
 
 export default class Auction extends Component {
   constructor(props) {
@@ -48,27 +49,31 @@ export default class Auction extends Component {
     return (
       <div className="row">
         <div className="col-xs-12">
-          <div className="col-xs-12">
-            <div className="auction-header col-xs-12">
-              <h3 className="col-xs-4 pull-xs-left">Current Auctions</h3>
-              <div className="col-xs-8 pull-xs-right">
-                <form className="search-form" onSubmit={this.grabAuctions.bind(this)}>
-                  <input id="search" className="col-xs-6" />
-                  <div className="col-xs-6 search-text">Search:</div>
-                </form>
-              </div>
+          <div className="auction-header col-xs-12">
+            <h3 className="col-xs-4 pull-xs-left">Current Auctions</h3>
+            <div className="col-xs-8 pull-xs-right">
+              <form className="search-form" onSubmit={this.grabAuctions.bind(this)}>
+                <input id="search" className="col-xs-6" />
+                <div className="col-xs-6 search-text">Search:</div>
+              </form>
             </div>
           </div>
-        <div className="auction-listings col-xs-12">
-          {
-            this.state.entrys.map((entry, i) => {
-              console.log(entry);
-              return (<AuctionEntry key={i} parity={i % 2} item={entry} auth={this.props.auth} />);
-            })
-          }
+          {/*this div is for filtering by categories e.g.: price, type, time left, color, etc.*/}
+          <div className="categories col-xs-2 pull-xs-left">
+            <div className="auction-listings col-xs-8 pull-xs-left">
+              <Filters data={'cool'}/>
+            </div>
+          </div> 
+          <div className="auction-listings col-xs-8 pull-xs-left">
+            {
+              this.state.entrys.map((entry, i) => {
+                console.log(entry);
+                return (<AuctionEntry key={i} parity={i % 2} item={entry} auth={this.props.auth} />);
+              })
+            }
           </div>
         </div>
-      </div>
+      </div> 
     );
   }
 }
