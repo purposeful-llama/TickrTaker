@@ -14,17 +14,25 @@ export default class Inbox extends Component {
   componentDidMount() {
     $.ajax({
       method: 'GET',
-      url: 'api/messages',
-      query: {
-        user: this.props.userId
-      },
+      url: 'api/messages' + this.props.userId,
       success: function(messages) {
         //filter messages as a buyer and as a seller
         console.log('what is messages like? ------>', messages);
-        //this.setState({
-        //   buyerMessages: '...',
-        //   sellerMessages: '...',
-        // });
+        messages.forEach(function(item) {
+          if (item.isSeller) {
+            var entry = {
+              subject: item.subject,
+              message: item.message
+            };
+            this.setState({sellerMessages: entry});
+          } else {
+            var entry = {
+              subject: item.subject,
+              message: item.message
+            };
+            this.setState({buyerMessages: entry});
+          }
+        });
       },
       error: function(err) {
         console.log('There is an error, it\'s a sad day D=');
@@ -35,18 +43,18 @@ export default class Inbox extends Component {
 
   render() {
     return (
-        <div>
-          <h5>Your Listing</h5>
+        <div className="col-md-12">
+          <h5>Your Auction Listing</h5>
             {this.state.sellerMessages.map((item, index) => {
               return (
-                <Message isSeller={true} message={item} key={index} parity={index % 2}/>
+                <Message isSeller={true} subject={item.subject} message={item.message} key={index} parity={index % 2}/>
                 );
             })
           }
-          <h5>Other items</h5>
+          <h5>Auctions you are interested in</h5>
             {this.state.buyerMessages.map((item, index) => {
               return (
-                  <Message isSeller={false} message={item} key={index} parity={index % 2}/>
+                  <Message isSeller={false} subject={item.subject} message={item.message} key={index} parity={index % 2}/>
                 );
             })}
         </div>

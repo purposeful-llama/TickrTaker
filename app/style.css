@@ -6395,7 +6395,6 @@ body {
 
 .auction-item-title-hr {
   width: 25vw;
-  float: left;
 }
 
 .alert{
@@ -6643,4 +6642,9 @@ hr {
 .filter-entry {
   width: 100%;
   line-height: 22px;
+}
+
+.auctionTitle {
+  padding-bottom: 20px;
+  text-align: left;
 }

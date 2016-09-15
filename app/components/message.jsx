@@ -9,10 +9,8 @@ export default class Message extends Component {
 
   render() {
     return (
-        <div className="msg-container">
-          <div>
-            {/*this.props.title*/}
-          </div>
+        <div className="col-md-12 msg-container">
+          <h6>{this.props.subject}</h6>
           <div>
             {this.props.message}
           </div>
