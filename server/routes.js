@@ -95,7 +95,7 @@ module.exports = (app, db) => {
     db.MessageController.getAllMessages(req, res, next);
   });
 
-  app.post('/api/messages/', (req, res, next) => {
+  app.post('/api/messages', (req, res, next) => {
     db.MessageController.postUserMessage(req, res, next);
   });
 

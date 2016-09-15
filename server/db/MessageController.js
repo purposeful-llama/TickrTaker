@@ -5,7 +5,6 @@ module.exports = (db, Sequelize, User) => {
   var Message = db.define('message', {
     subject: {type: Sequelize.TEXT, allowNull: false},
     message: {type: Sequelize.TEXT, allowNull: false},
-    isSeller: {type: Sequelize.BOOLEAN, defaultValue: false}
   });
 
 
@@ -24,19 +23,24 @@ module.exports = (db, Sequelize, User) => {
 
   const getAllMessages = (req, res, next) => {
     Message.findAll({})
-    .then((messages) => res.send(messages))
-    .catch((err) => console.log(err));
+    .then(messages => res.send(messages))
+    .catch(err => console.log(err));
   };
 
   const postUserMessage = (req, res, next) => {
     Message.create({
       subject: req.body.subject,
       message: req.body.message
-    }).then((message) => {
-      User.find({where: {name: req.params.name}})
-      .then((user) => {
-        user.setMessages(message);
+    }).then(message => {
+      User.find({where: {id: req.body.sellerId}})
+      .then(user => {
+        user.addMessages(message);
       });
+      User.find({where: {id: req.body.buyerId}})
+      .then(user => {
+        user.addMessages(message);
+      })
+      .then(posted => res.send(posted));
     });
   };
   
