@@ -6644,3 +6644,30 @@ hr {
   width: 100%;
   line-height: 22px;
 }
+
+.selected-cat {
+  background-color: #C7C7C9;
+}
+
+.category-container {
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.cat-row {
+  width: 100%;
+  margin: 10px;
+}
+
+.category-on-post {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
+  border: 2px solid black;
+  margin: 5px;
+  text-align: center;
+}
+
+.category-on-post:hover {
+  border-color: #777779;
+}

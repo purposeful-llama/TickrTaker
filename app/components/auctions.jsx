@@ -145,7 +145,7 @@ export default class Auction extends Component {
                
             */
           }
-          <div className="sidebar col-md-2">
+          <div className="sidebar col-md-2 filter-side">
             <Filters className="bid-container" clickHandlerCategory={this.filterEntriesByCategory} clickHandlerTime={this.filterEntriesByTime} clearFilter={this.clearFilter}/>
           </div> 
           <div className="auction-listings col-md-8 off-set-2">
@@ -156,6 +156,17 @@ export default class Auction extends Component {
               })
             }
           </div>
+          <form action="/your-charge-code" method="POST">
+            <script
+              src="https://checkout.stripe.com/checkout.js" className="stripe-button"
+              data-key="pk_test_UahXVPVR1lOrfFKhQIxrY5re"
+              data-amount="999"
+              data-name="Demo Site"
+              data-description="Widget"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-locale="auto">
+            </script>
+          </form>
         </div>
       </div> 
     );
