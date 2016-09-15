@@ -4,18 +4,22 @@ module.exports = (db, Sequelize, User) => {
 
   var Message = db.define('message', {
     subject: {type: Sequelize.TEXT, allowNull: false},
-    message: {type: Sequelize.TEXT, allowNull: false}
+    message: {type: Sequelize.TEXT, allowNull: false},
+    isSeller: {type: Sequelize.BOOLEAN, defaultValue: false}
   });
 
 
-  const getUserMessages = (req, res, next) => {
-    Message.findAll({
-      where: {name: req.body.name},
-      include: [User],
-      order: 'id desc',
+  const getUserMessages = (req, res, next, userId) => {
+    User.find({
+      where: {
+        id: userId
+      }
     })
-    .then((messages) => res.send(messages))
-    .catch((err) => console.log(err));
+    .then(user => {
+      user.getMessages()
+      .then(messages => res.send(messages));
+    })
+    .catch(err => console.log(err));
   };
 
   const getAllMessages = (req, res, next) => {
@@ -24,16 +28,23 @@ module.exports = (db, Sequelize, User) => {
     .catch((err) => console.log(err));
   };
 
-  const postUserMessages = (req, res, next) => {
-    Message.create(req.body)
-    .then((insert) => res.send(insert))
-    .catch((err) => console.log(err));
+  const postUserMessage = (req, res, next) => {
+    Message.create({
+      subject: req.body.subject,
+      message: req.body.message
+    }).then((message) => {
+      User.find({where: {name: req.params.name}})
+      .then((user) => {
+        user.setMessages(message);
+      });
+    });
   };
   
   return {
     Message: Message,
     getUserMessages: getUserMessages,
-    getAllMessages: getAllMessages
+    getAllMessages: getAllMessages,
+    postUserMessage: postUserMessage
   };
 };
 

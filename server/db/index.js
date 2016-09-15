@@ -24,8 +24,8 @@ BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
 
-UserController.User.belongsToMany(MessageController.Message, {as: 'Messages', through: 'UserMessages', onDelete: 'cascade'});
-MessageController.Message.belongsToMany(UserController.User, {as: 'Users', through: 'UserMessages', onDelete: 'cascade'});
+UserController.User.belongsToMany(MessageController.Message, {as: 'Messages', through: 'usermessages', foreignKey: 'messageId', onDelete: 'cascade'});
+MessageController.Message.belongsToMany(UserController.User, {as: 'Users', through: 'usermessages', foreignKey: 'userId', onDelete: 'cascade'});
 
 
 //DUMMY DATA. Drops tables every time server restarts.
@@ -114,6 +114,15 @@ db.sync({force: true})
             });
             bidder.addBid(bid);
           });
+        });
+      });
+      MessageController.Message.create({
+        subject: 'Hello LLama',
+        message: 'This llama is excellent',
+      }).then((message) => {
+        UserController.User.find({where: {name: 'Kunal Rathi'}})
+        .then((user) => {
+          user.setMessages(message);
         });
       });
     });
