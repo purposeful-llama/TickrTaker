@@ -3,6 +3,7 @@ import WinningBid from './winningBid.jsx';
 import LosingBid from './losingBid.jsx';
 import SaleItem from './saleItem.jsx';
 import Inbox from './inbox.jsx';
+import ManageFAQ from './manageFAQ.jsx';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -78,12 +79,16 @@ export default class Dashboard extends Component {
           <h5>Your Account</h5>
             <ul className="no-bullets">
               <li onClick={() => this._routePage('inbox')}>Inbox</li>
+              <li><h6>Buying</h6></li>
               <li onClick={() => this._routePage('winning')}>Winning Bids</li>
               <li onClick={() => this._routePage('losing')}>Losing Bids</li>
+              <li><h6>Selling</h6></li>
               <li onClick={() => this._routePage('OnAuction')}>Items on Auction</li>
+              <li onClick={() => this._routePage('manageFAQ')}>Manage Auctions FAQ</li>
             </ul>
 
         </div>
+
         <div className="col-md-8 off-set-2">
         {(this.state.route === 'winning') ? 
           <div className="bid-container">
@@ -93,6 +98,7 @@ export default class Dashboard extends Component {
               })
             }
           </div> : null}
+
         {(this.state.route === 'losing') ?
           <div className="bid-container">
           <h4>Losing Bids</h4>
@@ -101,6 +107,7 @@ export default class Dashboard extends Component {
               })
             }
           </div> : null}
+
         {(this.state.route === 'OnAuction') ?
           <div className="bid-container">
           <h4>Items on Auction</h4>
@@ -109,6 +116,7 @@ export default class Dashboard extends Component {
               }) 
             }
           </div> : null}
+
           {(this.state.route === 'inbox') ?
             <div>
               <div className="bid-container">
@@ -116,6 +124,15 @@ export default class Dashboard extends Component {
               </div>
                 <Inbox userId={this.state.userId} userName={this.state.userName}/>
             </div> : null}
+
+          {(this.state.route === 'manageFAQ') ?
+            <div>
+              <div className="bid-container">
+                <h4>Manage Auctions FAQ</h4>
+                <ManageFAQ />
+              </div>
+            </div>: null}
+
         </div>
       </div>
     );
