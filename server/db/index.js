@@ -1,5 +1,5 @@
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr');
+var db = new Sequelize('postgres://christopherpicato:password@localhost:5432/tickr');
 var moment = require('moment');
 
 //  Get controllers for users, items, bids.
@@ -41,7 +41,8 @@ db.sync({force: true})
     .then(function(seller) {
       ItemController.Item.create({
         title: 'Monkey',
-        description: 'A monkey!', 
+        description: 'A monkey!',
+        category: 'Stuff',
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473717678/item_photos/ddvlpupgnrur0l7nm3ng.jpg',  
         startPrice: 10000.00,
         endPrice: 100.00,
@@ -52,7 +53,8 @@ db.sync({force: true})
       });
       ItemController.Item.create({
         title: 'Fluorescent',
-        description: 'Some glow sticks!', 
+        description: 'Some glow sticks!',
+        category: 'Stuff',
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473717852/item_photos/vx7mzeluumrn1qngrnia.jpg',  
         startPrice: 10000000.00,
         endPrice: 1.00,
@@ -63,7 +65,8 @@ db.sync({force: true})
       });
       ItemController.Item.create({
         title: 'Linguine',
-        description: 'Some linguine!', 
+        description: 'Some linguine!',
+        category: 'Stuff',
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473717931/item_photos/dsnyockmsy6enburpyjt.png',  
         startPrice: 10000000.00,
         endPrice: 1000000.00
@@ -72,7 +75,8 @@ db.sync({force: true})
       });
       ItemController.Item.create({
         title: 'Cavs vs Warriors - Game 7 tickets - Row A Seat 1 - 10',
-        description: 'Some tickets! Get the perfect seats for the NBA finals game 7!', 
+        description: 'Some tickets! Get the perfect seats for the NBA finals game 7!',
+        category: 'Stuff',
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473718163/item_photos/sxyqw1yolsfbvzdkvhjr.png',  
         startPrice: 20000.00,
         endPrice: 1000.00
@@ -81,7 +85,8 @@ db.sync({force: true})
       });
       ItemController.Item.create({
         title: 'Full bed',
-        description: 'A full bed. Comes with matress.', 
+        description: 'A full bed. Comes with matress.',
+        category: 'Stuff',
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473717788/item_photos/wqifur3lxghuzoysy8c2.jpg',  
         startPrice: 999.00,
         endPrice: 1.00
