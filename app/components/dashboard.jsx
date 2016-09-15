@@ -4,6 +4,7 @@ import LosingBid from './losingBid.jsx';
 import SaleItem from './saleItem.jsx';
 import Inbox from './inbox.jsx';
 import ManageFAQ from './manageFAQ.jsx';
+import Payment from './payment.jsx';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -79,7 +80,8 @@ export default class Dashboard extends Component {
           <h5>Your Account</h5>
             <ul className="no-bullets">
               <li onClick={() => this._routePage('inbox')}>Inbox</li>
-              <li><h6>Buying</h6></li>
+              <li><h5>Buying</h5></li>
+              <li onClick={() => this._routePage('itemsWon')}>Items Won</li>
               <li onClick={() => this._routePage('winning')}>Winning Bids</li>
               <li onClick={() => this._routePage('losing')}>Losing Bids</li>
               <li><h6>Selling</h6></li>
@@ -90,6 +92,12 @@ export default class Dashboard extends Component {
         </div>
 
         <div className="col-md-8 off-set-2">
+        {(this.state.route === 'itemsWon') ?
+          <div className="bid-container">
+          <h4>Items Won</h4>
+            <Payment />
+          </div> : null}
+
         {(this.state.route === 'winning') ? 
           <div className="bid-container">
           <h4>Winning Bids</h4>

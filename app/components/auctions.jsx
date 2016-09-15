@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import AuctionEntry from './auctionentry.jsx';
 import Filters from './filters.jsx';
-import Payment from './payment.jsx';
 
 export default class Auction extends Component {
   constructor(props) {
