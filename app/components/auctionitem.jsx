@@ -48,7 +48,11 @@ export default class AuctionItem extends Component {
     var thisItem = this.state.item;
     if (thisItem) {
       //only run calculations when item is loaded
-      return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+      if (this.state.bids.length > 0 && this.state.bids[0].price > thisItem.endPrice) {
+        return calcPrice(thisItem.startPrice, this.state.bids[0].price, thisItem.startDate, thisItem.endDate);
+      } else {
+        return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+      }
     } else {
       return 0;
     }
@@ -93,6 +97,8 @@ export default class AuctionItem extends Component {
     e.preventDefault();
     if (this.state.bids[0] === undefined || $('#bid').val() >= this.state.bids[0].price + 1 && $('#bid').val() !== '') {
       var context = this;
+      var newBids = this.state.bids.slice();
+      newBids.push($('#bid').val());
       $.ajax({
         method: 'GET',
         url: '/api/user_data',
@@ -101,13 +107,17 @@ export default class AuctionItem extends Component {
             method: 'POST',
             url: '/api/items/bids/' + context.props.params.id,
             headers: {'Content-Type': 'application/json'},
-            data: JSON.stringify({user: user, 
+            data: JSON.stringify({
+              user: user, 
               bid: $('#bid').val()}),
             success: function (res) {
               $('#bid').val('');
               console.log(res);
               context.getItem();
               context.getItemBids();
+              context.setState({
+                bids: newBids
+              });
             }
           });
         }

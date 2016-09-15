@@ -73,6 +73,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
+
         <div className="col-md-2 sidebar">
           <h5>Your Account</h5>
             <ul className="no-bullets">
@@ -81,6 +82,7 @@ export default class Dashboard extends Component {
               <li onClick={() => this._routePage('losing')}>Losing Bids</li>
               <li onClick={() => this._routePage('OnAuction')}>Items on Auction</li>
             </ul>
+
         </div>
         <div className="col-md-8 off-set-2">
         {(this.state.route === 'winning') ? 
@@ -119,3 +121,4 @@ export default class Dashboard extends Component {
     );
   }
 }
+
