@@ -145,7 +145,7 @@ export default class Auction extends Component {
                
             */
           }
-          <div className="sidebar col-md-2">
+          <div className="sidebar col-md-2 filter-side">
             <Filters className="bid-container" clickHandlerCategory={this.filterEntriesByCategory} clickHandlerTime={this.filterEntriesByTime} clearFilter={this.clearFilter}/>
           </div> 
           <div className="auction-listings col-md-8 off-set-2">
