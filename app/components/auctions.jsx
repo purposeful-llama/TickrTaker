@@ -121,9 +121,7 @@ export default class Auction extends Component {
             */
           }
           <div className="sidebar col-md-2">
-            <div className="col-xs-2">
-              <Filters className="bid-container" />
-            </div>
+            <Filters className="bid-container" />
           </div> 
           <div className="auction-listings col-md-8 off-set-2">
             {
