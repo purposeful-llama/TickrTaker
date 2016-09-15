@@ -24,8 +24,8 @@ BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
 
-UserController.User.belongsToMany(MessageController.Message, {as: 'Messages', onDelete: 'cascade'});
-MessageController.Message.belongsToMany(MessageController.User, {as: 'Users', onDelete: 'cascade'});
+UserController.User.belongsToMany(MessageController.Message, {as: 'Messages', through: 'UserMessages', onDelete: 'cascade'});
+MessageController.Message.belongsToMany(UserController.User, {as: 'Users', through: 'UserMessages', onDelete: 'cascade'});
 
 
 //DUMMY DATA. Drops tables every time server restarts.
@@ -119,5 +119,6 @@ module.exports = {
   db: db,
   UserController: UserController,
   ItemController: ItemController,
-  BidController: BidController
+  BidController: BidController,
+  MessageController: MessageController
 };
