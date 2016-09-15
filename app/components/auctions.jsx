@@ -53,7 +53,7 @@ export default class Auction extends Component {
 
   filterEntriesByCategory (e) {
     var filterValue = e.target.innerHTML;
-    var filtered = this.state.entrys.filter(function (entry) {
+    var filtered = this.state.allEntries.filter(function (entry) {
       return entry.category === filterValue;
     });
     this.setState({

@@ -163,7 +163,7 @@ export default class AddAuctionItem extends Component {
               <label className="control-label category-label">Category</label>
 
               <div className="category-container">
-                  {['Books & Audible', 'Movies, Music & Games', 'Electronics & Computers', 'Home, Garden & Tools', 'Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes & Jewelry', 'Sports & Outdoors', 'Automotive & Industrial'].map((item) => 
+                  {['Books and Audible', 'Movies, Music and Games', 'Electronics and Computers', 'Home, Garden and Tools', 'Beauty, Health and Grocery', 'Toys, Kids and Baby', 'Clothing, Shoes and Jewelry', 'Sports and Outdoors', 'Automotive and Industrial'].map((item) => 
                       <div onClick={this.clickedCategory} className="category-on-post">{item}</div>
                   )}
               </div>
