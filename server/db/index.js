@@ -7,7 +7,7 @@ var moment = require('moment');
 var UserController = require('./UserController')(db, Sequelize);
 var ItemController = require('./ItemController')(db, Sequelize, UserController.User);
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
-var MessageController = require('./MessageController')(db, Sequelize);
+var MessageController = require('./MessageController')(db, Sequelize, UserController.User);
 
 //  Assign many-to-one relationships between items-seller, bids-item, and bids-bidder.
 
