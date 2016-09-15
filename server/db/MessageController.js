@@ -10,12 +10,24 @@ module.exports = (db, Sequelize, User) => {
 
   const getUserMessages = (res, req, next) => {
     Message.findAll({where: {User: req.body.user}})
-    .then((messages) => res.send(messages));
+    .then((messages) => res.send(messages))
+    .catch((err) => console.log(err));
+  };
+
+  const getAllMessage = (res, req, next) => {
+    Message.findAll({})
+    .then((messages) => res.send(messages))
+    .catch((err) => console.log(err));
+  };
+
+  const postUserMessages = (res, req, next) => {
+    // Message.
   };
   
   return {
     Message: Message,
-    getUserMessages: getUserMessages
+    getUserMessages: getUserMessages,
+    getAllMessages: getUserMessages
   };
 };
 

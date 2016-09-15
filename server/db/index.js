@@ -50,7 +50,8 @@ db.sync({force: true})
         startPrice: 10000.00,
         endPrice: 100.00,
         endDate: '2016-09-13T00:00Z',
-        auctionEndDateByHighestBid: '2016-09-13T00:00Z'
+        auctionEndDateByHighestBid: '2016-09-13T00:00Z',
+        category: 'Beauty, Health & Grocery'
       }).then(function (item) {
         lex.addItem(item);
       });
@@ -61,7 +62,8 @@ db.sync({force: true})
         startPrice: 10000000.00,
         endPrice: 1.00,
         endDate: '2016-09-13T17:00Z',
-        auctionEndDateByHighestBid: '2016-09-13T17:00Z'
+        auctionEndDateByHighestBid: '2016-09-13T17:00Z',
+        category: 'Home, Garden & Tools'
       }).then(function (item) {
         seller.addItem(item);
       });
@@ -70,7 +72,8 @@ db.sync({force: true})
         description: 'Some linguine!', 
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473717931/item_photos/dsnyockmsy6enburpyjt.png',  
         startPrice: 10000000.00,
-        endPrice: 1000000.00
+        endPrice: 1000000.00,
+        category: 'Home, Garden & Tools'
       }).then(function (item) {
         seller.addItem(item);
       });
@@ -79,7 +82,8 @@ db.sync({force: true})
         description: 'Some tickets! Get the perfect seats for the NBA finals game 7!', 
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473718163/item_photos/sxyqw1yolsfbvzdkvhjr.png',  
         startPrice: 20000.00,
-        endPrice: 1000.00
+        endPrice: 1000.00,
+        category: 'Home, Garden & Tools'
       }).then(function (item) {
         seller.addItem(item);
       });
@@ -88,7 +92,8 @@ db.sync({force: true})
         description: 'A full bed. Comes with matress.', 
         picture: 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473717788/item_photos/wqifur3lxghuzoysy8c2.jpg',  
         startPrice: 999.00,
-        endPrice: 1.00
+        endPrice: 1.00,
+        category: 'Home, Garden & Tools'
       })
       .then(function(item) {
         seller.addItem(item);
