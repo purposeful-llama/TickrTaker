@@ -143,7 +143,6 @@ export default class Auction extends Component {
               </form>
             </div>
           </div>
-          
           <div className="sidebar col-md-2 filter-side">
             <Filters className="bid-container" clickHandlerCategory={this.filterEntriesByCategory} clickHandlerTime={this.filterEntriesByTime} clearFilter={this.clearFilter}/>
           </div> 
