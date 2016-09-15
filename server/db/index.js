@@ -16,7 +16,7 @@ var MessageController = require('./MessageController')(db, Sequelize, UserContro
 //  Ideally we would have a user-item-highestBid join table that would allow for cleaner queries.
 
 UserController.User.hasMany(ItemController.Item, {as: 'Items', onDelete: 'cascade'});
-ItemController.Item.belongsTo(UserController.User, {as: 'Seller'});
+ItemController.Item.belongsTo(UserController.User, {as: 'newOwner'});
 
 ItemController.Item.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
