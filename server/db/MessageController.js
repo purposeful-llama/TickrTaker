@@ -5,6 +5,7 @@ module.exports = (db, Sequelize, User) => {
   var Message = db.define('message', {
     subject: {type: Sequelize.TEXT, allowNull: false},
     message: {type: Sequelize.TEXT, allowNull: false},
+    from: {type: Sequelize.TEXT, allowNull: false}
   });
 
 
@@ -30,7 +31,8 @@ module.exports = (db, Sequelize, User) => {
   const postUserMessage = (req, res, next) => {
     Message.create({
       subject: req.body.subject,
-      message: req.body.message
+      message: req.body.message,
+      from: req.body.buyerId
     }).then(message => {
       User.find({where: {id: req.body.sellerId}})
       .then(user => {
