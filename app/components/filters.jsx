@@ -42,20 +42,22 @@ export default class Filters extends Component {
           )
         })*/}
         <br />
-        <h4>Time</h4>
-        {this.state.filters.Time.map((item) => {
+        <h4>Categories</h4>
+        <p className="clearFilter filter-entry filterCriteria" onClick={this.props.clearFilter}>All Categories</p>
+        {this.state.filters.Categories.map((item) => {
           return (
             <div className="filterCriteria">
-              <FilterEntry filter={item} />
+              <FilterEntry clickHandler={this.props.clickHandlerCategory} filter={item} />
             </div>
           )
         })}
         <br />
-        <h4>Categories</h4>
-        {this.state.filters.Categories.map((item) => {
+        <h4>Time</h4>
+        <p className="clearFilter filter-entry filterCriteria" onClick={this.props.clearFilter}>Anytime</p>
+        {this.state.filters.Time.map((item) => {
           return (
             <div className="filterCriteria">
-              <FilterEntry filter={item} />
+              <FilterEntry clickHandler={this.props.clickHandlerTime} filter={item} />
             </div>
           )
         })}

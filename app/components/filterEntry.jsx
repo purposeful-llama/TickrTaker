@@ -7,7 +7,7 @@ export default class FilterEntry extends Component {
 
   render () {
     return (
-      <div className="filter-entry" onClick={this.props.handleClick}>
+      <div className="filter-entry" onClick={this.props.clickHandler} >
         <p>{this.props.filter}</p>
       </div>
     );
