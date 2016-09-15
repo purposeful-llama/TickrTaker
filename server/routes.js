@@ -85,4 +85,10 @@ module.exports = (app, db) => {
     }
   });
 
+  //MESSAGES ENDPOINT
+
+  app.post('/api/messages', (req, res, next) => {
+    db.MessageController.getUserMessages(req, res, next);
+  });
+
 };

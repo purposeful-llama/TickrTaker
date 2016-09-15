@@ -7,6 +7,7 @@ var moment = require('moment');
 var UserController = require('./UserController')(db, Sequelize);
 var ItemController = require('./ItemController')(db, Sequelize, UserController.User);
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
+var MessageController = require('./MessageController')(db, Sequelize);
 
 //  Assign many-to-one relationships between items-seller, bids-item, and bids-bidder.
 
@@ -22,6 +23,9 @@ BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 
 UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
+
+UserController.User.belongsToMany(MessageController.Message, {as: 'Messages', onDelete: 'cascade'});
+MessageController.Message.belongsToMany(MessageController.User, {as: 'Users', onDelete: 'cascade'});
 
 
 //DUMMY DATA. Drops tables every time server restarts.
