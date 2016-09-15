@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import WinningBid from './winningBid.jsx';
 import LosingBid from './losingBid.jsx';
 import SaleItem from './saleItem.jsx';
+import Inbox from './inbox.jsx';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -10,13 +11,9 @@ export default class Dashboard extends Component {
       itemsForSale: [],
       itemsWinningBidOn: [],
       itemsLosingBidOn: [],
-      toggleWinning: true,
-      toggleLosing: false,
-      toggleOnAuction: false
+      route: ''
     };
-    this._toggleWinning = this._toggleWinning.bind(this);
-    this._toggleLosing = this._toggleLosing.bind(this);
-    this._toggleOnAuction = this._toggleOnAuction.bind(this);
+    this._routePage = this._routePage.bind(this);
   }
 
   componentDidMount() {    //   Retrieve user data form, show items seller items on dashboard page
@@ -25,21 +22,23 @@ export default class Dashboard extends Component {
       method: 'GET',
       url: 'api/user_data',
       success: function(user) {
-        console.log(user);
+        context.setState({
+          userId: user.user.id,
+          userName: user.user.name
+        });
         $.ajax({
           method: 'POST',
           url: 'api/selleritems',
           headers: {'Content-Type': 'application/json'},
           data: JSON.stringify(user),
           success: function(items) {
-            //console.log('items are', items);
+            console.log('items are', items);
             context.setState({'itemsForSale': items});
           },
           error: function(err) {
             console.log(err);
           }
         });
- 
         $.ajax({          // Retrieve data to show user's winnig and losingg bid on dashboard page
           method: 'POST',
           url: 'api/bids',
@@ -67,28 +66,8 @@ export default class Dashboard extends Component {
     });
   }
 
-  _toggleWinning() {
-    this.setState({
-      toggleWinning: true,
-      toggleLosing: false,
-      toggleOnAuction: false
-    })
-  }
-
-  _toggleLosing() {
-    this.setState({
-      toggleWinning: false,
-      toggleLosing: true,
-      toggleOnAuction: false
-    })
-  }
-
-  _toggleOnAuction() {
-    this.setState({
-      toggleWinning: false,
-      toggleLosing: false,
-      toggleOnAuction: true
-    })
+  _routePage(page) {
+    this.setState({route: page});
   }
 
   render() {
@@ -97,60 +76,46 @@ export default class Dashboard extends Component {
         <div className="col-md-2 sidebar">
           <h5>Your Account</h5>
             <ul className="no-bullets">
-              <li onClick={this._toggleWinning}>Winning Bids</li>
-              <li onClick={this._toggleLosing}>Losing Bids</li>
-              <li onClick={this._toggleOnAuction}>Items on Auction</li>
+              <li onClick={() => this._routePage('inbox')}>Inbox</li>
+              <li onClick={() => this._routePage('winning')}>Winning Bids</li>
+              <li onClick={() => this._routePage('losing')}>Losing Bids</li>
+              <li onClick={() => this._routePage('OnAuction')}>Items on Auction</li>
             </ul>
         </div>
         <div className="col-md-8 off-set-2">
-        {this.state.toggleWinning ? 
+        {(this.state.route === 'winning') ? 
           <div className="bid-container">
-          <h3>Winning Bids</h3>
+          <h4>Winning Bids</h4>
             {this.state.itemsWinningBidOn.map((winningBid, index) => {
               return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
               })
             }
           </div> : null}
-        {this.state.toggleLosing ?
-          <div className="bid-container" >
-          <h3>Losing Bids</h3>
+        {(this.state.route === 'losing') ?
+          <div className="bid-container">
+          <h4>Losing Bids</h4>
             {this.state.itemsLosingBidOn.map((losingBid, index) => {
                 return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
               })
             }
           </div> : null}
-        {this.state.toggleOnAuction ?
+        {(this.state.route === 'OnAuction') ?
           <div className="bid-container">
-          <h3>Items on Auction</h3>
+          <h4>Items on Auction</h4>
             {this.state.itemsForSale.map((saleItem, index) => {
               return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);
               }) 
             }
           </div> : null}
+          {(this.state.route === 'inbox') ?
+            <div>
+              <div className="bid-container">
+                <h4>Inbox</h4>
+              </div>
+                <Inbox userId={this.state.userId} userName={this.state.userName}/>
+            </div> : null}
         </div>
       </div>
     );
   }
 }
-
-        // <div className="dashboard-header col-xs-12"> <h2>Winning Bids </h2> </div>
-        // <div className="col-xs-12 bid-container">
-        //   {this.state.itemsWinningBidOn.map((winningBid, index) => {
-        //     return (<WinningBid key={index} parity={index % 2} item={winningBid}/>);
-        //   })
-        // }
-        // </div>
-        // <div className = "dashboard-header col-xs-12"> <h2> Losing Bids </h2> </div>
-        // <div className="col-xs-12 bid-container" >
-        //   {
-        //     this.state.itemsLosingBidOn.map((losingBid, index) => {
-        //       return (<LosingBid key={index} parity={index % 2} item={losingBid}/>);
-        //     })
-        //   }
-        // </div>
-        // <div className="dashboard-header col-xs-12"> <h2> Items on Auction </h2> </div>
-        // <div className="col-xs-12 bid-container">
-        // {this.state.itemsForSale.map((saleItem, index) => {
-        //   return (<SaleItem old={true} key={index} parity={index % 2} item={saleItem}/>);
-        // }) }
-        // </div>
