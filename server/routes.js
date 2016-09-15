@@ -39,6 +39,10 @@ module.exports = (app, db) => {
     db.ItemController.getAllItems(req, res, next);
   });
 
+  app.get('/api/alltitles', (req, res, next) => {
+    db.ItemController.getAllTitles(req, res, next);
+  });
+
   app.post('/api/selleritems', (req, res, next) => {
     // console.log('request body******', req.body);
     db.ItemController.getItemsForSale(req, res, next);
