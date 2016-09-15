@@ -9,7 +9,8 @@ export default class AuctionItem extends Component {
       item: undefined,
       currentPrice: undefined,
       bids: [],
-      timeRemaining: undefined
+      timeRemaining: undefined,
+      toggleComment: false
     };
     this.getItem = this.getItem.bind(this);
     this.getItemBids = this.getItemBids.bind(this);
@@ -127,6 +128,33 @@ export default class AuctionItem extends Component {
     }
   }
 
+  handleSubject(e) {
+    this.setState({subject: e.target.value});
+  }
+
+  handleMessage(e) {
+    this.setState({message: e.target.value});
+  }
+
+  sendMessage(e) {
+    e.preventDefault();
+    $.ajax({
+      method: 'POST',
+      url: 'api/messages',
+      data: {
+        item: this.state.item,
+        subject: this.state.subject,
+        message: this.state.message
+      },
+      success: function(data) {
+        console.log("your message is posted to the server", data);
+      },
+      error: function(err) {
+        console.log("There is an error. It\'s a sad day! D=")
+      }
+    });
+  }
+
   render () {
     
     var thisItem = this.state.item || {};
@@ -139,29 +167,75 @@ export default class AuctionItem extends Component {
     });
 
     return (
-      <div className="col-xs-12 auction-item-container">
-        <div className="col-md-6 col-xs-12">
+      <div className="container auction-item-container">
+      <div className="row">
+        <div className="col-md-4">
           <img className="img-fluid" src={thisItem.picture}></img>
         </div>
-        <div className="auction-item-details col-md-6 col-xs-12">
-          <br />
-          <h2>{thisItem.title}</h2>
-          <hr className="auction-item-title-hr"/>
-          <div className="col-xs-12">Description: {thisItem.description}</div>
-          <div className="col-xs-12">Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</div>
-          <div className="col-xs-12">End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</div>
-          <div className="col-xs-12">Time Remaining: {this.state.timeRemaining}</div>
-          <div className="col-xs-12"> Current Price: {this.state.currentPrice} </div>
-            <div className="col-xs-12"> Highest Bid: {this.state.bids[0] !== undefined ? '$ ' + this.state.bids[0].price.toFixed(2) : ' No Bids' }</div>
-          <form id="bid-form" onSubmit={this.sendItemBid}>
-            <div className="col-xs-12">Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
-            <button type="button" className="btn btn-primary pull-xs-right" onClick={this.sendItemBid}> Submit Bid</button>
 
+        <div className="auction-item-details col-md-6 off-set-2">
+          <h2>{thisItem.title}</h2>
+          <br />
+          <hr className="col-md-12 auction-item-title-hr"/>
+          <br />
+          <div className="col-md-12 auctionTitle">
+          <p>Description: {thisItem.description}</p>
+          </div>
+          <br />
+          <div className="col-md-12 auctionTitle">
+            <p>Start Date: {startDate.toLocaleDateString() + ' ' + startDate.toLocaleTimeString()}</p>
+          </div>
+          <br />
+          <div className="col-md-12 auctionTitle">
+            <p>End Date: {endDate.toLocaleDateString() + ' ' + endDate.toLocaleTimeString()}</p>
+          </div>
+          <br />
+          <div className="col-md-12 auctionTitle">
+            <p>Time Remaining: {this.state.timeRemaining}</p>
+          </div>
+          <br />
+          <div className="col-md-12 auctionTitle">
+            <p>Current Price: {this.state.currentPrice}</p> 
+          </div>
+          <br />
+          <div className="col-md-12 auctionTitle">
+            <p>Highest Bid: {this.state.bids[0] !== undefined ? '$ ' + this.state.bids[0].price.toFixed(2) : ' No Bids' }</p>
+          </div>
+          <br />
+          <div className="col-md-12 auctionTitle">
+          <form id="bid-form" onSubmit={this.sendItemBid}>
+            <div >Enter Bid <input id="bid" type="number" step = "0.01" placeholder="Enter a bid"></input> </div>
+            <button type="button" className="btn btn-primary pull-xs-right" onClick={this.sendItemBid}> Submit Bid</button>
           </form>
+          </div>
+          <br />
+          <div className="col-md-12 auctionTitle">
+            <h4>FAQ</h4>
+            <p><strong>Question 1?</strong></p>
+            <p>Answer 1</p>
+          </div>
+
+          <div className="col-md-12 auctionTitle">
+            <p>Still have questions about this item?</p>
+            <button type="button" className="btn btn-primary pull-xs-left">contact Seller</button>
+            <br />
+          </div>
+
+          <div className="col-md-12 auctionTitle">
+            <form>
+            <input type="text" width="500" placeholder="Subject line" value={this.state.subject} onChange={this.handleSubject}/>
+            <br />
+            <textarea type="text" rows='10' col="500" name="message"  placeholder="Enter your message..." value={this.state.message} onChange={this.handleMessage}/>
+            <input type="submit" value="Send"/>
+            </form>
+          </div>
+          
           <div className="alert alert-danger fade in" role="alert" id="bid-error">
               <button type="button" className="close">×</button>
               <strong>Woah! </strong>Please place a valid bid. <small>Tip: Try value higher than the current highest bid!</small>
           </div>
+
+        </div>
         </div>
       </div>
     );

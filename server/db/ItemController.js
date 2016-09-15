@@ -23,7 +23,8 @@ module.exports = (db, Sequelize, User) => {
     endPrice: {type: Sequelize.FLOAT, allowNull: false},
     minimumBidIncrement: {type: Sequelize.FLOAT, defaultValue: 1},
     auctionEndDateByHighestBid: {type: Sequelize.DATE, allowNull: false, defaultValue: endDateDefault},
-    valid: {type: Sequelize.BOOLEAN, defaultValue: true}
+    valid: {type: Sequelize.BOOLEAN, defaultValue: true},
+    category: {type: Sequelize.STRING, allowNull: false}
   });
 
   //  INTERVAL CHECK. Will flip valid from true to false if item has expired.
@@ -125,6 +126,13 @@ module.exports = (db, Sequelize, User) => {
     }).catch(function(err) {
       console.log(err);
     });
+  };
+
+  const getAllTitles = (req, res, next) => {
+    Item.findAll({
+      attributes: ['title']
+    })
+    .then((titles) => res.send(titles));
   };
 
   //  get a single item's information and send back.
@@ -247,6 +255,7 @@ module.exports = (db, Sequelize, User) => {
     getAllItems: getAllItems,
     putItemForSale: putItemForSale,
     removeItemFromSale: removeItemFromSale,
-    getOneItem: getOneItem
+    getOneItem: getOneItem,
+    getAllTitles: getAllTitles
   };
 };
