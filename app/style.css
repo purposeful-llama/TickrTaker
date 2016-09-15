@@ -331,6 +331,13 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: .5rem;
 }
 
+h4 {
+  font-size: 1.5rem;
+  border-bottom: 1px solid #bfdfdf;
+  box-sizing: border-box;
+  padding-bottom: 3px;
+}
+
 p {
   margin-top: 0;
   margin-bottom: 1rem;
@@ -588,7 +595,7 @@ small,
 mark,
 .mark {
   padding: 0.2em;
-  background-color: #fcf8e3;
+  background-color: #FFF;
 }
 
 .list-unstyled {
@@ -702,7 +709,7 @@ code {
   padding: 0.2rem 0.4rem;
   font-size: 90%;
   color: #bd4147;
-  background-color: #f7f7f9;
+  background-color: #FFF;
   border-radius: 0.25rem;
 }
 
@@ -725,7 +732,7 @@ pre {
   margin-top: 0;
   margin-bottom: 1rem;
   font-size: 90%;
-  color: #373a3c;
+  color: #FFF;
 }
 
 pre code {
@@ -1748,22 +1755,22 @@ pre code {
 .table-success,
 .table-success > th,
 .table-success > td {
-  background-color: #dff0d8;
+  background-color: #FFF;
 }
 
 .table-hover .table-success:hover {
-  background-color: #d0e9c6;
+  background-color: #FFF;
 }
 
 .table-hover .table-success:hover > td,
 .table-hover .table-success:hover > th {
-  background-color: #d0e9c6;
+  background-color: #FFF;
 }
 
 .table-info,
 .table-info > th,
 .table-info > td {
-  background-color: #d9edf7;
+  background-color: #FFF
 }
 
 .table-hover .table-info:hover {
@@ -1772,7 +1779,7 @@ pre code {
 
 .table-hover .table-info:hover > td,
 .table-hover .table-info:hover > th {
-  background-color: #c4e3f3;
+  background-color: #FFF;
 }
 
 .table-warning,
@@ -6261,7 +6268,7 @@ a.text-danger:focus, a.text-danger:hover {
 /*********************************************************/
 
 body {
-  background-color: #E6F3F6;
+  background-color: #FFF;
 }
 
 .auction-listings div {
@@ -6269,7 +6276,7 @@ body {
   padding-right: 0px;
 }
 .auction-entry-odd {
-  background-color: #FEFEFE;
+  background-color: #FFF;
 }
 
 .auction-entry-odd div {
@@ -6277,7 +6284,7 @@ body {
 }
 
 .auction-entry-even {
-  background-color: #F8F8F8;
+  background-color: #FFF;
 }
 
 .auction-entry-even div {
@@ -6364,6 +6371,10 @@ body {
   width: 90%;
 }
 
+#item-cat {
+  width: 90%;
+}
+
 #item-desc {
   width: 90%;
 }
@@ -6379,7 +6390,7 @@ body {
 #add-auction-item {
   padding: 50px;
   border-radius: 20px;
-  background-color: rgba(102,175,233, .5);
+  background-color: #FFF;
 }
 
 .auction-item-title-hr {
@@ -6525,10 +6536,10 @@ hr {
 }
 
 .img-circle {
-    background-color: gray;
-    border-radius: 50%;
-    height: 13vh;
-    width: 13vh;
+  background-color: gray;
+  border-radius: 50%;
+  height: 13vh;
+  width: 13vh;
 }
 
 .what-is-tickr-container {
@@ -6595,15 +6606,15 @@ hr {
 }*/
 
 .col-centered{
-    float: none;
-    margin: 0 auto;
+  float: none;
+  margin: 0 auto;
 }
 
 .auction-item-container {
   padding: 50px;
   border-radius: 20px;
   width: 90vw;
-  background-color: rgba(102,175,233, .5);
+  background-color: #FFF;
 }
 
 .navbar-break {
@@ -6625,6 +6636,11 @@ hr {
 }
 
 .no-bullets {
-    list-style-type: none;
-    margin-left: 0px;
+  list-style-type: none;
+  margin-left: 0px;
+}
+
+.filter-entry {
+  width: 100%;
+  line-height: 22px;
 }

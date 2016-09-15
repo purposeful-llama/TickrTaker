@@ -6,11 +6,15 @@ export default class Auction extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      allEntries: [],
       entrys: []
     };
     this.updateEntrys = this.updateEntrys.bind(this);
     this.grabAuctions = this.grabAuctions.bind(this);
     this.sortEntries = this.sortEntries.bind(this);
+    this.filterEntriesByCategory = this.filterEntriesByCategory.bind(this);
+    this.filterEntriesByTime = this.filterEntriesByTime.bind(this);
+    this.clearFilter = this.clearFilter.bind(this);
   }
 
   componentDidMount () {   //  Have list of auctions before rendering the page
@@ -19,7 +23,8 @@ export default class Auction extends Component {
 
   updateEntrys (entryArray) {    //  Show filtered results
     this.setState({
-      entrys: entryArray
+      entrys: entryArray,
+      allEntries: entryArray
     });
     console.log(this.state);
   }
@@ -46,9 +51,29 @@ export default class Auction extends Component {
     });
   }
 
-  filterEntries (e) {
-    this.state.entrys.filter(function (entry) {
+  filterEntriesByCategory (e) {
+    var filterValue = e.target.innerHTML;
+    var filtered = this.state.entrys.filter(function (entry) {
+      return entry.category === filterValue;
+    });
+    this.setState({
+      entrys: filtered
+    });
+  }
 
+  filterEntriesByTime (e) {
+    var filterValue = e.target.innerHTML;
+    var filtered = this.state.entrys.filter(function (entry) {
+      return entry.time === filterValue;
+    });
+    this.setState({
+      entrys: filtered
+    });
+  }
+
+  clearFilter(e) {
+    this.setState({
+      entrys: this.state.allEntries
     });
   }
 
@@ -121,9 +146,7 @@ export default class Auction extends Component {
             */
           }
           <div className="sidebar col-md-2">
-            <div className="col-xs-2">
-              <Filters className="bid-container" />
-            </div>
+            <Filters className="bid-container" clickHandlerCategory={this.filterEntriesByCategory} clickHandlerTime={this.filterEntriesByTime} clearFilter={this.clearFilter}/>
           </div> 
           <div className="auction-listings col-md-8 off-set-2">
             {
