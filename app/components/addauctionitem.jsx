@@ -42,6 +42,7 @@ export default class AddAuctionItem extends Component {
     $('#item-name-error').hide();                //  After each submit, hide error messages
     $('#item-img-null-error').hide();
     $('#item-img-valid-error').hide();
+    $('#item-cat-error').hide();
     $('#item-desc-error').hide();
     $('#item-edate-null-error').hide();
     $('#item-cval-over-error').hide();
@@ -49,6 +50,10 @@ export default class AddAuctionItem extends Component {
 
     if ($('#item-title').val() === '') {        //  Show error message in case of invalid item name
       $('#item-name-error').show();
+      valid = false;
+    }
+    if ($('#item-cat').val() === '') {         //  Show error message in case of invalid item category
+      $('#item-cat-error').show();
       valid = false;
     }
     if ($('#item-desc').val() === '') {         //  Show error message in case of invalid item description
@@ -76,12 +81,12 @@ export default class AddAuctionItem extends Component {
 
       this.setState({item: {
         title: $('#item-title').val(),
+        category: $('#item-cat').val(),
         description: $('#item-desc').val(),
         endPrice: Number($('#end-value').val()),
         startPrice: Number($('#current-value').val()),
         endDate: $('#end-date').val() + ' PST',
         picture: this.state.item.picture,
-
 
       }});
       //console.log(this.state.item);
@@ -146,6 +151,18 @@ export default class AddAuctionItem extends Component {
               <div className="alert alert-danger fade in" role="alert" id="item-img-null-error">
                 <button type="button" className="close">×</button>
                 <strong>Woah! </strong>Please provide an image. <small>Tip: Upload an image to imgur.com and link it!</small>
+              </div>
+            </div>
+            <br/>
+            <div className="control-group">
+              <label className="control-label">Category</label>
+              <div className="controls">
+                <input id="item-cat" name="category" type="text" placeholder="Enter a descriptive category..." className="input-xlarge" />
+                <p className="help-block"></p>
+              </div>
+              <div className="alert alert-danger fade in" role="alert" id="item-cat-error">
+                <button type="button" className="close">×</button>
+                <strong>Woah! </strong>Please provide a category. <small>Tip: Items with accurate categories tend to sell faster!</small>
               </div>
             </div>
             <div className="control-group">
