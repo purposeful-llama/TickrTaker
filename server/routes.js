@@ -99,4 +99,18 @@ module.exports = (app, db) => {
     db.MessageController.postUserMessage(req, res, next);
   });
 
+  //FAQ ENDPOINT
+
+  app.get('/api/faq/:itemId', (req, res, next) => {
+    db.FAQController.getItemFAQs(req, res, next, req.params.itemId);
+  });
+
+  app.post('/api/faq', (req, res, next) => {
+    db.FAQController.postItemFAQs(req, res, next);
+  });
+
+  app.post('/api/faqupdate', (req, res, next) => {
+    db.FAQController.editItemsFAQs(req, res, next);
+  });
+
 };
