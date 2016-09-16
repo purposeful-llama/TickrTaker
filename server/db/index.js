@@ -7,7 +7,7 @@ var moment = require('moment');
 var UserController = require('./UserController')(db, Sequelize);
 var ItemController = require('./ItemController')(db, Sequelize, UserController.User);
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
-var MessageController = require('./MessageController')(db, Sequelize);
+var MessageController = require('./MessageController')(db, Sequelize, UserController.User);
 
 //  Assign many-to-one relationships between items-seller, bids-item, and bids-bidder.
 
@@ -16,7 +16,7 @@ var MessageController = require('./MessageController')(db, Sequelize);
 //  Ideally we would have a user-item-highestBid join table that would allow for cleaner queries.
 
 UserController.User.hasMany(ItemController.Item, {as: 'Items', onDelete: 'cascade'});
-ItemController.Item.belongsTo(UserController.User, {as: 'Seller'});
+ItemController.Item.belongsTo(UserController.User, {as: 'newOwner'});
 
 ItemController.Item.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
@@ -24,8 +24,8 @@ BidController.Bid.belongsTo(ItemController.Item, {as: 'Item'});
 UserController.User.hasMany(BidController.Bid, {as: 'Bids', onDelete: 'cascade'});
 BidController.Bid.belongsTo(UserController.User, {as: 'Bidder'});
 
-UserController.User.belongsToMany(MessageController.Message, {as: 'Messages', through: 'UserMessages', onDelete: 'cascade'});
-MessageController.Message.belongsToMany(UserController.User, {as: 'Users', through: 'UserMessages', onDelete: 'cascade'});
+UserController.User.belongsToMany(MessageController.Message, {as: 'Messages', through: 'usermessages', foreignKey: 'userId', onDelete: 'cascade'});
+MessageController.Message.belongsToMany(UserController.User, {as: 'Users', through: 'usermessages', foreignKey: 'messageId', onDelete: 'cascade'});
 
 
 //DUMMY DATA. Drops tables every time server restarts.
@@ -114,6 +114,15 @@ db.sync({force: true})
             });
             bidder.addBid(bid);
           });
+        });
+      });
+      MessageController.Message.create({
+        subject: 'Hello LLama',
+        message: 'This llama is excellent',
+      }).then((message) => {
+        UserController.User.find({where: {name: 'Kunal Rathi'}})
+        .then((user) => {
+          user.setMessages(message);
         });
       });
     });
