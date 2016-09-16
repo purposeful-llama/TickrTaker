@@ -5,11 +5,15 @@ export default class Payment extends Component {
     super(props);
   }
 
+  // the submit is parsed by stripe functions
   render () {
     return (
-      <div>
-        <h5>Payment Info</h5>
-        <form action="/your-charge-code" method="POST" id="payment-form">
+      <div className="payment">
+
+        {Stripe.setPublishableKey('pk_test_UahXVPVR1lOrfFKhQIxrY5re')}
+        
+        <h5 className="payment-header">Payment Info</h5>
+        <form onSubmit={this.props.submitPayment} method="POST" id="payment-form">
 
           <div className="payment-div">
             <label>
@@ -41,9 +45,9 @@ export default class Payment extends Component {
             </label>
           </div>
 
-          <input type="submit" class="submit" value="Submit Payment" />
+          <input type="submit" className="submit" value="Submit Payment" />
 
-          <span className="payment-span" class="payment-errors"></span>
+          <span className="payment-span payment-errors"></span>
         </form>
       </div>
     );
