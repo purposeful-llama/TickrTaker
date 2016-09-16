@@ -16,6 +16,7 @@ export default class Dashboard extends Component {
       route: ''
     };
     this._routePage = this._routePage.bind(this);
+    this.submitPayment = this.submitPayment.bind(this);
   }
 
   componentDidMount() {    //   Retrieve user data form, show items seller items on dashboard page
@@ -72,6 +73,92 @@ export default class Dashboard extends Component {
     this.setState({route: page});
   }
 
+  // handles storing shipping info in user table and sending payment info to stripe api
+  submitPayment (e) {
+    e.preventDefault();
+    console.log('made it in life');
+    
+    // ajax request for payment info
+    var $form = $('#payment-form');
+    $form.submit(function(e) {
+      e.preventDefault();
+      console.log(e, 'stuff got submitted');
+      // Disable the submit button to prevent repeated clicks:
+      $form.find('.submit').prop('disabled', true);
+
+      // Request a token from Stripe:
+      Stripe.card.createToken($form, stripeResponseHandler);
+
+      // Prevent the form from being submitted:
+      return false;
+    });
+
+    // ajax request for shipping info
+    var name = $('#shipping-info-name').val();
+    var addressLine1 = $('#shipping-info-address-line-1').val();
+    var addressLine2 = $('#shipping-info-address-line-2').val();
+    var city = $('#shipping-info-city').val();
+    var state = $('#shipping-info-state').val();
+    var zip = $('#shipping-info-zip').val();
+    var country = $('#shipping-info-country').val();
+    var phoneNumber = $('#shipping-info-phone-number').val();
+
+    var shipping = {
+      name: name,
+      'addressLine1': addressLine1,
+      'addressLine2': addressLine2,
+      city: city,
+      state: state,
+      zip: zip,
+      country: country,
+      phoneNumber: phoneNumber
+    };
+
+    // Test
+    console.log(shipping);
+
+    $.ajax({
+      method: 'POST',
+      url: 'api/user_data',
+      headers: {'Content-Type': 'application/json'},
+      data: JSON.stringify(shipping),
+      success: function () {
+        console.log('Your shipping info has been saved');
+      },
+      error: function (error) {
+        console.log(error);
+      }
+    });
+
+    $.ajax({
+      method: 'POST',
+      url: 'https://api.stripe.com',
+      data: shipping,
+      success: function (status, response) {
+        var $form = $('#payment-form');
+
+        if (response.error) { // Problem!
+
+          // Show the errors on the form:
+          $form.find('.payment-errors').text(response.error.message);
+          $form.find('.submit').prop('disabled', false); // Re-enable submission
+
+        } else { // Token was created!
+
+          // Get the token ID:
+          var token = response.id;
+
+          // Insert the token ID into the form so it gets submitted to the server:
+          $form.append($('<input type="hidden" name="stripeToken">').val(token));
+
+          // Submit the form:
+          $form.get(0).submit();
+        }
+      }
+    });
+  }
+
+
   render() {
     return (
       <div>
@@ -94,7 +181,7 @@ export default class Dashboard extends Component {
         <div className="col-md-8 off-set-2">
         {(this.state.route === 'itemsWon') ?
           <div>
-            <ItemsWon />
+            <ItemsWon userId={this.state.userId} submitPayment={this.submitPayment}/>
           </div> : null}
 
         {(this.state.route === 'winning') ? 

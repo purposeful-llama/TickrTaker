@@ -33,7 +33,8 @@ export default class ItemsWon extends Component {
           data: JSON.stringify(user),
           success: function(items) {
             console.log('items are', items);
-            context.setState({'itemsForSale': items});
+            context.setState({'itemsForSale': items  
+                            });
           },
           error: function(err) {
             console.log(err);
@@ -64,16 +65,10 @@ export default class ItemsWon extends Component {
     });
   }
 
-  submitPayment (e) {
-    e.preventDefault()
-
-    // Obtain form elements and send ajax call
-  }
-
   render() {
     return (
       <div>
-        <h4 className="col-xs-12 bid-container items-won-header">Items Won</h4>
+        <h3 className="col-xs-12 bid-container items-won-header">Items Won</h3>
 
         <div className="col-xs-12 payment-container">
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
@@ -81,13 +76,15 @@ export default class ItemsWon extends Component {
           })}
         </div>
 
-        <div className="col-xs-12 payment-container">
+        <div className="col-xs-12 shipping-container">
           <ShippingInfo />
         </div>
 
         <div className="col-xs-12 payment-container">
-          <Payment />
+          <Payment submitPayment={this.props.submitPayment}/>
         </div>
+
+        <h1>{this.props.userId}</h1>
       </div>
     );
   }

@@ -6689,8 +6689,28 @@ hr {
   padding-bottom: 5px;
 }
 
+.shipping {
+  padding-bottom: 0px;
+}
+
+.shipping-container {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
+  background: white;
+}
+
 .items-won-header {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
   border-color: white;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
   background: white;
 }
 
@@ -6717,8 +6737,23 @@ hr {
 
 .payment-container {
   margin-top: 10px;
+  margin-bottom: 0px;
   border-radius: 10px;
   padding: 10px;
+  padding: 0px;
   text-align: left;
   background: white;
 }
+
+.winningBid-list {
+  border-color: grey;
+}
+
+.payment-header {
+  padding-bottom: 0px;
+}
+
+.payment {
+  padding-bottom: 10px;
+}
+
