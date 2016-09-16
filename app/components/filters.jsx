@@ -14,7 +14,7 @@ export default class Filters extends Component {
                       '1 hour', '1 day', '1 week' 
                     ],
                     'Categories': [
-                      'Books & Audible', 'Movies, Music & Games', 'Electronics & Computers', 'Home, Garden & Tools', 'Beauty, Health & Grocery', 'Toys, Kids & Baby', 'Clothing, Shoes & Jewelry', 'Sports & Outdoors', 'Automotive & Industrial'
+                      'Books and Audible', 'Movies, Music and Games', 'Electronics and Computers', 'Home, Garden and Tools', 'Beauty, Health and Grocery', 'Toys, Kids and Baby', 'Clothing, Shoes and Jewelry', 'Sports and Outdoors', 'Automotive and Industrial'
                     ]
                   }
     };
