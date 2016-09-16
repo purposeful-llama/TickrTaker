@@ -29,8 +29,8 @@ export default class AuctionEntry extends Component {
     }), 1000);
     this.calcPrice = this.calcPrice.bind(this);
     this.calcTime = this.calcTime.bind(this);
-
   }
+
   componentWillUnmount () {    // Clears up DOM elements that were created in ComponentDidMount method
     this.interval && clearInterval(this.interval);
     this.interval = false;
