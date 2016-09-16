@@ -4,7 +4,7 @@ import LosingBid from './losingBid.jsx';
 import SaleItem from './saleItem.jsx';
 import Inbox from './inbox.jsx';
 import ManageFAQ from './manageFAQ.jsx';
-import Payment from './payment.jsx';
+import ItemsWon from './itemsWon.jsx';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -95,7 +95,7 @@ export default class Dashboard extends Component {
         {(this.state.route === 'itemsWon') ?
           <div className="bid-container">
           <h4>Items Won</h4>
-            <Payment />
+            <ItemsWon />
           </div> : null}
 
         {(this.state.route === 'winning') ? 
