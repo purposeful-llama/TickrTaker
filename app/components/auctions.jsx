@@ -151,6 +151,8 @@ export default class Auction extends Component {
                 <h3></h3>
                 <select onChange={this.sortEntries}>
                   <option value="">All</option>
+                  <option value="">All</option>
+                  <option value="">All</option>
                   <option value="priceHigh">Price: High to Low</option>
                   <option value="priceLow">Price: Low to High</option>
                   <option value="newest">Newer Items First</option>
@@ -159,10 +161,6 @@ export default class Auction extends Component {
               </form>
             </div>
           </div>
-          {/*this div is for filtering by categories e.g.: price, type, time left, color, etc.
-               
-            */
-          }
           <div className="sidebar col-md-2 filter-side">
             <Filters className="bid-container" clickHandlerCategory={this.filterEntriesByCategory} clickHandlerTime={this.filterEntriesByTime} clearFilter={this.clearFilter}/>
           </div> 

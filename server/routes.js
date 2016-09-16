@@ -113,4 +113,9 @@ module.exports = (app, db) => {
     db.FAQController.editItemsFAQs(req, res, next);
   });
 
+  //ADDRESS ENDPOINT
+  app.post('/api/addresses', (req, res, next) => {
+    db.AddressController.postAddress(req, res, next);
+  });
+
 };

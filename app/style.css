@@ -6675,3 +6675,85 @@ hr {
 .category-on-post:hover {
   border-color: #777779;
 }
+
+.shipping-info-input[type=text] {
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.shipping-info-span {
+  padding-right: 10px;
+}
+
+.shipping-info-div {
+  padding-bottom: 5px;
+}
+
+.shipping {
+  padding-bottom: 0px;
+}
+
+.shipping-container {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
+  background: white;
+}
+
+.items-won-header {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  border-color: white;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
+  background: white;
+}
+
+.payment-input[type=text] {
+  border-radius: 5px;
+  padding-left: 5px; 
+}
+
+.payment-info-span {
+  padding-right: 10px;
+}
+
+.payment-span {
+  padding-right: 10px;
+}
+
+.payment-div {
+  padding-bottom: 0px;
+}
+
+.expiration {
+  padding-right: 10px;
+}
+
+.payment-container {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
+  background: white;
+}
+
+.winningBid-list {
+  border-color: grey;
+}
+
+.payment-header {
+  padding-bottom: 0px;
+}
+
+.payment {
+  padding-bottom: 10px;
+}
+
