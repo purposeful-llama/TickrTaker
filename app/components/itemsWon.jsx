@@ -73,17 +73,21 @@ export default class ItemsWon extends Component {
   render() {
     return (
       <div>
-        <div className="col-xs-12 bid-container">
+        <h4 className="col-xs-12 bid-container items-won-header">Items Won</h4>
+
+        <div className="col-xs-12 payment-container">
           {this.state.itemsWinningBidOn.map((winningBid, index) => {
             return (<WinningBid old={true} key={index} parity={index % 2} item={winningBid}/>);
           })}
         </div>
-        <br />
 
-        <ShippingInfo />
-        <br />
+        <div className="col-xs-12 payment-container">
+          <ShippingInfo />
+        </div>
 
-        <Payment />
+        <div className="col-xs-12 payment-container">
+          <Payment />
+        </div>
       </div>
     );
   }

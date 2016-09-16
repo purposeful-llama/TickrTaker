@@ -93,8 +93,7 @@ export default class Dashboard extends Component {
 
         <div className="col-md-8 off-set-2">
         {(this.state.route === 'itemsWon') ?
-          <div className="bid-container">
-          <h4>Items Won</h4>
+          <div>
             <ItemsWon />
           </div> : null}
 
