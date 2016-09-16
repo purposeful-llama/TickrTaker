@@ -9,6 +9,7 @@ var ItemController = require('./ItemController')(db, Sequelize, UserController.U
 var BidController = require('./BidController')(db, Sequelize, UserController.User, ItemController.Item);
 var MessageController = require('./MessageController')(db, Sequelize, UserController.User);
 var FAQController = require('./FAQController')(db, Sequelize, ItemController.Item);
+var AddressController = require('./AddressController')(db, Sequelize, UserController.User);
 
 //  Assign many-to-one relationships between items-seller, bids-item, and bids-bidder.
 
@@ -31,8 +32,8 @@ MessageController.Message.belongsToMany(UserController.User, {as: 'Users', throu
 ItemController.Item.hasMany(FAQController.Faq, {as: 'Faqs', onDelete: 'cascade'});
 FAQController.Faq.belongsTo(ItemController.Item, {as: 'Items'});
 
-
-
+UserController.User.hasMany(AddressController.Address, {as: 'Addresses'});
+AddressController.Address.belongsTo(UserController.User, {as: 'Users'});
 
 //DUMMY DATA. Drops tables every time server restarts.
 
@@ -147,5 +148,6 @@ module.exports = {
   ItemController: ItemController,
   BidController: BidController,
   MessageController: MessageController,
-  FAQController: FAQController
+  FAQController: FAQController,
+  AddressController: AddressController
 };
