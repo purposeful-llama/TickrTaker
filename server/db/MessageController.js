@@ -29,6 +29,7 @@ module.exports = (db, Sequelize, User) => {
   };
 
   const postUserMessage = (req, res, next) => {
+    console.log('post msg---->', req.body);
     Message.create({
       subject: req.body.subject,
       message: req.body.message,

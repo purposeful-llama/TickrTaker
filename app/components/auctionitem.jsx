@@ -22,6 +22,7 @@ export default class AuctionItem extends Component {
     this.calcTime = this.calcTime.bind(this);
     //this.sendItemBid = this.sendItemBid.bind(this);
   }
+  
   componentWillMount () {      // Set state properties with updated values that were calculated with calcTime and calcPrice
     this.getUser();
     this.getItemBids();
@@ -31,9 +32,8 @@ export default class AuctionItem extends Component {
       timeRemaining: this.calcTime()
     });
   }
-  
+
   componentDidMount () {       //  Set state properties with calculated values
-    
     $('img').on('error', function(){ //  Replace broken image links with the sample image
         $(this).attr('src', 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg');
     });
@@ -42,7 +42,6 @@ export default class AuctionItem extends Component {
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     }), 1000);
-
 
   }
 
@@ -78,6 +77,7 @@ export default class AuctionItem extends Component {
       method: 'GET',
       url: '/api/user_data',
       success: function(user) {
+        console.log('user---->', user);
         context.setState({
           userId: user.user.id
         });
@@ -115,48 +115,6 @@ export default class AuctionItem extends Component {
         context.setState({bids: sorted});
       }
     });
-  }
-
-  // sendItemBid(e) {     // Ajax request to bid on an item
-  //   e.preventDefault();
-  //   if (this.state.bids[0] === undefined || $('#bid').val() >= this.state.bids[0].price + 1 && $('#bid').val() !== '') {
-  //     var context = this;
-  //     var newBids = this.state.bids.slice();
-  //     newBids.push($('#bid').val());
-  //     $.ajax({
-  //       method: 'GET',
-  //       url: '/api/user_data',
-  //       success: function(user) {
-  //         $.ajax({
-  //           method: 'POST',
-  //           url: '/api/items/bids/' + context.props.params.id,
-  //           headers: {'Content-Type': 'application/json'},
-  //           data: JSON.stringify({
-  //             user: user, 
-  //             bid: $('#bid').val()}),
-  //           success: function (res) {
-  //             $('#bid').val('');
-  //             console.log(res);
-  //             context.getItem();
-  //             context.getItemBids();
-  //             context.setState({
-  //               bids: newBids
-  //             });
-  //           }
-  //         });
-  //       }
-  //     });
-  //   } else {
-  //     $('#bid-error').show();
-  //   }
-  // }
-
-  redirectToFAQ() {
-    return (
-        <div>
-          <ManageFAQ userId={this.state.userId}/>
-        </div>
-      );
   }
 
   render () {
@@ -207,12 +165,9 @@ export default class AuctionItem extends Component {
             <p>Highest Bid: {this.state.bids[0] !== undefined ? '$ ' + this.state.bids[0].price.toFixed(2) : ' No Bids' }</p>
           </div>
           {(thisId === thisItem.userId) ? 
+            null :
             <div>
-              <button type="button" className="btn btn-primary pull-xs-left" onClick={this.redirectToFAQ}>Edit FAQ</button>
-            </div>
-            :
-            <div>
-              <BuyerItemView userId={thisId} item={thisItem}/>
+              <BuyerItemView userId={thisId} item={thisItem} bids={this.state.bids} getItem={this.getItem} getItemBids={this.getItemBids}/>
             </div>
           }
 
