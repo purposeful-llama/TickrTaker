@@ -38,7 +38,6 @@ export default class AuctionEntry extends Component {
 
   calcPrice () {     // Price calculation check helper.js 
     var thisItem = this.props.item;
-    console.log(thisItem);
     return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
   }
 
