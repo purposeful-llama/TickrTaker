@@ -14,9 +14,12 @@ export default class SearchBox extends Component {
   }
 
   enterText () {
-    this.setState({
-      focused: !this.state.focused
-    });
+    var context = this;
+    setTimeout(function () {
+      context.setState({
+        focused: !context.state.focused
+      });
+    }, 150);
   }
 
   getTitles () {
@@ -42,19 +45,19 @@ export default class SearchBox extends Component {
 
   render () {
     return (
-      <form className="search-form" onSubmit={this.props.grabAuctions}>
-        <input id="search" className="col-xs-6" onFocus={this.enterText} onBlur={this.enterText} onKeyDown={this.getTitles}/>
-        <div className="col-xs-5 search-text">Search:</div>
-        {console.log(this.state.suggestions, 'suggestions')}
-        
-        {this.state.focused ? 
-          <div className="suggest">
-            {this.state.suggestions.map((item) =>
-              <Suggestion title={item}/>
-            )}
-          </div> : null
-        }
-      </form>
+      <div onFocus={this.enterText} onBlur={this.enterText}>
+        <form className="search-form" onSubmit={this.props.grabAuctions}>
+          <input id="search" className="col-xs-6" onKeyDown={this.getTitles}/>
+          <div className="col-xs-5 search-text">Search:</div>
+          {this.state.focused ? 
+            <div className="suggest col-xs-6">
+              {this.state.suggestions.map((item) =>
+                <Suggestion title={item}/>
+              )}
+            </div> : null
+          }
+        </form>
+      </div>
     );
   }
 }

@@ -8,10 +8,15 @@ export default class Suggestion extends Component {
     };
   }
 
+  selectSuggestion (e) {
+    document.getElementById('search').value = e.target.innerHTML;
+    document.getElementById('search').focus();
+  }
+
   render () {
     return (
-      <div className="suggestion-item">
-        <p>{this.state.title}</p>
+      <div className="suggestion-item" onClick={this.selectSuggestion}>
+        {this.state.title}
       </div>
     );
   }
