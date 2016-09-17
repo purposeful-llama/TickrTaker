@@ -125,7 +125,8 @@ db.sync({force: true})
       MessageController.Message.create({
         subject: 'Hello LLama',
         message: 'This llama is excellent',
-        from: 10206128224638462
+        buyer: 10206128224638462,
+        seller: 10154095627189811
       }).then((message) => {
         UserController.User.find({where: {name: 'Kunal Rathi'}})
         .then((user) => {

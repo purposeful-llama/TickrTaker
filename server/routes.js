@@ -99,6 +99,10 @@ module.exports = (app, db) => {
     db.MessageController.postUserMessage(req, res, next);
   });
 
+  app.post('/api/convomessages', (req, res, next) => {
+    db.MessageController.continueConvoMessage(req, res, next);
+  });
+
   //FAQ ENDPOINT
 
   app.get('/api/faq/:itemId', (req, res, next) => {

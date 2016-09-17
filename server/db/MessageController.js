@@ -4,7 +4,8 @@ module.exports = (db, Sequelize, User) => {
     subject: {type: Sequelize.TEXT, allowNull: false},
     message: {type: Sequelize.TEXT, allowNull: false},
     buyer: {type: Sequelize.TEXT, allowNull: false},
-    seller: {type: Sequelize.TEXT, allowNull: false}
+    seller: {type: Sequelize.TEXT, allowNull: false},
+    conversation: {type: Sequelize.FLOAT, defaultValue: Math.random}
   });
 
 
@@ -31,7 +32,28 @@ module.exports = (db, Sequelize, User) => {
     Message.create({
       subject: req.body.subject,
       message: req.body.message,
-      from: req.body.buyerId
+      buyer: req.body.buyerId,
+      seller: req.body.sellerId
+    }).then(message => {
+      User.find({where: {id: req.body.sellerId}})
+      .then(user => {
+        user.addMessages(message);
+      });
+      User.find({where: {id: req.body.buyerId}})
+      .then(user => {
+        user.addMessages(message);
+      })
+      .then(posted => res.send(posted));
+    });
+  };
+
+  const continueConvoMessage = (req, res, next) => {
+    Message.create({
+      subject: req.body.subject,
+      message: req.body.message,
+      buyer: req.body.buyerId,
+      seller: req.body.seller,
+      conversation: req.body.conversation
     }).then(message => {
       User.find({where: {id: req.body.sellerId}})
       .then(user => {
@@ -49,7 +71,8 @@ module.exports = (db, Sequelize, User) => {
     Message: Message,
     getUserMessages: getUserMessages,
     getAllMessages: getAllMessages,
-    postUserMessage: postUserMessage
+    postUserMessage: postUserMessage,
+    continueConvoMessage: continueConvoMessage
   };
 };
 
