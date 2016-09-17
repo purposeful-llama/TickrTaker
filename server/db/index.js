@@ -32,9 +32,7 @@ MessageController.Message.belongsToMany(UserController.User, {as: 'Users', throu
 ItemController.Item.hasMany(FAQController.Faq, {as: 'Faqs', onDelete: 'cascade'});
 FAQController.Faq.belongsTo(ItemController.Item, {as: 'Items'});
 
-// UserController.User.hasMany(AddressController.Address, {as: 'Addresses'});
-// AddressController.Address.belongsTo(UserController.User, {as: 'User'});
-
+// creates join table for users and addresses
 UserController.User.belongsToMany(AddressController.Address, {as: 'Addresses', through: 'useraddresses', foreignKey: 'userId', onDelete: 'cascade'});
 AddressController.Address.belongsToMany(UserController.User, {as: 'Users', through: 'useraddresses', foreignKey: 'addressId', onDelete: 'cascade'});
 
