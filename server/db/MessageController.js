@@ -52,7 +52,7 @@ module.exports = (db, Sequelize, User) => {
       subject: req.body.subject,
       message: req.body.message,
       buyer: req.body.buyerId,
-      seller: req.body.seller,
+      seller: req.body.sellerId,
       conversation: req.body.conversation
     }).then(message => {
       User.find({where: {id: req.body.sellerId}})

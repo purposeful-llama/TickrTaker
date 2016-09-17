@@ -38,7 +38,11 @@ export default class AuctionEntry extends Component {
 
   calcPrice () {     // Price calculation check helper.js 
     var thisItem = this.props.item;
-    return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    if (thisItem.bids.length > 0 && thisItem.bids[0].price > thisItem.endPrice) {
+      return calcPrice(thisItem.startPrice, thisItem.bids[0].price, thisItem.startDate, thisItem.endDate);
+    } else {
+      return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
+    }
   }
 
   calcTime () {      //  Time calculation check helper.js
