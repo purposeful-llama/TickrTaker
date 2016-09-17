@@ -6,11 +6,17 @@ export default class BuyerItemView extends Component {
     this.state = {
       newSubject: '',
       newMessage: '',
-      toggleInput: false
+      toggleInput: false,
+      faqMessages: []
     };
     this.handleSubject = this.handleSubject.bind(this);
     this.handleSubject = this.handleSubject.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
+    this._onClick = this._onClick.bind(this);
+  }
+
+  _onClick() {
+    this.setState({toggleInput: !this.state.toggleInput});
   }
 
   componentWillMount() {
@@ -27,7 +33,7 @@ export default class BuyerItemView extends Component {
       error: function(err) {
         console.log('There is an error. It\'s a sad day! D=');
       }
-    })
+    });
   }
 
   handleSubject(e) {
@@ -58,7 +64,7 @@ export default class BuyerItemView extends Component {
           console.log("your message is posted to the server", data);
         },
         error: function(err) {
-          console.log("There is an error. It\'s a sad day! D=")
+          console.log("There is an error. It\'s a sad day! D=");
         }
       });
     }
@@ -129,7 +135,7 @@ export default class BuyerItemView extends Component {
 
         <div className="col-md-12 auctionTitle">
           <p>Still have questions about this item?</p>
-          <button type="button" className="btn btn-primary pull-xs-left" onClick={this.setState({toggleInput: !this.state.toggleInput})}>Contact Seller</button>
+          <button type="button" className="btn btn-primary pull-xs-left" onClick={this._onClick}>Contact Seller</button>
           <br />
         </div>
         
