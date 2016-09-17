@@ -3,7 +3,8 @@ module.exports = (db, Sequelize, User) => {
   var Message = db.define('message', {
     subject: {type: Sequelize.TEXT, allowNull: false},
     message: {type: Sequelize.TEXT, allowNull: false},
-    from: {type: Sequelize.TEXT, allowNull: false}
+    buyer: {type: Sequelize.TEXT, allowNull: false},
+    seller: {type: Sequelize.TEXT, allowNull: false}
   });
 
 
