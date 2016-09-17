@@ -78,7 +78,7 @@ export default class BuyerItemView extends Component {
     e.preventDefault();
     if (this.props.bids[0] === undefined || $('#bid').val() >= this.props.bids[0].price + 1 && $('#bid').val() !== '') {
       var context = this;
-      var newBids = this.props.bids.slice();
+      var newBids = context.props.bids.slice();
       newBids.push($('#bid').val());
       $.ajax({
         method: 'GET',
@@ -94,8 +94,8 @@ export default class BuyerItemView extends Component {
             success: function (res) {
               $('#bid').val('');
               console.log(res);
-              context.getItem();
-              context.getItemBids();
+              context.props.getItem();
+              context.props.getItemBids();
               context.setState({
                 bids: newBids
               });
