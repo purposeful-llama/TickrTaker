@@ -32,8 +32,11 @@ MessageController.Message.belongsToMany(UserController.User, {as: 'Users', throu
 ItemController.Item.hasMany(FAQController.Faq, {as: 'Faqs', onDelete: 'cascade'});
 FAQController.Faq.belongsTo(ItemController.Item, {as: 'Items'});
 
-UserController.User.hasMany(AddressController.Address, {as: 'Addresses'});
-AddressController.Address.belongsTo(UserController.User, {as: 'Users'});
+// UserController.User.hasMany(AddressController.Address, {as: 'Addresses'});
+// AddressController.Address.belongsTo(UserController.User, {as: 'User'});
+
+UserController.User.belongsToMany(AddressController.Address, {as: 'Addresses', through: 'useraddresses', foreignKey: 'userId', onDelete: 'cascade'});
+AddressController.Address.belongsToMany(UserController.User, {as: 'Users', through: 'useraddresses', foreignKey: 'addressId', onDelete: 'cascade'});
 
 //DUMMY DATA. Drops tables every time server restarts.
 

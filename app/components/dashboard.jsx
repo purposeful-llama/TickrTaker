@@ -104,7 +104,7 @@ export default class Dashboard extends Component {
     var phoneNumber = $('#shipping-info-phone-number').val();
 
     var shipping = {
-      userId: this.state.userId,
+      id: this.state.userId,
       name: name,
       addressLine1: addressLine1,
       addressLine2: addressLine2,

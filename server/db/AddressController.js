@@ -30,10 +30,11 @@ module.exports = (db, Sequelize, User) => {
       country: req.body.country,
       phoneNumber: req.body.phoneNumber
     }).then(address => {
-      User.find({where: {id: req.body.userId}})
+      User.find({where: {id: req.body.id}})
       .then(user => {
-        user.addAddresses(address);
-      }).then(posted => res.send('You got it boy'));
+        user.addAddresses(address)
+        .then(posted => res.send(posted));
+      });
     });
   };
 
