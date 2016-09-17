@@ -6,9 +6,10 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var Sequelize = require('sequelize');
-var db = new Sequelize('postgres://ubuntu:password@localhost:5432/tickr', {sync: {force: true}});
+var db = new Sequelize('postgres://christopherpicato:password@localhost:5432/tickr', {sync: {force: true}});
 var UserController = require('./db/UserController')(db, Sequelize);
 var path = require('path');
+var stripe = require("stripe")("sk_test_kctqJ5uj3zZEU4tZsesRYreu");
 
 var controllers = require('./db/index.js');
 
@@ -66,8 +67,6 @@ passport.deserializeUser(function(id, done) {
     done(err);
   });
 });
-
-
 
 require('./routes')(app, controllers); //model routes
 

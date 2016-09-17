@@ -53,7 +53,7 @@ export default class Auction extends Component {
 
   filterEntriesByCategory (e) {
     var filterValue = e.target.innerHTML;
-    var filtered = this.state.entrys.filter(function (entry) {
+    var filtered = this.state.allEntries.filter(function (entry) {
       return entry.category === filterValue;
     });
     this.setState({
@@ -63,9 +63,27 @@ export default class Auction extends Component {
 
   filterEntriesByTime (e) {
     var filterValue = e.target.innerHTML;
-    var filtered = this.state.entrys.filter(function (entry) {
-      return entry.time === filterValue;
+    var compareDate = new Date();
+
+    Date.prototype.addHours = function(h) {    
+      this.setTime(this.getTime() + (h*60*60*1000));
+      return this;
+    }
+
+    if (filterValue === '1 hour') {
+      compareDate.addHours(1);
+    }
+    if (filterValue === '1 day') {
+      compareDate.addHours(24);
+    }
+    if (filterValue === '1 week') {
+      compareDate.addHours(168);
+    }
+
+    var filtered = this.state.allEntries.filter(function (entry) {
+      return Date.parse(entry.endDate) < compareDate.getTime();
     });
+
     this.setState({
       entrys: filtered
     });
@@ -133,6 +151,8 @@ export default class Auction extends Component {
                 <h3></h3>
                 <select onChange={this.sortEntries}>
                   <option value="">All</option>
+                  <option value="">All</option>
+                  <option value="">All</option>
                   <option value="priceHigh">Price: High to Low</option>
                   <option value="priceLow">Price: Low to High</option>
                   <option value="newest">Newer Items First</option>
@@ -141,11 +161,7 @@ export default class Auction extends Component {
               </form>
             </div>
           </div>
-          {/*this div is for filtering by categories e.g.: price, type, time left, color, etc.
-               
-            */
-          }
-          <div className="sidebar col-md-2">
+          <div className="sidebar col-md-2 filter-side">
             <Filters className="bid-container" clickHandlerCategory={this.filterEntriesByCategory} clickHandlerTime={this.filterEntriesByTime} clearFilter={this.clearFilter}/>
           </div> 
           <div className="auction-listings col-md-8 off-set-2">
@@ -161,4 +177,3 @@ export default class Auction extends Component {
     );
   }
 }
-

@@ -6648,3 +6648,112 @@ hr {
   padding-bottom: 20px;
   text-align: left;
 }
+
+.selected-cat {
+  background-color: #C7C7C9;
+}
+
+.category-container {
+  width: 50%;
+  margin-bottom: 20px;
+}
+
+.cat-row {
+  width: 100%;
+  margin: 10px;
+}
+
+.category-on-post {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: 20px;
+  border: 2px solid black;
+  margin: 5px;
+  text-align: center;
+}
+
+.category-on-post:hover {
+  border-color: #777779;
+}
+
+.shipping-info-input[type=text] {
+  border-radius: 5px;
+  padding-left: 5px;
+}
+
+.shipping-info-span {
+  padding-right: 10px;
+}
+
+.shipping-info-div {
+  padding-bottom: 5px;
+}
+
+.shipping {
+  padding-bottom: 0px;
+}
+
+.shipping-container {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
+  background: white;
+}
+
+.items-won-header {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  border-color: white;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
+  background: white;
+}
+
+.payment-input[type=text] {
+  border-radius: 5px;
+  padding-left: 5px; 
+}
+
+.payment-info-span {
+  padding-right: 10px;
+}
+
+.payment-span {
+  padding-right: 10px;
+}
+
+.payment-div {
+  padding-bottom: 0px;
+}
+
+.expiration {
+  padding-right: 10px;
+}
+
+.payment-container {
+  margin-top: 10px;
+  margin-bottom: 0px;
+  border-radius: 10px;
+  padding: 10px;
+  padding: 0px;
+  text-align: left;
+  background: white;
+}
+
+.winningBid-list {
+  border-color: grey;
+}
+
+.payment-header {
+  padding-bottom: 0px;
+}
+
+.payment {
+  padding-bottom: 10px;
+}
+

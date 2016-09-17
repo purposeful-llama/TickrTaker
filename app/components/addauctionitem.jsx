@@ -32,6 +32,11 @@ export default class AddAuctionItem extends Component {
         });
   }
 
+  clickedCategory(e) {
+    $(".category-on-post").removeClass("selected-cat");
+    $(e.target).toggleClass("selected-cat");
+  }
+
   submitForm(e) {                  //  Regex code to check if url is valid or not
     e.preventDefault();
     var valid = true;
@@ -52,7 +57,7 @@ export default class AddAuctionItem extends Component {
       $('#item-name-error').show();
       valid = false;
     }
-    if ($('#item-cat').val() === '') {         //  Show error message in case of invalid item category
+    if ($('.category-on-post.selected-cat') === undefined) {         //  Show error message in case of invalid item category
       $('#item-cat-error').show();
       valid = false;
     }
@@ -81,7 +86,7 @@ export default class AddAuctionItem extends Component {
 
       this.setState({item: {
         title: $('#item-title').val(),
-        category: $('#item-cat').val(),
+        category: $('.category-on-post.selected-cat').text(),
         description: $('#item-desc').val(),
         endPrice: Number($('#end-value').val()),
         startPrice: Number($('#current-value').val()),
@@ -155,10 +160,12 @@ export default class AddAuctionItem extends Component {
             </div>
             <br/>
             <div className="control-group">
-              <label className="control-label">Category</label>
-              <div className="controls">
-                <input id="item-cat" name="category" type="text" placeholder="Enter a descriptive category..." className="input-xlarge" />
-                <p className="help-block"></p>
+              <label className="control-label category-label">Category</label>
+
+              <div className="category-container">
+                  {['Books and Audible', 'Movies, Music and Games', 'Electronics and Computers', 'Home, Garden and Tools', 'Beauty, Health and Grocery', 'Toys, Kids and Baby', 'Clothing, Shoes and Jewelry', 'Sports and Outdoors', 'Automotive and Industrial'].map((item) => 
+                      <div onClick={this.clickedCategory} className="category-on-post">{item}</div>
+                  )}
               </div>
               <div className="alert alert-danger fade in" role="alert" id="item-cat-error">
                 <button type="button" className="close">×</button>
@@ -231,8 +238,7 @@ export default class AddAuctionItem extends Component {
         </form>
       </div>
       <div className="col-xs-3"></div>
-
     </div>
-); }
-
+  ); 
+}
 }
