@@ -20,14 +20,17 @@ export default class AuctionEntry extends Component {
   
   componentDidMount () {    //  Set state properties with calculated values
     $('img').on('error', function(){ //  Replace broken image links with the sample image
-      $(this).attr('src', 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg');
+        $(this).attr('src', 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg');
     });
+    
     this.interval = setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     }), 1000);
-  }
+    this.calcPrice = this.calcPrice.bind(this);
+    this.calcTime = this.calcTime.bind(this);
 
+  }
   componentWillUnmount () {    // Clears up DOM elements that were created in ComponentDidMount method
     this.interval && clearInterval(this.interval);
     this.interval = false;
@@ -35,11 +38,8 @@ export default class AuctionEntry extends Component {
 
   calcPrice () {     // Price calculation check helper.js 
     var thisItem = this.props.item;
-    if (thisItem.bids.length > 0 && thisItem.bids[0].price > thisItem.endPrice) {
-      return calcPrice(thisItem.startPrice, thisItem.bids[0].price, thisItem.startDate, thisItem.endDate);
-    } else {
-      return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
-    }
+    console.log(thisItem);
+    return calcPrice(thisItem.startPrice, thisItem.endPrice, thisItem.startDate, thisItem.endDate);
   }
 
   calcTime () {      //  Time calculation check helper.js
