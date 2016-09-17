@@ -18,9 +18,8 @@ export default class AuctionItem extends Component {
     this.calcTime = this.calcTime.bind(this);
     this.sendItemBid = this.sendItemBid.bind(this);
   }
+
   componentWillMount () {      // Set state properties with updated values that were calculated with calcTime and calcPrice
-
-
     this.getItemBids();
     this.getItem();
     this.setState({
@@ -29,16 +28,19 @@ export default class AuctionItem extends Component {
     });
   }
   
-  componentDidMount () {       //  Set state properties with calculated values
-    
-    $('img').on('error', function(){ //  Replace broken image links with the sample image
-        $(this).attr('src', 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg');
-    });
-    
-    this.interval = setInterval(() => this.setState({
+  interval () {
+    setInterval(() => this.setState({
       currentPrice: '$  ' + this.calcPrice().toFixed(2),
       timeRemaining: this.calcTime()
     }), 1000);
+  }
+
+  componentDidMount () {       //  Set state properties with calculated values
+    $('img').on('error', function(){ //  Replace broken image links with the sample image
+        $(this).attr('src', 'http://res.cloudinary.com/dijpyi6ze/image/upload/v1473715896/item_photos/zfaehmp20xculww4krs6.jpg');
+    });
+
+    this.interval();
   }
 
   componentWillUnmount () {    // Clears up DOM elements that were created in ComponentDidMount method

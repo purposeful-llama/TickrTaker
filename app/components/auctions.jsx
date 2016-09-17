@@ -58,6 +58,7 @@ export default class Auction extends Component {
     this.setState({
       entrys: filtered
     });
+    this.render();
   }
 
   filterEntriesByTime (e) {
@@ -103,7 +104,6 @@ export default class Auction extends Component {
         var x = this.state.entrys.sort(function (a, b) {
           return a.endPrice > b.endPrice;
         });
-
         this.setState({
           entrys: x
         });
@@ -160,10 +160,6 @@ export default class Auction extends Component {
               </form>
             </div>
           </div>
-          {/*this div is for filtering by categories e.g.: price, type, time left, color, etc.
-               
-            */
-          }
           <div className="sidebar col-md-2 filter-side">
             <Filters className="bid-container" clickHandlerCategory={this.filterEntriesByCategory} 
               clickHandlerTime={this.filterEntriesByTime} clearFilter={this.clearFilter} 
