@@ -20,7 +20,7 @@ export default class AuctionItem extends Component {
     this.getItemBids = this.getItemBids.bind(this);
     this.calcPrice = this.calcPrice.bind(this);
     this.calcTime = this.calcTime.bind(this);
-    this.sendItemBid = this.sendItemBid.bind(this);
+    //this.sendItemBid = this.sendItemBid.bind(this);
   }
   componentWillMount () {      // Set state properties with updated values that were calculated with calcTime and calcPrice
     this.getUser();

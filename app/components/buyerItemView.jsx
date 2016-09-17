@@ -14,13 +14,13 @@ export default class BuyerItemView extends Component {
   }
 
   componentWillMount() {
-
+    var context = this;
     //getFAQ from server
     $.ajax({
       method: 'GET',
       url: '/api/faq/' + this.props.item.id,
       success: function(data) {
-        this.setState({
+        context.setState({
           faqMessages: data
         });
       },
@@ -133,16 +133,19 @@ export default class BuyerItemView extends Component {
           <br />
         </div>
         
-        {this.state.toggleInput ?
+
         <div className="col-md-12 auctionTitle">
-          <form>
+          <form class = "form-inline" role = "form">
+          <div class="form-group">
           <input type="text" width="500" placeholder="Subject line" value={this.state.newSubject} onChange={this.handleSubject}/>
-          <br />
+          </div>
+          <div class="form-group">
           <textarea type="text" rows='10' col="500" name="message"  placeholder="Enter your message..." value={this.state.newMessage} onChange={this.handleMessage}/>
-          <input type="submit" value="Send" onSubmit={this.sendMessage}/>
+          </div>
+          <button type="submit" className="btn-btn-default" onSubmit={this.sendMessage}>Send</button>
           </form>
         </div>
-        : null}
+
 
         <div className="alert alert-danger fade in" role="alert" id="faq-error">
             <button type="button" className="close">×</button>
