@@ -23,6 +23,7 @@ export default class Dashboard extends Component {
       method: 'GET',
       url: 'api/user_data',
       success: function(user) {
+        console.log('what is user?--->',user);
         context.setState({
           userId: user.user.id,
           userName: user.user.name
@@ -60,6 +61,7 @@ export default class Dashboard extends Component {
               'itemsWinningBidOn': winningBids, 
               'itemsLosingBidOn': losingBids
             });
+            console.log('window object---->', window);
             context.render();
           }
         });
